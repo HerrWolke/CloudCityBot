@@ -42,7 +42,6 @@ public class ActivityListener extends ListenerAdapter {
     public void onGuildVoiceJoin(@Nonnull GuildVoiceJoinEvent e) {
         super.onGuildVoiceJoin(e);
 
-        System.out.println("Joined");
         Guild server = e.getGuild();
         VoiceChannel voiceChannelJoined = e.getChannelJoined();
         VoiceChannel voiceChannelLeft = e.getChannelLeft();
@@ -79,7 +78,6 @@ public class ActivityListener extends ListenerAdapter {
     public void onGuildVoiceLeave(@Nonnull GuildVoiceLeaveEvent e) {
         super.onGuildVoiceLeave(e);
 
-        System.out.println("Left");
         Guild server = e.getGuild();
         VoiceChannel voiceChannelJoined = e.getChannelJoined();
         VoiceChannel voiceChannelLeft = e.getChannelLeft();
@@ -103,7 +101,7 @@ public class ActivityListener extends ListenerAdapter {
 
 
         String date = timeInChannel.get(member.getUser().getId());
-        String startDate = date.toString();
+        String startDate = date;
 
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM, FormatStyle.MEDIUM);
         ZonedDateTime hereAndNow = ZonedDateTime.now();
@@ -129,8 +127,8 @@ public class ActivityListener extends ListenerAdapter {
          diffDays = diff / (60 * 60 * 1000 * 24);
 
         try {
-            ResultSet resultSetCheck = statement.executeQuery("SELECT * FROM Users WHERE userID = " + member.getUser().getId() + ";");
-            ResultSet resultSetToSet = statement.executeQuery("SELECT * FROM Users WHERE userID = " + member.getUser().getId() + ";");
+            ResultSet resultSetCheck = statement.executeQuery("SELECT * FROM Users WHERE UserID = " + member.getUser().getId() + ";");
+            ResultSet resultSetToSet = statement.executeQuery("SELECT * FROM Users WHERE UserID = " + member.getUser().getId() + ";");
 
             while(resultSetToSet.next()) {
                 day = resultSetToSet.getLong("channelTimeDays");
@@ -139,18 +137,19 @@ public class ActivityListener extends ListenerAdapter {
                 seconds = resultSetToSet.getLong("channelTimeSeconds");
             }
 
-            putday = day + diffDays;
-            puthour = hour + diffHours;
-            putmin = min + diffMinutes;
-            putseconds = seconds + diffSeconds;
+
+            putday = day + diffDays + (hour / 24);
+            puthour = hour + diffHours + (min / 60) % 60;
+            putmin = min + (seconds / 60 % 60) + diffMinutes;
+            putseconds = seconds % 60 + diffSeconds;
 
             if (resultSetCheck != null && resultSetCheck.next()) {
 
 
-                statement.executeQuery("UPDATE Users SET channelTimeDays = " + putday);
-                statement.executeQuery("UPDATE Users SET channelTimeHours = " + puthour);
-                statement.executeQuery("UPDATE Users SET channelTimeMinutes = " + putmin);
-                statement.executeQuery("UPDATE Users SET channelTimeSeconds = " + putseconds);
+                statement.executeQuery("UPDATE Users SET channelTimeDays = " + putday + " WHERE UserID = " + member.getId() + ";");
+                statement.executeQuery("UPDATE Users SET channelTimeHours = " + puthour + " WHERE UserID = " + member.getId() + ";");
+                statement.executeQuery("UPDATE Users SET channelTimeMinutes = " + putmin + " WHERE UserID = " + member.getId() + ";");
+                statement.executeQuery("UPDATE Users SET channelTimeSeconds = " + putseconds + " WHERE UserID = " + member.getId() + ";");
             }
         } catch (SQLException e1) {
             e1.printStackTrace();

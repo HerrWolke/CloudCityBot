@@ -25,17 +25,19 @@ public class Main {
         builder.addEventListeners(new GuildJoinListener());
         builder.addEventListeners(new SupportListener());
         builder.addEventListeners(new ReactionListener());
+        builder.addEventListeners(new FunListener());
+        builder.addEventListeners(new SearchingForMatchmakingListener());
         builder.setStatus(OnlineStatus.ONLINE);
         builder.setActivity(Activity.watching("you and your stats"));
         builder.setMaxReconnectDelay(32);
         builder.setAutoReconnect(true);
         builder.setRequestTimeoutRetry(true);
         shardMan = builder.build();
-
     }
 
     public static void main(String[] args) throws LoginException {
         new Main();
+
     }
 }
 

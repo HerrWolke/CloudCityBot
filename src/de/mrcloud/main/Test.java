@@ -9,6 +9,22 @@ import java.util.Date;
 
 public class Test {
     public static void main(String[] args) {
+        long diff = 3601;
+
+        long diffSeconds = diff % 60;
+        long diffMinutes = diff / 60 % 60;
+        long diffHours = diff / (60 * 60 ) % 24;
+        long diffDays = diff / (60 * 60 * 24);
+
+        System.out.println(diffDays + " i after x");
+        System.out.println(diffHours + " f after x");
+        System.out.println(diffMinutes + " f after x");
+        System.out.println(diffSeconds + " f after x");
+
+
+
+
+
         String yes = "Matchmaking 02";
         if(yes.matches("Matchmaking \\d*")) {
             System.out.println("y");
@@ -32,9 +48,5 @@ public class Test {
             e.printStackTrace();
         }
 
-        long diff = d2.getTime() - d1.getTime();
-        long diffSeconds = diff / 1000 % 60;
-        long diffMinutes = diff / (60 * 1000) % 60;
-        long diffHours = diff / (60 * 60 * 1000);
     }
 }

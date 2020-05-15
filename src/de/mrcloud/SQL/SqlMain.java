@@ -14,7 +14,7 @@ public class SqlMain{
         Connection conn = null;
         try {
             Class.forName("org.mariadb.jdbc.Driver");
-            conn = DriverManager.getConnection(Static.DB_CONNECT_URL_RASP, "root", Static.DB_PW);
+            conn = DriverManager.getConnection(Static.DB_CONNECT_URL_PC, "root", Static.DB_PW);
             return conn;
         } catch (Exception e) {
             System.out.println(e.getLocalizedMessage());

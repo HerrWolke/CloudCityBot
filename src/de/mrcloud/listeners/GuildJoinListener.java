@@ -30,7 +30,8 @@ public class GuildJoinListener extends ListenerAdapter {
         try {
             statement = Objects.requireNonNull(sql.mariaDB()).createStatement();
 
-            statement.executeQuery("INSERT into Users(userName,dateJoined,userID)" + "\n" + "VALUES(" + member.getUser().getName() + "," + formated  + "," + member.getId() + ");");
+            statement.executeQuery("INSERT INTO Users(UserName,dateJoined,UserID)" + "\n" + "VALUES('" + member.getUser().getName() + "','" + formated  + "'," + member.getId() + ");");
+
         } catch (SQLException e1) {
             e1.printStackTrace();
             System.err.println("An SQL Error");
