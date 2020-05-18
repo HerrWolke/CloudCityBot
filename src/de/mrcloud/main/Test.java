@@ -9,6 +9,20 @@ import java.util.Date;
 
 public class Test {
     public static void main(String[] args) {
+        Date date1 = new Date();
+        Date date2 = new Date();
+
+        String friendCode = "SUZKH-76CC";
+        if(friendCode.matches("\\w{5}-\\w{4}")) {
+            System.out.println("Is friend code");
+        }
+
+            if(date1.getMinutes() == date2.getMinutes()) {
+                System.out.println("yes true");
+            }
+
+
+
         long diff = 3601;
 
         long diffSeconds = diff % 60;
@@ -21,7 +35,9 @@ public class Test {
         System.out.println(diffMinutes + " f after x");
         System.out.println(diffSeconds + " f after x");
 
+        String voiceChannel = "Matchmaking 1";
 
+        System.out.println(voiceChannel.split("\\s")[1]);
 
 
 
@@ -34,8 +50,8 @@ public class Test {
 
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM, FormatStyle.MEDIUM);
         ZonedDateTime hereAndNow = ZonedDateTime.now();
-        String test = dateTimeFormatter.format(hereAndNow);
-        System.out.println(test.replaceAll(",",""));
+        String test3 = dateTimeFormatter.format(hereAndNow);
+        System.out.println(test3.replaceAll(",",""));
 
         SimpleDateFormat format = new SimpleDateFormat("yy/MM/dd HH:mm:ss");
 

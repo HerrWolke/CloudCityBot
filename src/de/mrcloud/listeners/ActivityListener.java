@@ -27,8 +27,10 @@ import java.util.Objects;
 
 public class ActivityListener extends ListenerAdapter {
 
-    HashMap<String, String> timeInChannel = new HashMap<>();
+    public HashMap<String, String> timeInChannel = new HashMap<>();
     Statement statement;
+
+
 
     {
         try {
@@ -68,7 +70,6 @@ public class ActivityListener extends ListenerAdapter {
         VoiceChannel voiceChannelLeft = e.getChannelLeft();
         Category category = e.getChannelJoined().getParent();
         Member member = e.getMember();
-
         if (e.getChannelJoined().getName().equals("afk-bots-players")) {
             server.kickVoiceMember(member).queue();
         }
@@ -82,6 +83,16 @@ public class ActivityListener extends ListenerAdapter {
         VoiceChannel voiceChannelJoined = e.getChannelJoined();
         VoiceChannel voiceChannelLeft = e.getChannelLeft();
         Member member = e.getMember();
+
+        saveChannelTime(member, timeInChannel);
+
+    }
+
+    public void saveChannelTime(Member member, HashMap<String, String> timeInChannel) {
+
+
+
+
         long seconds = 0L;
         long min = 0L;
         long hour = 0L;
@@ -101,7 +112,6 @@ public class ActivityListener extends ListenerAdapter {
 
 
         String date = timeInChannel.get(member.getUser().getId());
-        String startDate = date;
 
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM, FormatStyle.MEDIUM);
         ZonedDateTime hereAndNow = ZonedDateTime.now();
@@ -114,17 +124,17 @@ public class ActivityListener extends ListenerAdapter {
         Date d1 = null;
         Date d2 = null;
         try {
-            d1 = format.parse(startDate);
+            d1 = format.parse(date);
             d2 = format.parse(stopDate);
         } catch (ParseException ex) {
             ex.printStackTrace();
         }
 
         long diff = d2.getTime() - d1.getTime();
-         diffSeconds = diff / 1000 % 60;
-         diffMinutes = diff / (60 * 1000) % 60;
-         diffHours = diff / (60 * 60 * 1000) % 24;
-         diffDays = diff / (60 * 60 * 1000 * 24);
+        diffSeconds = diff / 1000 % 60;
+        diffMinutes = diff / (60 * 1000) % 60;
+        diffHours = diff / (60 * 60 * 1000) % 24;
+        diffDays = diff / (60 * 60 * 1000 * 24);
 
         try {
             ResultSet resultSetCheck = statement.executeQuery("SELECT * FROM Users WHERE UserID = " + member.getUser().getId() + ";");
