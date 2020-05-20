@@ -1,5 +1,7 @@
 package de.mrcloud.listeners;
 
+import de.mrcloud.SQL.SqlMain;
+import de.mrcloud.utils.JDAUtils;
 import net.dv8tion.jda.api.entities.Category;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Member;
@@ -27,11 +29,15 @@ public class SearchingForMatchmakingListener extends ListenerAdapter {
         VoiceChannel voiceChannelJoined = e.getChannelJoined();
         Category category = e.getChannelJoined().getParent();
         Member member = e.getMember();
+        JDAUtils utils = new JDAUtils();
+
         int i = 0;
         int i2 = 0;
         int getRole = 0;
         int getRole2 = 0;
         double durschnittsRang = 0;
+
+        String friendCodeToSend = utils.sqlGetCollum(SqlMain.mariaDB(),member,"FriendCode");
 
         //Only for Rank Comparing
         compare.put("Silver Ⅰ", 1);
@@ -104,10 +110,29 @@ public class SearchingForMatchmakingListener extends ListenerAdapter {
 
                             if (durschnittsRang > rankNumber2 && durschnittsRang < (rankNumber2 + 3)) {
                                 server.moveVoiceMember(member, list.get(i)).queue();
+
+                                if(!friendCodeToSend.isEmpty()) {
+                                    AutoCreateChannels.channelOwner.get(list.get(i)).getUser().openPrivateChannel().queue(privateChannel -> {
+                                        privateChannel.sendMessage(friendCodeToSend).queue();
+                                    });
+                                }
                             } else if (durschnittsRang < rankNumber2 && durschnittsRang > (rankNumber2 - 3)) {
                                 server.moveVoiceMember(member, list.get(i)).queue();
+
+                                if(!friendCodeToSend.isEmpty()) {
+                                    AutoCreateChannels.channelOwner.get(list.get(i)).getUser().openPrivateChannel().queue(privateChannel -> {
+                                        privateChannel.sendMessage(friendCodeToSend).queue();
+                                    });
+                                }
                             } else if (durschnittsRang == rankNumber2) {
                                 server.moveVoiceMember(member, list.get(i)).queue();
+
+                                if(!friendCodeToSend.isEmpty()) {
+                                    AutoCreateChannels.channelOwner.get(list.get(i)).getUser().openPrivateChannel().queue(privateChannel -> {
+                                        privateChannel.sendMessage(friendCodeToSend).queue();
+                                    });
+                                }
+
                             }
                         }
                     }
@@ -130,11 +155,14 @@ public class SearchingForMatchmakingListener extends ListenerAdapter {
         VoiceChannel voiceChannelJoined = e.getChannelJoined();
         Category category = e.getChannelJoined().getParent();
         Member member = e.getMember();
+        JDAUtils utils = new JDAUtils();
         int i = 0;
         int i2 = 0;
         int getRole = 0;
         int getRole2 = 0;
         double durschnittsRang = 0;
+
+        String friendCodeToSend = utils.sqlGetCollum(SqlMain.mariaDB(),member,"FriendCode");
 
         //Only for Rank Comparing
         compare.put("Silver Ⅰ", 1);
@@ -207,10 +235,28 @@ public class SearchingForMatchmakingListener extends ListenerAdapter {
 
                             if (durschnittsRang > rankNumber2 && durschnittsRang < (rankNumber2 + 3)) {
                                 server.moveVoiceMember(member, list.get(i)).queue();
+
+                                if(!friendCodeToSend.isEmpty()) {
+                                    AutoCreateChannels.channelOwner.get(list.get(i)).getUser().openPrivateChannel().queue(privateChannel -> {
+                                        privateChannel.sendMessage(friendCodeToSend).queue();
+                                    });
+                                }
                             } else if (durschnittsRang < rankNumber2 && durschnittsRang > (rankNumber2 - 3)) {
                                 server.moveVoiceMember(member, list.get(i)).queue();
+
+                                if(!friendCodeToSend.isEmpty()) {
+                                    AutoCreateChannels.channelOwner.get(list.get(i)).getUser().openPrivateChannel().queue(privateChannel -> {
+                                        privateChannel.sendMessage(friendCodeToSend).queue();
+                                    });
+                                }
                             } else if (durschnittsRang == rankNumber2) {
                                 server.moveVoiceMember(member, list.get(i)).queue();
+
+                                if(!friendCodeToSend.isEmpty()) {
+                                    AutoCreateChannels.channelOwner.get(list.get(i)).getUser().openPrivateChannel().queue(privateChannel -> {
+                                        privateChannel.sendMessage(friendCodeToSend).queue();
+                                    });
+                                }
                             }
                         }
                     }

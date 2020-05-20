@@ -5,12 +5,17 @@ import java.text.SimpleDateFormat;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class Test {
+    public static List<String> myList = new ArrayList<>();
+
     public static void main(String[] args) {
         Date date1 = new Date();
         Date date2 = new Date();
+
 
         String friendCode = "SUZKH-76CC";
         if(friendCode.matches("\\w{5}-\\w{4}")) {
@@ -20,20 +25,23 @@ public class Test {
             if(date1.getMinutes() == date2.getMinutes()) {
                 System.out.println("yes true");
             }
+            myList.add("Test2");
+        myList.add("Test3");
+        myList.add("Test4");
 
+        System.out.println(myList.size());
 
+        long diff = 3600000 * 24;
 
-        long diff = 3601;
+       long diffSeconds = diff / 1000 % 60;
+       long diffMinutes = diff / (60 * 1000) % 60;
+       long diffHours = diff / (60 * 60 * 1000) % 24;
+       long diffDays = diff / (60 * 60 * 1000 * 24);
 
-        long diffSeconds = diff % 60;
-        long diffMinutes = diff / 60 % 60;
-        long diffHours = diff / (60 * 60 ) % 24;
-        long diffDays = diff / (60 * 60 * 24);
-
-        System.out.println(diffDays + " i after x");
-        System.out.println(diffHours + " f after x");
-        System.out.println(diffMinutes + " f after x");
-        System.out.println(diffSeconds + " f after x");
+        System.out.println(diffDays + " days after x");
+        System.out.println(diffHours + " hours after x");
+        System.out.println(diffMinutes + " minutes after x");
+        System.out.println(diffSeconds + " seconds after x");
 
         String voiceChannel = "Matchmaking 1";
 

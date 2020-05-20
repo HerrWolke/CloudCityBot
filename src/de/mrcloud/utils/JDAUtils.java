@@ -8,6 +8,10 @@ import net.dv8tion.jda.api.events.guild.GenericGuildEvent;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 
 import java.awt.*;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -68,6 +72,19 @@ public class JDAUtils {
         }
 
     }
+    public void BlueBuilder(String Title, Member member, TextChannel txtChannel, String InfoText, int deleteAfter, boolean delete) {
+        EmbedBuilder embBuilder = new EmbedBuilder();
+        embBuilder.setTitle(Title);
+        embBuilder.setAuthor(member.getUser().getName(), member.getUser().getAvatarUrl(), member.getUser().getAvatarUrl());
+        embBuilder.setColor(Color.decode("#00a8ff"));
+        embBuilder.setDescription(InfoText);
+        if (delete) {
+            txtChannel.sendMessage(embBuilder.build()).complete().delete().queueAfter(deleteAfter, TimeUnit.SECONDS);
+        } else {
+            txtChannel.sendMessage(embBuilder.build()).queue();
+        }
+
+    }
 
 
     public void Generell(Member member, TextChannel txtChannel, String MessageColor, String Title, String Desc, boolean delete, int toDeleteAfter) {
@@ -113,6 +130,22 @@ public class JDAUtils {
 
     public void addRoleToMember(Guild server, Member meber, String roleName) {
         server.addRoleToMember(meber, server.getRolesByName(roleName, true).get(0)).queue();
+    }
+    public String sqlGetCollum(Connection connection, Member member, String collumName) {
+        String toGet = "";
+        try {
+            Statement statement = connection.createStatement();
+
+            ResultSet result = statement.executeQuery("SELECT * FROM Users WHERE UserID = " + member.getId() + ";");
+
+            while (result.next()) {
+                toGet = result.getString(collumName);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println(e.getLocalizedMessage());
+        }
+        return toGet;
     }
 }
 

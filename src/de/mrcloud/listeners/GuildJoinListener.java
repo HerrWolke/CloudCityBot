@@ -97,8 +97,8 @@ public class GuildJoinListener extends ListenerAdapter {
     public void onGuildMessageReceived(@Nonnull GuildMessageReceivedEvent e) {
         super.onGuildMessageReceived(e);
 
-        if(e.getChannel().getName().equalsIgnoreCase("introduction-for-" + e.getMember().getUser().getName())) {
-            if(!e.getMember().getUser().isBot()) {
+        if(e.getChannel().getName().equalsIgnoreCase("introduction-for-" + e.getAuthor().getName())) {
+            if(!e.getAuthor().isBot()) {
                 if(e.getMessage().getContentRaw().matches("\\w{5}-\\w{4}")) {
                     utils.GreenBuilder("Success",e.getMember(),e.getChannel(),"Your friend code has been set to " + e.getMessage().getContentRaw(), 0,false);
                     try {
@@ -112,8 +112,8 @@ public class GuildJoinListener extends ListenerAdapter {
                 }
             }
             //Checks if the channel name is split by spaces and replaces them with the discorrd -
-        } else if(e.getChannel().getName().equalsIgnoreCase("introduction-for-" + e.getMember().getUser().getName().replaceAll("\\s++","-"))) {
-            if(!e.getMember().getUser().isBot()) {
+        } else if(e.getChannel().getName().equalsIgnoreCase("introduction-for-" + e.getAuthor().getName().replaceAll("\\s++","-"))) {
+            if(!e.getAuthor().isBot()) {
                 if(e.getMessage().getContentRaw().matches("\\w{5}-\\w{4}")) {
                     utils.GreenBuilder("Success",e.getMember(),e.getChannel(),"Your friend code has been set to " + e.getMessage().getContentRaw(), 0,false);
                     try {

@@ -20,9 +20,10 @@ public class RoleListener extends ListenerAdapter {
         JDAUtils utils = new JDAUtils();
 
         if (txtChannel.getId().equals("709136263944339516")) {
-            if (e.getMessageId().equals("709169088131498037")) {
+            if (e.getMessageId().equals("712705608251342879")) {
                 server.addRoleToMember(member, server.getRolesByName("╚═══ Wettkampf Rang ═══╗", true).get(0)).queue();
                 hasMatchMakingRole.add(member);
+
             } else if (e.getMessageId().equals("709156105015787600")) {
                 server.addRoleToMember(member, server.getRolesByName("╚═══ Wingman Rang ═══╗", true).get(0)).queue();
                 if(hasMatchMakingRole.contains(member)) {

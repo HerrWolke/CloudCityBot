@@ -29,7 +29,7 @@ public class CommandListener extends ListenerAdapter {
         super.onGuildMessageReceived(e);
         String top10String = " ";
 
-
+        JDAUtils utils = new JDAUtils();
 
 
         Guild server = e.getGuild();
@@ -152,6 +152,10 @@ public class CommandListener extends ListenerAdapter {
             }
         } else if (messageContent.split("\\s++")[0].equalsIgnoreCase("&help")) {
             utils.Generell(member,txtChannel,"#487eb0","Command List","&profile \n" + "&setfriendcode [FRIENDCODE] \n" + "&top10 \n" + "&version \n",false,30);
+        } else if (messageContent.split("\\s++")[0].equalsIgnoreCase("&membercount")) {
+
+            utils.BlueBuilder("Member Count",member,txtChannel,"There are " + server.getMemberCount() + " people on this server",0,false);
+
         }
     }
 }

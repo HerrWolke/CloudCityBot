@@ -1,6 +1,7 @@
 package de.mrcloud.listeners;
 
 import net.dv8tion.jda.api.EmbedBuilder;
+import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.*;
 import net.dv8tion.jda.api.events.guild.voice.GuildVoiceJoinEvent;
 import net.dv8tion.jda.api.events.guild.voice.GuildVoiceLeaveEvent;
@@ -9,12 +10,14 @@ import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
 import javax.annotation.Nonnull;
 import java.awt.*;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class AutoCreateChannels extends ListenerAdapter {
-    public HashMap<VoiceChannel, Member> channelOwner = new HashMap<>();
+    public static HashMap<VoiceChannel, Member> channelOwner = new HashMap<>();
+    public List<Permission> allow = Arrays.asList(Permission.VIEW_CHANNEL,Permission.MESSAGE_WRITE);
 
     @Override
     public void onGuildVoiceJoin(@Nonnull GuildVoiceJoinEvent e) {
@@ -86,9 +89,20 @@ public class AutoCreateChannels extends ListenerAdapter {
             embBuilder.setColor(Color.decode("#00a8ff"));
             embBuilder.addField("Gamemode", "\uD83C\uDDF2 Matchamking \n \uD83C\uDDFC Wingman", true);
 
+            newTextChannel.getManager().putPermissionOverride(member,allow,null).queue();
+            newTextChannel.getManager().putPermissionOverride(server.getRoleById(514511396491231233L),allow,null).queue();
             newTextChannel.sendMessage(embBuilder.build()).queue((message) -> {
                 message.addReaction("\uD83C\uDDF2").queue();
                 message.addReaction("\uD83C\uDDFC").queue();
+            });
+            EmbedBuilder embBuilder2 = new EmbedBuilder();
+            embBuilder2.setTitle("Channel Typ");
+            embBuilder2.setAuthor(member.getUser().getName(), member.getUser().getAvatarUrl(), member.getUser().getAvatarUrl());
+            embBuilder2.setColor(Color.decode("#00a8ff"));
+            embBuilder2.addField("Open/Close Channel", "\uD83D\uDFE2 Open Channel \n \uD83D\uDD34 Close Channel", true);
+            newTextChannel.sendMessage(embBuilder2.build()).queue((message) -> {
+                message.addReaction("\uD83D\uDFE2").queue();
+                message.addReaction("\uD83D\uDD34").queue();
             });
         }
 
