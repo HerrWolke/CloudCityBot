@@ -70,10 +70,10 @@ public class JDAUtils {
     }
 
 
-    public void Generell(GuildMessageReceivedEvent e, TextChannel txtChannel, String MessageColor, String Title, String Desc, boolean delete, int toDeleteAfter) {
+    public void Generell(Member member, TextChannel txtChannel, String MessageColor, String Title, String Desc, boolean delete, int toDeleteAfter) {
         EmbedBuilder embBuilder = new EmbedBuilder();
         embBuilder.setTitle(Title);
-        embBuilder.setAuthor(e.getAuthor().getName(), e.getAuthor().getAvatarUrl(), e.getAuthor().getAvatarUrl());
+        embBuilder.setAuthor(member.getUser().getName(), member.getUser().getAvatarUrl(), member.getUser().getAvatarUrl());
         embBuilder.setColor(Color.decode(MessageColor));
         embBuilder.setDescription(Desc);
         if (delete) {
@@ -84,10 +84,10 @@ public class JDAUtils {
 
     }
 
-    public void PrivGenerell(GuildMessageReceivedEvent e, PrivateChannel txtChannel, String MessageColor, String Title, String Desc, boolean delete, int toDeleteAfter) {
+    public void PrivGenerell(Member member, PrivateChannel txtChannel, String MessageColor, String Title, String Desc, boolean delete, int toDeleteAfter) {
         EmbedBuilder embBuilder = new EmbedBuilder();
         embBuilder.setTitle(Title);
-        embBuilder.setAuthor(e.getAuthor().getName(), e.getAuthor().getAvatarUrl(), e.getAuthor().getAvatarUrl());
+        embBuilder.setAuthor(member.getUser().getName(), member.getUser().getAvatarUrl(), member.getUser().getAvatarUrl());
         embBuilder.setColor(Color.decode(MessageColor));
         embBuilder.setDescription(Desc);
         if (delete) {
@@ -105,11 +105,14 @@ public class JDAUtils {
         embBuilder.setColor(Color.decode("#2ecc71"));
         embBuilder.setDescription("Downloaded File " + e.getMessage().getAttachments().get(0).getFileName());
         txtChannel.sendMessage(embBuilder.build()).complete();
-
     }
 
-    public List<Member> getTeamMembers(Guild server, String roleName) {
+    public List<Member> getMembersWithRole(Guild server, String roleName) {
         return server.getMembersWithRoles(server.getRolesByName(roleName, true).get(0));
+    }
+
+    public void addRoleToMember(Guild server, Member meber, String roleName) {
+        server.addRoleToMember(meber, server.getRolesByName(roleName, true).get(0)).queue();
     }
 }
 

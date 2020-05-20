@@ -30,6 +30,8 @@ public class FunListener extends ListenerAdapter {
             message.addReaction("\uD83C\uDDF9").queue();
             message.addReaction("\uD83C\uDDEB").queue();
             message.addReaction("\uD83C\uDDFA").queue();
+        } else if(messageContent.equalsIgnoreCase("~")) {
+
         }
     }
 }

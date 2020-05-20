@@ -35,13 +35,15 @@ public class TextListener extends ListenerAdapter {
             taggedBot.put(member,new Date());
         } else if(taggedBot.containsKey(e.getMessage().getMember())) {
                 if(!(taggedBot.get(e.getMember()).getMinutes() + 20 <= new Date().getMinutes())) {
-                    if(utils.getTeamMembers(e.getGuild(),"Mod-Team").contains(e.getMessage().getMentionedMembers().get(0))) {
+                    if(utils.getMembersWithRole(e.getGuild(),"Mod-Team").contains(e.getMessage().getMentionedMembers().get(0))) {
                         e.getMessage().getMentionedMembers().get(0).getUser().openPrivateChannel().queue(privateChannel -> privateChannel.sendMessage("The user " + e.getMember().getUser().getName() + " has send you the following message: " + e.getMessage().getContentRaw()).queue());
+                        taggedBot.remove(e.getMember());
                     } else {
                         utils.RedBuilder("Error",e.getMember(),e.getChannel(),"I am sorry, but the mentioned member is not part of our Team!",20,true);
                     }
                 } else {
                     utils.RedBuilder("Error",e.getMember(),e.getChannel(),"I am sorry, but your period to submit a request is over!",20,true);
+                    taggedBot.remove(e.getMember());
                 }
         }
     }

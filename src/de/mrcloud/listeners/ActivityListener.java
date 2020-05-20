@@ -21,14 +21,13 @@ import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Objects;
+import java.util.*;
 
 public class ActivityListener extends ListenerAdapter {
 
     public HashMap<String, String> timeInChannel = new HashMap<>();
-    Statement statement;
+
+    Statement statement = null;
 
 
 
@@ -71,7 +70,7 @@ public class ActivityListener extends ListenerAdapter {
         Category category = e.getChannelJoined().getParent();
         Member member = e.getMember();
         if (e.getChannelJoined().getName().equals("afk-bots-players")) {
-            server.kickVoiceMember(member).queue();
+            saveChannelTime(member,timeInChannel);
         }
     }
 
@@ -90,7 +89,7 @@ public class ActivityListener extends ListenerAdapter {
 
     public void saveChannelTime(Member member, HashMap<String, String> timeInChannel) {
 
-
+        long diff2 = 0L;
 
 
         long seconds = 0L;
@@ -98,10 +97,6 @@ public class ActivityListener extends ListenerAdapter {
         long hour = 0L;
         long day = 0L;
 
-        long putseconds = 0L;
-        long putmin = 0L;
-        long puthour = 0L;
-        long putday = 0L;
 
         long diffDays = 0L;
         long diffHours = 0L;
@@ -118,7 +113,25 @@ public class ActivityListener extends ListenerAdapter {
         String test = dateTimeFormatter.format(hereAndNow);
         String stopDate = test.replaceAll(",", "");
 
+        try {
+            ResultSet resultSetToSet = statement.executeQuery("SELECT * FROM Users WHERE UserID = " + member.getUser().getId() + ";");
 
+            while (resultSetToSet.next()) {
+                day = resultSetToSet.getLong("channelTimeDays");
+                hour = resultSetToSet.getLong("channelTimeHours");
+                min = resultSetToSet.getLong("channelTimeMinutes");
+                seconds = resultSetToSet.getLong("channelTimeSeconds");
+            }
+
+            seconds = seconds * 1000;
+            min = min * 60 *1000;
+            hour = hour * 60 * 60 * 1000;
+            day = day * 60 * 60 * 1000 * 24;
+
+            diff2 = seconds + min + hour + day;
+        } catch (SQLException e2) {
+            e2.printStackTrace();
+        }
 
 
         Date d1 = null;
@@ -131,6 +144,7 @@ public class ActivityListener extends ListenerAdapter {
         }
 
         long diff = d2.getTime() - d1.getTime();
+        diff += diff2;
         diffSeconds = diff / 1000 % 60;
         diffMinutes = diff / (60 * 1000) % 60;
         diffHours = diff / (60 * 60 * 1000) % 24;
@@ -138,33 +152,24 @@ public class ActivityListener extends ListenerAdapter {
 
         try {
             ResultSet resultSetCheck = statement.executeQuery("SELECT * FROM Users WHERE UserID = " + member.getUser().getId() + ";");
-            ResultSet resultSetToSet = statement.executeQuery("SELECT * FROM Users WHERE UserID = " + member.getUser().getId() + ";");
-
-            while(resultSetToSet.next()) {
-                day = resultSetToSet.getLong("channelTimeDays");
-                hour =resultSetToSet.getLong("channelTimeHours");
-                min = resultSetToSet.getLong("channelTimeMinutes");
-                seconds = resultSetToSet.getLong("channelTimeSeconds");
-            }
-
-
-            putday = day + diffDays + (hour / 24);
-            puthour = hour + diffHours + (min / 60) % 60;
-            putmin = min + (seconds / 60 % 60) + diffMinutes;
-            putseconds = seconds % 60 + diffSeconds;
 
             if (resultSetCheck != null && resultSetCheck.next()) {
-
-
-                statement.executeQuery("UPDATE Users SET channelTimeDays = " + putday + " WHERE UserID = " + member.getId() + ";");
-                statement.executeQuery("UPDATE Users SET channelTimeHours = " + puthour + " WHERE UserID = " + member.getId() + ";");
-                statement.executeQuery("UPDATE Users SET channelTimeMinutes = " + putmin + " WHERE UserID = " + member.getId() + ";");
-                statement.executeQuery("UPDATE Users SET channelTimeSeconds = " + putseconds + " WHERE UserID = " + member.getId() + ";");
+                statement.executeQuery("UPDATE Users SET channelTimeDays = " + diffDays + " WHERE UserID = " + member.getId() + ";");
+                statement.executeQuery("UPDATE Users SET channelTimeHours = " + diffHours + " WHERE UserID = " + member.getId() + ";");
+                statement.executeQuery("UPDATE Users SET channelTimeMinutes = " + diffMinutes + " WHERE UserID = " + member.getId() + ";");
+                statement.executeQuery("UPDATE Users SET channelTimeSeconds = " + diffSeconds + " WHERE UserID = " + member.getId() + ";");
             }
         } catch (SQLException e1) {
             e1.printStackTrace();
 
 
+        }
+        finally {
+            try {
+                SqlMain.mariaDB().close();
+            } catch (SQLException e1) {
+                e1.printStackTrace();
+            }
         }
         timeInChannel.remove(member.getUser().getId());
 
