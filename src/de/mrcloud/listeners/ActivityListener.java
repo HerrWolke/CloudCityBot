@@ -25,7 +25,7 @@ import java.util.*;
 
 public class ActivityListener extends ListenerAdapter {
 
-    public HashMap<String, String> timeInChannel = new HashMap<>();
+    public static HashMap<String, String> timeInChannel = new HashMap<>();
 
     Statement statement = null;
 
@@ -43,6 +43,8 @@ public class ActivityListener extends ListenerAdapter {
     public void onGuildVoiceJoin(@Nonnull GuildVoiceJoinEvent e) {
         super.onGuildVoiceJoin(e);
 
+
+        //Varibles
         Guild server = e.getGuild();
         VoiceChannel voiceChannelJoined = e.getChannelJoined();
         VoiceChannel voiceChannelLeft = e.getChannelLeft();

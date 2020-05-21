@@ -110,7 +110,7 @@ public class SearchingForMatchmakingListener extends ListenerAdapter {
 
                             if (durschnittsRang > rankNumber2 && durschnittsRang < (rankNumber2 + 3)) {
                                 server.moveVoiceMember(member, list.get(i)).queue();
-
+                                //Checks if a friend code exists in the db
                                 if(!friendCodeToSend.isEmpty()) {
                                     AutoCreateChannels.channelOwner.get(list.get(i)).getUser().openPrivateChannel().queue(privateChannel -> {
                                         privateChannel.sendMessage(friendCodeToSend).queue();
@@ -118,7 +118,7 @@ public class SearchingForMatchmakingListener extends ListenerAdapter {
                                 }
                             } else if (durschnittsRang < rankNumber2 && durschnittsRang > (rankNumber2 - 3)) {
                                 server.moveVoiceMember(member, list.get(i)).queue();
-
+                                //Checks if a friend code exists in the db
                                 if(!friendCodeToSend.isEmpty()) {
                                     AutoCreateChannels.channelOwner.get(list.get(i)).getUser().openPrivateChannel().queue(privateChannel -> {
                                         privateChannel.sendMessage(friendCodeToSend).queue();
@@ -126,7 +126,7 @@ public class SearchingForMatchmakingListener extends ListenerAdapter {
                                 }
                             } else if (durschnittsRang == rankNumber2) {
                                 server.moveVoiceMember(member, list.get(i)).queue();
-
+                                //Checks if a friend code exists in the db
                                 if(!friendCodeToSend.isEmpty()) {
                                     AutoCreateChannels.channelOwner.get(list.get(i)).getUser().openPrivateChannel().queue(privateChannel -> {
                                         privateChannel.sendMessage(friendCodeToSend).queue();
@@ -186,7 +186,7 @@ public class SearchingForMatchmakingListener extends ListenerAdapter {
         //---------------------------
 
         int rankNumber2 = 0;
-        String roleName2 = "";
+        String roleName2;
         while (member.getRoles().size() > getRole2) {
             roleName2 = member.getRoles().get(getRole2).getName();
 
@@ -197,7 +197,7 @@ public class SearchingForMatchmakingListener extends ListenerAdapter {
             getRole2++;
         }
         if (voiceChannelJoined.getName().equals("Searching-For-Matchmaking")) {
-
+            System.out.println("Mm Search");
 
             List<VoiceChannel> list = server.getVoiceChannelCache().applyStream(it ->
                     it.filter(channel -> channel.getName().matches("Matchmaking \\d*"))
@@ -225,6 +225,7 @@ public class SearchingForMatchmakingListener extends ListenerAdapter {
 
                             if (roleName.equals("╚═══ Wettkampf Rang ═══╗")) {
                                 rankNumber += compare.get(membersInVoice.get(i2).getRoles().get(getRole).getName());
+                                System.out.println(membersInVoice.get(i2).getRoles().get(getRole).getName());
                                 getRole = 30;
 
                             }
@@ -235,7 +236,7 @@ public class SearchingForMatchmakingListener extends ListenerAdapter {
 
                             if (durschnittsRang > rankNumber2 && durschnittsRang < (rankNumber2 + 3)) {
                                 server.moveVoiceMember(member, list.get(i)).queue();
-
+                                //Checks if a friend code exists in the db
                                 if(!friendCodeToSend.isEmpty()) {
                                     AutoCreateChannels.channelOwner.get(list.get(i)).getUser().openPrivateChannel().queue(privateChannel -> {
                                         privateChannel.sendMessage(friendCodeToSend).queue();
@@ -243,7 +244,7 @@ public class SearchingForMatchmakingListener extends ListenerAdapter {
                                 }
                             } else if (durschnittsRang < rankNumber2 && durschnittsRang > (rankNumber2 - 3)) {
                                 server.moveVoiceMember(member, list.get(i)).queue();
-
+                                //Checks if a friend code exists in the db
                                 if(!friendCodeToSend.isEmpty()) {
                                     AutoCreateChannels.channelOwner.get(list.get(i)).getUser().openPrivateChannel().queue(privateChannel -> {
                                         privateChannel.sendMessage(friendCodeToSend).queue();
@@ -251,7 +252,7 @@ public class SearchingForMatchmakingListener extends ListenerAdapter {
                                 }
                             } else if (durschnittsRang == rankNumber2) {
                                 server.moveVoiceMember(member, list.get(i)).queue();
-
+                                //Checks if a friend code exists in the db
                                 if(!friendCodeToSend.isEmpty()) {
                                     AutoCreateChannels.channelOwner.get(list.get(i)).getUser().openPrivateChannel().queue(privateChannel -> {
                                         privateChannel.sendMessage(friendCodeToSend).queue();

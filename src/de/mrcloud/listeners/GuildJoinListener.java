@@ -71,20 +71,15 @@ public class GuildJoinListener extends ListenerAdapter {
                     "\n" +
                     "Hey " +    member.getAsMention() + " du bist jetzt im Himmel :cloud: .Willkommen auf unserem Discord(CloudCity). Ließ dir bitte noch die Regeln durch, um Probleme zu vermeiden!\n" +
                     "\n" +
-                    "Bei uns \uD835\uDC1F\uD835\uDC22\uD835\uDC27\uD835\uDC1D\uD835\uDC1E\uD835\uDC2C\uD835\uDC2D du in dem #\uD835\uDC2C\uD835\uDC1E\uD835\uDC2B\uD835\uDC2F\uD835\uDC1E\uD835\uDC2B_\uD835\uDC22\uD835\uDC29\uD835\uDC2C Channel viele \uD835\uDC1C\uD835\uDC28\uD835\uDC28\uD835\uDC25\uD835\uDC1E \uD835\uDC0C\uD835\uDC1A\uD835\uDC29\uD835\uDC2C die du zusammen mit deinen Freunden spielen kannst. Unser Server ist hauptsächlich für Counter-Strike: Global Offensive ausgelegt.\n" +
-                    "\uD835\uDC03\uD835\uDC2E \uD835\uDC24\uD835\uDC1A\uD835\uDC27\uD835\uDC27\uD835\uDC2C\uD835\uDC2D \uD835\uDC1D\uD835\uDC22\uD835\uDC2B \uD835\uDC2C\uD835\uDC1E\uD835\uDC25\uD835\uDC1B\uD835\uDC2C\uD835\uDC2D \uD835\uDC11\uD835\uDC28\uD835\uDC25\uD835\uDC25\uD835\uDC1E\uD835\uDC27 \uD835\uDC20\uD835\uDC1E\uD835\uDC1B\uD835\uDC1E\uD835\uDC27 und musst dabei nur auf einige Nachrichten mit einem Emote reagieren.\n" +
-                    "\n" +
-                    "Die wihtigsten Commands findest du in #bot-commands\n" +
+                    "Die wichtigsten Commands findest du in #bot-commands\n" +
                     "Viel Spaß auf unserem Discord:butterfly:\n" +
                     "---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------").queue();
             chan.sendMessage("English\n" +
                     "Hello " +    member.getAsMention() + " you are now in heaven :cloud: .Welcome to our Discord(CloudCity).Please read the rules to avoid problems.\n" +
                     "\n" +
-                    "You can find many cool maps to play with your friends in #server_ips. Our discord is mostly designed for counter strike, but you can also use it to chat or play other games\n" +
-                    "You can give yourself a rank containing your skill group, you only need to react to a few messages in #csgo_roles \n" +
                     "You can view the most important commands in #bot-commands\n" +
                     "Have fun on our Discord:butterfly:").queue();
-            utils.GreenBuilder("Welcome",member,chan,"Um den Server freizuschalten, gib dir deine Wingman und Machtamking Rollen in #csgo_roles.Schicke ansonsten bitte noch dein Freundescode hier rein, damit dich andere einfach adden können. Dies ist nicht notwendig, aber empfohlen. ", 0,false);
+            utils.GreenBuilder("Welcome",member,chan,"Um den Server freizuschalten, gib dir deine Wingman und Matchmaking Rollen in #csgo_roles.Schicke ansonsten bitte noch dein Freundescode hier rein, damit dich andere einfach adden können. Dies ist nicht notwendig, aber empfohlen. ", 0,false);
         });
 
 

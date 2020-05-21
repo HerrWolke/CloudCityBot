@@ -10,15 +10,18 @@ import net.dv8tion.jda.api.sharding.DefaultShardManagerBuilder;
 import net.dv8tion.jda.api.sharding.ShardManager;
 
 import javax.security.auth.login.LoginException;
-import java.awt.event.ActionListener;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
 
 public class Main {
 
     public ShardManager shardMan;
     ActivityListener activityListener = new ActivityListener();
+
     public Main() throws LoginException {
         JDAUtils utils = new JDAUtils();
 
@@ -42,7 +45,17 @@ public class Main {
         builder.setAutoReconnect(true);
         builder.setRequestTimeoutRetry(true);
         shardMan = builder.build();
+
+
+        channelTime();
         TurnOffListener();
+
+
+    }
+
+    public static void main(String[] args) throws LoginException {
+        new Main();
+
     }
 
     public void TurnOffListener() {
@@ -54,8 +67,8 @@ public class Main {
                 while ((line = reader.readLine()) != null) {
                     if (line.equalsIgnoreCase("Stop")) {
 
-                        for ( String key : activityListener.timeInChannel.keySet() ) {
-                            activityListener.saveChannelTime(shardMan.getGuildById("514511396491231233").getMemberById(key),activityListener.timeInChannel);
+                        for (String key : ActivityListener.timeInChannel.keySet()) {
+                            activityListener.saveChannelTime(shardMan.getGuildById("514511396491231233").getMemberById(key), ActivityListener.timeInChannel);
                             System.out.println("Worked");
                         }
                         if (shardMan != null) {
@@ -77,11 +90,27 @@ public class Main {
         }).start();
     }
 
-    public static void main(String[] args) throws LoginException {
-        new Main();
-
+    public void channelTime() {
+        int i = 0;
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        System.out.println("called");
+        while ((shardMan.getGuildById("514511396491231233")).getVoiceStates().size() > i) {
+            if (shardMan.getGuildById("514511396491231233").getVoiceStates().get(i).inVoiceChannel()) {
+                DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM, FormatStyle.MEDIUM);
+                ZonedDateTime hereAndNow = ZonedDateTime.now();
+                String test = dateTimeFormatter.format(hereAndNow);
+                String date = test.replaceAll(",", "");
+                ActivityListener.timeInChannel.put(shardMan.getGuildById("514511396491231233").getVoiceStates().get(i).getMember().getId(), date);
+                System.out.println(shardMan.getGuildById("514511396491231233").getVoiceStates().get(i).getMember().getId());
+            }
+            i++;
+        }
     }
 
-    }
+}
 
 

@@ -37,6 +37,9 @@ public class CommandListener extends ListenerAdapter {
         Message message = e.getMessage();
         String messageContent = message.getContentRaw();
         TextChannel txtChannel = e.getChannel();
+        int f = 0;
+
+
 
 
         long seconds = 0L;
