@@ -4,6 +4,7 @@ import de.mrcloud.utils.JDAUtils;
 import net.dv8tion.jda.api.entities.*;
 import net.dv8tion.jda.api.events.message.guild.react.GuildMessageReactionAddEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,7 +12,7 @@ import java.util.List;
 public class RoleListener extends ListenerAdapter {
     static List<Member> hasMatchMakingRole= new ArrayList<>();
     @Override
-    public void onGuildMessageReactionAdd(GuildMessageReactionAddEvent e) {
+    public void onGuildMessageReactionAdd(@NotNull GuildMessageReactionAddEvent e) {
         super.onGuildMessageReactionAdd(e);
         Guild server = e.getGuild();
         TextChannel txtChannel = e.getChannel();

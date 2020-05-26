@@ -23,7 +23,6 @@ public class AutoCreateChannels extends ListenerAdapter {
     public void onGuildVoiceJoin(@Nonnull GuildVoiceJoinEvent e) {
         super.onGuildVoiceJoin(e);
 
-
         Guild server = e.getGuild();
         VoiceChannel voiceChannel = e.getChannelJoined();
         Category category = e.getChannelJoined().getParent();
@@ -36,8 +35,6 @@ public class AutoCreateChannels extends ListenerAdapter {
                     it.filter(channel -> channel.getName().matches("Matchmaking \\d*"))
                             .collect(Collectors.toList())
             );
-
-
             int matchmakingChannels = list.size() + 1;
             VoiceChannel newChannel = category.createVoiceChannel("Matchmaking " + (list.size() + 1)).complete();
             newChannel.getManager().setUserLimit(5).queue();
@@ -52,8 +49,29 @@ public class AutoCreateChannels extends ListenerAdapter {
             embBuilder.setColor(Color.decode("#00a8ff"));
             embBuilder.addField("Gamemode", "\uD83C\uDDF2 Matchamking \n \uD83C\uDDFC Wingman", true);
 
-            newTextChannel.sendMessage(embBuilder.build()).queue();
-
+            newTextChannel.getManager().putPermissionOverride(member, allow, null).queue();
+            newTextChannel.getManager().putPermissionOverride(server.getRoleById(514511396491231233L),null , allow).queue();
+            newTextChannel.sendMessage(embBuilder.build()).queue((message) -> {
+                message.addReaction("\uD83C\uDDF2").queue();
+                message.addReaction("\uD83C\uDDFC").queue();
+            });
+            EmbedBuilder embBuilder2 = new EmbedBuilder();
+            embBuilder2.setTitle("Channel Typ");
+            embBuilder2.setAuthor(member.getUser().getName(), member.getUser().getAvatarUrl(), member.getUser().getAvatarUrl());
+            embBuilder2.setColor(Color.decode("#00a8ff"));
+            embBuilder2.addField("Open/Close Channel", "\uD83D\uDFE2 Open Channel \n \uD83D\uDD34 Close Channel", true);
+            newTextChannel.sendMessage(embBuilder2.build()).queue((message) -> {
+                message.addReaction("\uD83D\uDFE2").queue();
+                message.addReaction("\uD83D\uDD34").queue();
+            });
+            EmbedBuilder embBuilder3 = new EmbedBuilder();
+            embBuilder3.setTitle("Other");
+            embBuilder3.setAuthor(member.getUser().getName(), member.getUser().getAvatarUrl(), member.getUser().getAvatarUrl());
+            embBuilder3.setColor(Color.decode("#00a8ff"));
+            embBuilder3.addField("Other Commands", "\uD83D\uDCDE Calladmin", true);
+            newTextChannel.sendMessage(embBuilder3.build()).queue((message) -> {
+                message.addReaction("\uD83D\uDCDE").queue();
+            });
         }
 
     }
@@ -90,7 +108,7 @@ public class AutoCreateChannels extends ListenerAdapter {
             embBuilder.addField("Gamemode", "\uD83C\uDDF2 Matchamking \n \uD83C\uDDFC Wingman", true);
 
             newTextChannel.getManager().putPermissionOverride(member, allow, null).queue();
-            newTextChannel.getManager().putPermissionOverride(server.getRoleById(514511396491231233L), allow, null).queue();
+            newTextChannel.getManager().putPermissionOverride(server.getRoleById(514511396491231233L), null, allow).queue();
             newTextChannel.sendMessage(embBuilder.build()).queue((message) -> {
                 message.addReaction("\uD83C\uDDF2").queue();
                 message.addReaction("\uD83C\uDDFC").queue();
@@ -103,6 +121,14 @@ public class AutoCreateChannels extends ListenerAdapter {
             newTextChannel.sendMessage(embBuilder2.build()).queue((message) -> {
                 message.addReaction("\uD83D\uDFE2").queue();
                 message.addReaction("\uD83D\uDD34").queue();
+            });
+            EmbedBuilder embBuilder3 = new EmbedBuilder();
+            embBuilder3.setTitle("Other");
+            embBuilder3.setAuthor(member.getUser().getName(), member.getUser().getAvatarUrl(), member.getUser().getAvatarUrl());
+            embBuilder3.setColor(Color.decode("#00a8ff"));
+            embBuilder3.addField("Calladmin", "\uD83D\uDCDE Benachrichtigt das Team", true);
+            newTextChannel.sendMessage(embBuilder3.build()).queue((message) -> {
+                message.addReaction("\uD83D\uDCDE").queue();
             });
         }
 

@@ -20,18 +20,26 @@ public class FunListener extends ListenerAdapter {
         String messageContent = message.getContentRaw();
         TextChannel txtChannel = e.getChannel();
 
-        if(messageContent.equals("\uD83E\uDD21")) {
+        if (messageContent.equals("\uD83E\uDD21")) {
             message.addReaction("\uD83C\uDDF8").queue();
             message.addReaction("\uD83C\uDDF9").queue();
             message.addReaction("\uD83C\uDDEB").queue();
             message.addReaction("\uD83C\uDDFA").queue();
-        } else if(messageContent.equalsIgnoreCase("simp")) {
+        } else if (messageContent.equalsIgnoreCase("simp")) {
             message.addReaction("\uD83C\uDDF8").queue();
             message.addReaction("\uD83C\uDDF9").queue();
             message.addReaction("\uD83C\uDDEB").queue();
             message.addReaction("\uD83C\uDDFA").queue();
-        } else if(messageContent.equalsIgnoreCase("~")) {
-
+        } else if (messageContent.equalsIgnoreCase("fuck you")) {
+            message.addReaction("\uD83C\uDDF3").queue();
+            message.addReaction("\uD83C\uDDF4").queue();
+            message.addReaction("⬜").queue();
+            message.addReaction("\uD83C\uDDFA").queue();
+        } else if (messageContent.equalsIgnoreCase("fuck u")) {
+            message.addReaction("\uD83C\uDDF3").queue();
+            message.addReaction("\uD83C\uDDF4").queue();
+            message.addReaction("⬜").queue();
+            message.addReaction("\uD83C\uDDFA").queue();
         }
     }
 }

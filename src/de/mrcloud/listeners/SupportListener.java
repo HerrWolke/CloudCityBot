@@ -21,15 +21,15 @@ public class SupportListener extends ListenerAdapter {
         Member member = e.getMember();
         int i = 0;
 
-        if(voiceChannelJoined.getName().equals("Support-Room")) {
-                while(server.getMembersWithRoles(server.getRolesByName("Mod-Team", true).get(0)).size() > i) {
-                    Member toNotify = server.getMembersWithRoles(server.getRolesByName("Mod-Team", true).get(0)).get(i);
+        if (voiceChannelJoined.getName().equals("Support-Room")) {
+            while (server.getMembersWithRoles(server.getRolesByName("Mod-Team", true).get(0)).size() > i) {
+                Member toNotify = server.getMembersWithRoles(server.getRolesByName("Mod-Team", true).get(0)).get(i);
 
 
-                    toNotify.getUser().openPrivateChannel().queue((privateChannel -> {
-                        privateChannel.sendMessage("Ein User wartet im Support Raum auf dich.").queue();
-                    }));
-                }
+                toNotify.getUser().openPrivateChannel().queue((privateChannel -> {
+                    privateChannel.sendMessage("Ein User wartet im Support Raum auf dich.").queue();
+                }));
+            }
         }
     }
 }

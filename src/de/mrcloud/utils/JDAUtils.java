@@ -25,6 +25,7 @@ public class JDAUtils {
             if (roles.get(i).getName().equals("roleName")) {
                 hasRole = true;
             }
+            i++;
         }
 
         return hasRole;

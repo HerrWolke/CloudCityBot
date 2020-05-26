@@ -9,12 +9,11 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.SimpleDateFormat;
 
-public class SqlMain{
+public class SqlMain {
     public static Connection mariaDB() {
         Connection conn = null;
         try {
             Class.forName("org.mariadb.jdbc.Driver");
-
 
 
             conn = DriverManager.getConnection(Static.DB_CONNECT_URL_PC, "root", Static.DB_PW);
@@ -25,7 +24,15 @@ public class SqlMain{
             return null;
 
         }
-    } public void registerUser(Member member){
+    }
+
+    public static void main(String[] args) {
+        {
+            mariaDB();
+        }
+    }
+
+    public void registerUser(Member member) {
         SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
 
         try {
@@ -34,12 +41,6 @@ public class SqlMain{
             statment.executeQuery("");
         } catch (SQLException e) {
             e.printStackTrace();
-        }
-    }
-
-    public static void main(String[] args) {
-        {
-            mariaDB();
         }
     }
 }

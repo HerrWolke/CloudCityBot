@@ -16,6 +16,7 @@ import java.io.InputStreamReader;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
+import java.util.Objects;
 
 public class Main {
 
@@ -25,8 +26,11 @@ public class Main {
     public Main() throws LoginException {
         JDAUtils utils = new JDAUtils();
 
-
+        //Sets the gateway intends
         DefaultShardManagerBuilder builder = DefaultShardManagerBuilder.create(Static.TOKEN, GatewayIntent.GUILD_MEMBERS, GatewayIntent.GUILD_PRESENCES, GatewayIntent.GUILD_BANS, GatewayIntent.GUILD_EMOJIS, GatewayIntent.GUILD_INVITES, GatewayIntent.GUILD_MESSAGES, GatewayIntent.DIRECT_MESSAGE_TYPING, GatewayIntent.DIRECT_MESSAGE_REACTIONS, GatewayIntent.GUILD_VOICE_STATES, GatewayIntent.GUILD_MESSAGE_REACTIONS);
+
+
+        //Registers all event listeners
         builder.addEventListeners(new RoleListener());
         builder.addEventListeners(new AutoCreateChannels());
         builder.addEventListeners(new TabsenListener());
@@ -39,11 +43,16 @@ public class Main {
         builder.addEventListeners(new SearchingForMatchmakingListener());
         builder.addEventListeners(new SecurityListener());
         builder.addEventListeners(new TextListener());
+        //-----------------------------
+
+        //builder settings
         builder.setStatus(OnlineStatus.ONLINE);
         builder.setActivity(Activity.watching("you and your stats"));
         builder.setMaxReconnectDelay(32);
         builder.setAutoReconnect(true);
         builder.setRequestTimeoutRetry(true);
+        //----------------------------
+
         shardMan = builder.build();
 
 
@@ -58,6 +67,7 @@ public class Main {
 
     }
 
+    //Waiting for someone to write "stop" to stop
     public void TurnOffListener() {
         new Thread(() -> {
             String line = null;
@@ -68,7 +78,7 @@ public class Main {
                     if (line.equalsIgnoreCase("Stop")) {
 
                         for (String key : ActivityListener.timeInChannel.keySet()) {
-                            activityListener.saveChannelTime(shardMan.getGuildById("514511396491231233").getMemberById(key), ActivityListener.timeInChannel);
+                            activityListener.saveChannelTime(Objects.requireNonNull(shardMan.getGuildById("514511396491231233")).getMemberById(key), ActivityListener.timeInChannel);
                             System.out.println("Worked");
                         }
                         if (shardMan != null) {
@@ -89,26 +99,31 @@ public class Main {
 
         }).start();
     }
+    //-------------------------------------------
 
+    //Waits for a 4 seconds
     public void channelTime() {
         int i = 0;
         try {
-            Thread.sleep(1000);
+            Thread.sleep(4000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        System.out.println("called");
-        while ((shardMan.getGuildById("514511396491231233")).getVoiceStates().size() > i) {
-            if (shardMan.getGuildById("514511396491231233").getVoiceStates().get(i).inVoiceChannel()) {
+        //-------------------
+
+        //Saves the channel time on shutdown
+        while ((Objects.requireNonNull(shardMan.getGuildById("514511396491231233"))).getVoiceStates().size() > i) {
+            if (Objects.requireNonNull(shardMan.getGuildById("514511396491231233")).getVoiceStates().get(i).inVoiceChannel()) {
                 DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM, FormatStyle.MEDIUM);
                 ZonedDateTime hereAndNow = ZonedDateTime.now();
                 String test = dateTimeFormatter.format(hereAndNow);
                 String date = test.replaceAll(",", "");
-                ActivityListener.timeInChannel.put(shardMan.getGuildById("514511396491231233").getVoiceStates().get(i).getMember().getId(), date);
-                System.out.println(shardMan.getGuildById("514511396491231233").getVoiceStates().get(i).getMember().getId());
+                ActivityListener.timeInChannel.put(Objects.requireNonNull(shardMan.getGuildById("514511396491231233")).getVoiceStates().get(i).getMember().getId(), date);
+                System.out.println(Objects.requireNonNull(shardMan.getGuildById("514511396491231233")).getVoiceStates().get(i).getMember().getId());
             }
             i++;
         }
+        //------------------------------------
     }
 
 }
