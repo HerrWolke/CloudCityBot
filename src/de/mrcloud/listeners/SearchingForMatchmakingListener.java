@@ -10,6 +10,7 @@ import net.dv8tion.jda.api.events.guild.voice.GuildVoiceMoveEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
 import javax.annotation.Nonnull;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
@@ -17,7 +18,7 @@ import java.util.stream.Collectors;
 
 public class SearchingForMatchmakingListener extends ListenerAdapter {
     HashMap<String, Integer> compare;
-
+    static List<Member> searchingForMatchmaking = new ArrayList<>();
 
     @Override
     public void onGuildVoiceJoin(@Nonnull GuildVoiceJoinEvent e) {
@@ -59,19 +60,19 @@ public class SearchingForMatchmakingListener extends ListenerAdapter {
         compare.put("Global Elite", 18);
         //---------------------------
 
-        int rankNumber2 = 0;
-        String roleName2;
-        while (member.getRoles().size() > getRole2) {
-            roleName2 = member.getRoles().get(getRole2).getName();
 
-            if (roleName2.equals("╚═══ Wettkampf Rang ═══╗")) {
-                rankNumber2 = compare.get(member.getRoles().get((getRole2 + 1)).getName());
-
-            }
-            getRole2++;
-        }
         if (voiceChannelJoined.getName().equals("Searching-For-Matchmaking")) {
+            int rankNumber2 = 0;
+            String roleName2;
+            while (member.getRoles().size() > getRole2) {
+                roleName2 = member.getRoles().get(getRole2).getName();
 
+                if (roleName2.equals("╚═══ Wettkampf Rang ═══╗")) {
+                    rankNumber2 = compare.get(member.getRoles().get((getRole2 + 1)).getName());
+
+                }
+                getRole2++;
+            }
 
             List<VoiceChannel> list = server.getVoiceChannelCache().applyStream(it ->
                     it.filter(channel -> channel.getName().matches("Matchmaking \\d*"))

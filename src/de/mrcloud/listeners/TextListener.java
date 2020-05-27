@@ -23,19 +23,27 @@ public class TextListener extends ListenerAdapter {
 
         if(e.getMessage().getMentionedMembers().contains(e.getGuild().getMemberById("709288877957054465"))) {
 
+            //Variables
             Guild server = e.getGuild();
             Member member = e.getMember();
             Message message = e.getMessage();
             String messageContent = message.getContentRaw();
             TextChannel txtChannel = e.getChannel();
+            //-----------
 
+            //Sends a message
             utils.GreenBuilder("Hello",member,txtChannel,"If you need help please join the suppport channel or mention the Mod-Team. " +
                     "Otherwise, I can also forward a message to a specific member of the mod team, if you wish. " +
                     "To do that, just type [MESSAGE] [@SUPPORT_TEAM_MEMBER] and replace the content of the []-brackets.",60,true);
+            //-------
+
             taggedBot.put(member,new Date());
         } else if(taggedBot.containsKey(e.getMessage().getMember())) {
+            //Checks if the request hasnt expired yet
                 if(!(taggedBot.get(e.getMember()).getMinutes() + 20 <= new Date().getMinutes())) {
+                    //Checks if the member is a part of the mod team
                     if(utils.getMembersWithRole(e.getGuild(),"Mod-Team").contains(e.getMessage().getMentionedMembers().get(0))) {
+                        //Sends the message to the mod and removes the user from the list
                         e.getMessage().getMentionedMembers().get(0).getUser().openPrivateChannel().queue(privateChannel -> privateChannel.sendMessage("The user " + e.getMember().getUser().getName() + " has send you the following message: " + e.getMessage().getContentRaw()).queue());
                         taggedBot.remove(e.getMember());
                     } else {

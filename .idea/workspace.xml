@@ -7,19 +7,34 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8bb7562a-21d9-4e4b-8808-09f3fc0f2ed5" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_sedmelluq_lava_common_1_1_0.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_sedmelluq_lavaplayer_1_3_49.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_sedmelluq_lavaplayer_natives_1_3_13.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__commons_codec_commons_codec_1_11.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__commons_io_commons_io_2_6.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__commons_logging_commons_logging_1_2.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__net_iharder_base64_2_3_9.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_httpcomponents_httpclient_4_5_10.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_httpcomponents_httpcore_4_4_12.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_jsoup_jsoup_1_12_1.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_fasterxml_jackson_core_jackson_annotations_2_10_1.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_fasterxml_jackson_core_jackson_annotations_2_10_0.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_fasterxml_jackson_core_jackson_core_2_10_1.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_fasterxml_jackson_core_jackson_core_2_10_0.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_fasterxml_jackson_core_jackson_databind_2_10_1.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_fasterxml_jackson_core_jackson_databind_2_10_0.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CloudCityBot.iml" beforeDir="false" afterPath="$PROJECT_DIR$/CloudCityBot.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/de/mrcloud/listeners/ActivityListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/de/mrcloud/listeners/ActivityListener.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/de/mrcloud/listeners/AutoCreateChannels.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/de/mrcloud/listeners/AutoCreateChannels.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/de/mrcloud/listeners/CommandListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/de/mrcloud/listeners/CommandListener.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/de/mrcloud/listeners/GuildJoinListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/de/mrcloud/listeners/GuildJoinListener.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/de/mrcloud/listeners/SearchingForMatchmakingListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/de/mrcloud/listeners/SearchingForMatchmakingListener.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/de/mrcloud/main/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/de/mrcloud/main/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/de/mrcloud/listeners/SupportListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/de/mrcloud/listeners/SupportListener.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FavoritesManager">
+    <favorites_list name="CloudCityBot" />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -42,12 +57,6 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="59" />
-    <option name="y" value="-22" />
-    <option name="width" value="1936" />
-    <option name="height" value="1056" />
-  </component>
   <component name="ProjectId" id="1cDHNlWtrTDKr7uSZTPG00C5kjT" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
@@ -56,13 +65,17 @@
     <option name="showMembers" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="GenerateAntBuildDialog.backupFiles" value="true" />
+    <property name="GenerateAntBuildDialog.enableUiFormCompile" value="true" />
+    <property name="GenerateAntBuildDialog.forceTargetJdk" value="true" />
+    <property name="GenerateAntBuildDialog.outputFileNameProperty" value="cloudcitybot" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1590008186987" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1590575786391" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="project.structure.last.edited" value="Artifacts" />
+    <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15629742" />
     <property name="project.structure.side.proportion" value="0.2" />
-    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+    <property name="settings.editor.selected.configurable" value="gitlive.settings" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -133,41 +146,49 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$/CloudCityBot" />
       <path value="$PROJECT_DIR$" />
-      <path value="D:/Dukom/GIT" />
+      <path value="$PROJECT_DIR$/../../../Dukom/GIT" />
     </ignored-roots>
   </component>
   <component name="WindowStateProjectService">
+    <state x="586" y="198" key="#Inspections" timestamp="1590576676387">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="586" y="198" key="#Inspections/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1590576676387" />
     <state x="765" y="226" key="#com.intellij.ide.util.MemberChooser" timestamp="1590070464646">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="765" y="226" key="#com.intellij.ide.util.MemberChooser/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1590070464646" />
-    <state x="740" y="261" key="FileChooserDialogImpl" timestamp="1590073526482">
+    <state x="756" y="405" width="408" height="237" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes" timestamp="1590392751771">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="740" y="261" key="FileChooserDialogImpl/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1590073526482" />
-    <state width="1877" height="205" key="GridCell.Tab.0.bottom" timestamp="1590073071024">
+    <state x="756" y="405" width="408" height="237" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1590392751771" />
+    <state x="740" y="261" key="FileChooserDialogImpl" timestamp="1590343671678">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="205" key="GridCell.Tab.0.bottom/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1590073071024" />
-    <state width="1877" height="205" key="GridCell.Tab.0.center" timestamp="1590073071024">
+    <state x="740" y="261" key="FileChooserDialogImpl/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1590343671678" />
+    <state width="938" height="205" key="GridCell.Tab.0.bottom" timestamp="1590576519927">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="205" key="GridCell.Tab.0.center/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1590073071024" />
-    <state width="1877" height="205" key="GridCell.Tab.0.left" timestamp="1590073071024">
+    <state width="938" height="205" key="GridCell.Tab.0.bottom/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1590576519927" />
+    <state width="938" height="205" key="GridCell.Tab.0.center" timestamp="1590576519927">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="205" key="GridCell.Tab.0.left/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1590073071024" />
-    <state width="1877" height="205" key="GridCell.Tab.0.right" timestamp="1590073071024">
+    <state width="938" height="205" key="GridCell.Tab.0.center/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1590576519927" />
+    <state width="938" height="205" key="GridCell.Tab.0.left" timestamp="1590576519927">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="205" key="GridCell.Tab.0.right/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1590073071024" />
-    <state x="289" y="165" key="SettingsEditor" timestamp="1590076097245">
+    <state width="938" height="205" key="GridCell.Tab.0.left/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1590576519927" />
+    <state width="938" height="205" key="GridCell.Tab.0.right" timestamp="1590576519927">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="289" y="165" key="SettingsEditor/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1590076097245" />
-    <state x="684" y="398" key="com.intellij.ide.util.TipDialog" timestamp="1590076038666">
+    <state width="938" height="205" key="GridCell.Tab.0.right/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1590576519927" />
+    <state x="649" y="91" key="SettingsEditor" timestamp="1590399859967">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="684" y="398" key="com.intellij.ide.util.TipDialog/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1590076038666" />
+    <state x="649" y="91" key="SettingsEditor/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1590399859967" />
+    <state x="684" y="398" key="com.intellij.ide.util.TipDialog" timestamp="1590493609949">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="684" y="398" key="com.intellij.ide.util.TipDialog/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1590493609949" />
   </component>
 </project>

@@ -25,6 +25,7 @@ public class CommandListener extends ListenerAdapter {
     public void onGuildMessageReceived(@Nonnull GuildMessageReceivedEvent e) {
         super.onGuildMessageReceived(e);
 
+
         //Variables----------------
         String top10String = " ";
 
