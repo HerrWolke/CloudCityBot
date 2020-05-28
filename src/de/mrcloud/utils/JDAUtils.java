@@ -32,7 +32,7 @@ public class JDAUtils {
     }
 
 
-    public void RedBuilder(String Title, Member member, TextChannel txtChannel, String ErrorText, int deleteAfter, boolean delete) {
+    public void RedBuilder(String Title, String ErrorText, Member member, TextChannel txtChannel, boolean delete , int deleteAfter) {
         EmbedBuilder embBuilder = new EmbedBuilder();
         embBuilder.setTitle(Title);
         embBuilder.setAuthor(member.getUser().getName(), member.getUser().getAvatarUrl(), member.getUser().getAvatarUrl());
@@ -45,8 +45,34 @@ public class JDAUtils {
         }
 
     }
+    public void  BlackBuilder(String Title, String Text, Member member, TextChannel txtChannel, boolean delete , int deleteAfter) {
+        EmbedBuilder embBuilder = new EmbedBuilder();
+        embBuilder.setTitle(Title);
+        embBuilder.setAuthor(member.getUser().getName(), member.getUser().getAvatarUrl(), member.getUser().getAvatarUrl());
+        embBuilder.setColor(Color.decode("#1e272e"));
+        embBuilder.setDescription(Text);
+        if (delete) {
+            txtChannel.sendMessage(embBuilder.build()).complete().delete().queueAfter(deleteAfter, TimeUnit.SECONDS);
+        } else {
+            txtChannel.sendMessage(embBuilder.build()).queue();
+        }
 
-    public void YellowBuilder(String Title, Member member, TextChannel txtChannel, String InfoText, int deleteAfter, boolean delete) {
+    }
+    public void  PrivateBlackBuilder(String Title, String Text, Member member, PrivateChannel txtChannel, boolean delete , int deleteAfter) {
+        EmbedBuilder embBuilder = new EmbedBuilder();
+        embBuilder.setTitle(Title);
+        embBuilder.setAuthor(member.getUser().getName(), member.getUser().getAvatarUrl(), member.getUser().getAvatarUrl());
+        embBuilder.setColor(Color.decode("#1e272e"));
+        embBuilder.setDescription(Text);
+        if (delete) {
+            txtChannel.sendMessage(embBuilder.build()).complete().delete().queueAfter(deleteAfter, TimeUnit.SECONDS);
+        } else {
+            txtChannel.sendMessage(embBuilder.build()).queue();
+        }
+
+    }
+
+    public void YellowBuilder(String Title,String InfoText, Member member, TextChannel txtChannel, boolean delete,  int deleteAfter) {
         EmbedBuilder embBuilder = new EmbedBuilder();
         embBuilder.setTitle(Title);
         embBuilder.setAuthor(member.getUser().getName(), member.getUser().getAvatarUrl(), member.getUser().getAvatarUrl());
@@ -60,7 +86,7 @@ public class JDAUtils {
 
     }
 
-    public void GreenBuilder(String Title, Member member, TextChannel txtChannel, String InfoText, int deleteAfter, boolean delete) {
+    public void GreenBuilder(String Title,String InfoText, Member member, TextChannel txtChannel, boolean delete,  int deleteAfter) {
         EmbedBuilder embBuilder = new EmbedBuilder();
         embBuilder.setTitle(Title);
         embBuilder.setAuthor(member.getUser().getName(), member.getUser().getAvatarUrl(), member.getUser().getAvatarUrl());
@@ -73,7 +99,7 @@ public class JDAUtils {
         }
 
     }
-    public void BlueBuilder(String Title, Member member, TextChannel txtChannel, String InfoText, int deleteAfter, boolean delete) {
+    public void BlueBuilder(String Title,String InfoText, TextChannel txtChannel , Member member,  boolean delete , int deleteAfter) {
         EmbedBuilder embBuilder = new EmbedBuilder();
         embBuilder.setTitle(Title);
         embBuilder.setAuthor(member.getUser().getName(), member.getUser().getAvatarUrl(), member.getUser().getAvatarUrl());
@@ -138,7 +164,6 @@ public class JDAUtils {
             Statement statement = connection.createStatement();
 
             ResultSet result = statement.executeQuery("SELECT * FROM Users WHERE UserID = " + member.getId() + ";");
-
             while (result.next()) {
                 toGet = result.getString(collumName);
             }

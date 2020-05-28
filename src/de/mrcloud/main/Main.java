@@ -36,7 +36,7 @@ public class Main {
         builder.addEventListeners(new TabsenListener());
         builder.addEventListeners(new ActivityListener());
         builder.addEventListeners(new CommandListener());
-        builder.addEventListeners(new GuildJoinListener());
+        builder.addEventListeners(new GuildJoinLeaveListener());
         builder.addEventListeners(new SupportListener());
         builder.addEventListeners(new ReactionListener());
         builder.addEventListeners(new FunListener());

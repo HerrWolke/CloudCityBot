@@ -35,9 +35,9 @@ public class ActivityListener extends ListenerAdapter {
         //Varibles
         Guild server = e.getGuild();
         VoiceChannel voiceChannelJoined = e.getChannelJoined();
-        VoiceChannel voiceChannelLeft = e.getChannelLeft();
         Category category = e.getChannelJoined().getParent();
         Member member = e.getMember();
+        //-----------
 
         //Starts the time counting when you join a channel
         if (!e.getChannelJoined().getName().equals("afk-bots-players")) {
@@ -64,6 +64,13 @@ public class ActivityListener extends ListenerAdapter {
         //Saves your channel time when you join a afk channel by calling the saveChannelTime Method
         if (e.getChannelJoined().getName().equals("afk-bots-players")) {
             saveChannelTime(member, timeInChannel);
+        }
+        if (e.getChannelLeft().getName().equals("afk-bots-players")) {
+            DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM, FormatStyle.MEDIUM);
+            ZonedDateTime hereAndNow = ZonedDateTime.now();
+            String test = dateTimeFormatter.format(hereAndNow);
+            String date = test.replaceAll(",", "");
+            timeInChannel.put(member.getUser().getId(), date);
         }
     }
 
@@ -96,6 +103,7 @@ public class ActivityListener extends ListenerAdapter {
             }
         }
 
+        //Variables for calculation
         long diff2 = 0L;
 
 
@@ -109,6 +117,7 @@ public class ActivityListener extends ListenerAdapter {
         long diffHours = 0L;
         long diffMinutes = 0L;
         long diffSeconds = 0L;
+        //---------------------
 
         SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
 

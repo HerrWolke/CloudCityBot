@@ -8,6 +8,13 @@
   <component name="ChangeListManager">
     <list default="true" id="8bb7562a-21d9-4e4b-8808-09f3fc0f2ed5" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/de/mrcloud/SQL/SqlMain.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/de/mrcloud/SQL/SqlMain.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/de/mrcloud/listeners/ActivityListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/de/mrcloud/listeners/ActivityListener.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/de/mrcloud/listeners/CommandListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/de/mrcloud/listeners/CommandListener.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/de/mrcloud/listeners/GuildJoinListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/de/mrcloud/listeners/GuildJoinLeaveListener.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/de/mrcloud/listeners/TextListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/de/mrcloud/listeners/TextListener.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/de/mrcloud/main/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/de/mrcloud/main/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/de/mrcloud/utils/JDAUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/de/mrcloud/utils/JDAUtils.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -124,7 +131,7 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$/CloudCityBot" />
       <path value="$PROJECT_DIR$" />
-      <path value="$PROJECT_DIR$/../../../Dukom/GIT" />
+      <path value="D:/Dukom/GIT" />
     </ignored-roots>
   </component>
   <component name="WindowStateProjectService">
@@ -132,6 +139,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="586" y="198" key="#Inspections/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1590576676387" />
+    <state x="684" y="323" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1590658548012">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="684" y="323" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1590658548012" />
     <state x="765" y="226" key="#com.intellij.ide.util.MemberChooser" timestamp="1590070464646">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -140,10 +151,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="756" y="405" width="408" height="237" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1590392751771" />
-    <state x="740" y="261" key="FileChooserDialogImpl" timestamp="1590343671678">
+    <state x="740" y="261" key="FileChooserDialogImpl" timestamp="1590599373115">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="740" y="261" key="FileChooserDialogImpl/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1590343671678" />
+    <state x="740" y="261" key="FileChooserDialogImpl/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1590599373115" />
     <state width="1877" height="205" key="GridCell.Tab.0.bottom" timestamp="1590578609848">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -160,13 +171,13 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1877" height="205" key="GridCell.Tab.0.right/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1590578609848" />
-    <state x="649" y="91" key="SettingsEditor" timestamp="1590399859967">
+    <state x="649" y="91" key="SettingsEditor" timestamp="1590599436791">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="649" y="91" key="SettingsEditor/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1590399859967" />
-    <state x="684" y="398" key="com.intellij.ide.util.TipDialog" timestamp="1590493609949">
+    <state x="649" y="91" key="SettingsEditor/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1590599436791" />
+    <state x="684" y="398" key="com.intellij.ide.util.TipDialog" timestamp="1590664066849">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="684" y="398" key="com.intellij.ide.util.TipDialog/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1590493609949" />
+    <state x="684" y="398" key="com.intellij.ide.util.TipDialog/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1590664066849" />
   </component>
 </project>

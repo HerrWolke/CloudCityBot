@@ -131,7 +131,7 @@ public class CommandListener extends ListenerAdapter {
             }
         } else if (messageContent.split("\\s++")[0].equalsIgnoreCase("&setfriendcode")) {
             if (e.getMessage().getContentRaw().split("\\s++")[1].matches("\\w{5}-\\w{4}")) {
-                utils.GreenBuilder("Success", e.getMember(), e.getChannel(), "Your friend code has been set to " + e.getMessage().getContentRaw().split("\\s++")[1], 0, false);
+                utils.GreenBuilder("Success", "Your friend code has been set to " + e.getMessage().getContentRaw().split("\\s++")[1], e.getMember(), e.getChannel(), false, 0);
                 try {
                     //Sets the friend code in the database
                     Objects.requireNonNull(SqlMain.mariaDB()).createStatement().executeQuery("UPDATE Users SET FriendCode = '" + e.getMessage().getContentRaw().split("\\s++")[1] + "' WHERE UserID  = '" + e.getMember().getId() + "';");
@@ -140,14 +140,14 @@ public class CommandListener extends ListenerAdapter {
                 }
             } else {
                 //If the friend code does not match the pattern of a friend code this message will be send
-                utils.YellowBuilder("Usage Help", member, txtChannel, "Your provided code is not a valid friend code. Please use &setfriendcode [FRIEND CODE] <- Format: abcde-abcd", 15, true);
+                utils.YellowBuilder("Usage Help","Your provided code is not a valid friend code. Please use &setfriendcode [FRIEND CODE] <- Format: abcde-abcd", member, txtChannel, true,  15);
             }
         } else if (messageContent.split("\\s++")[0].equalsIgnoreCase("&help")) {
             //Lists all commands
             utils.Generell(member, txtChannel, "#487eb0", "Command List", "&profile \n" + "&setfriendcode [FRIENDCODE] \n" + "&top10 \n" + "&version \n", false, 30);
         } else if (messageContent.split("\\s++")[0].equalsIgnoreCase("&membercount")) {
             //Sends a message containing a member count
-            utils.BlueBuilder("Member Count", member, txtChannel, "There are " + server.getMemberCount() + " people on this server", 0, false);
+            utils.BlueBuilder("Member Count", "There are " + server.getMemberCount() + " people on this server",txtChannel, member, false,  0);
 
         }
     }
