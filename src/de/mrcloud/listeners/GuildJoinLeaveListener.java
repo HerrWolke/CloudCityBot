@@ -7,9 +7,7 @@ import net.dv8tion.jda.api.entities.Category;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.User;
-import net.dv8tion.jda.api.events.guild.GuildLeaveEvent;
 import net.dv8tion.jda.api.events.guild.member.GuildMemberJoinEvent;
-import net.dv8tion.jda.api.events.guild.member.GuildMemberLeaveEvent;
 import net.dv8tion.jda.api.events.guild.member.GuildMemberRemoveEvent;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
@@ -40,7 +38,6 @@ public class GuildJoinLeaveListener extends ListenerAdapter {
         List<Permission> deny = Collections.singletonList(Permission.VIEW_CHANNEL);
 
 
-        System.out.println(member.getTimeJoined());
         DateTimeFormatter format = DateTimeFormatter.ofPattern("dd-MM-yyyy  HH:mm:ss");
         String formated = member.getTimeJoined().format(format);
 
@@ -71,8 +68,9 @@ public class GuildJoinLeaveListener extends ListenerAdapter {
 
         assert category != null;
         category.createTextChannel("Introduction for " + member.getEffectiveName()).addRolePermissionOverride(514511396491231233L, null, deny).addMemberPermissionOverride(member.getIdLong(), deny, null).queue((chan) -> {
-            utils.GreenBuilder("Welcome", "Um den Server freizuschalten, gib dir deine Wingman und Matchmaking Rollen in #csgo_roles.Schicke ansonsten bitte noch dein Freundescode hier rein, damit dich andere einfach adden können. Dies ist nicht notwendig, aber empfohlen. ", member, chan, false,  0);
-            utils.GreenBuilder("Info", "Wenn du Fragen hast, kannst du gerne in den support voice channel joinen.",member, chan, false,  0);
+            utils.GreenBuilder("Welcome", "Um den Server freizuschalten, gib dir deine Wingman und Matchmaking Rollen in #csgo_roles.Schicke ansonsten bitte noch dein Freundescode hier rein, damit dich andere einfach adden können. Dies ist nicht notwendig, aber empfohlen. ", member, chan, false, 0);
+            utils.GreenBuilder("Info", "Wenn du Fragen hast, kannst du gerne in den support voice channel joinen.", member, chan, false, 0);
+            utils.RedBuilder("Info", "Du kannst auch später deinen Freundescode setzten mit &setfriendcode. Wenn du alles hier gelesen und verstanden hast, antworte mit *DEINEM FREUNDESCODE* oder mit *SPÄTER*", member, chan, false, 0);
         });
 
 
@@ -92,7 +90,7 @@ public class GuildJoinLeaveListener extends ListenerAdapter {
             if (!e.getAuthor().isBot()) {
                 //compares the text with a regex
                 if (e.getMessage().getContentRaw().matches("\\w{5}-\\w{4}")) {
-                    utils.GreenBuilder("Success", "Your friend code has been set to " + e.getMessage().getContentRaw(),member, e.getChannel(), false,  0);
+                    utils.GreenBuilder("Success", "Your friend code has been set to " + e.getMessage().getContentRaw(), member, e.getChannel(), false, 0);
                     try {
                         Objects.requireNonNull(SqlMain.mariaDB()).createStatement().executeQuery("UPDATE Users SET FriendCode = '" + e.getMessage().getContentRaw() + "' WHERE UserID = " + e.getMember().getId() + ";");
                     } catch (SQLException e1) {
@@ -100,7 +98,7 @@ public class GuildJoinLeaveListener extends ListenerAdapter {
                     }
                     e.getChannel().delete().queue();
                 } else {
-                    utils.YellowBuilder("Usage Help","Your provided code is not a valid friend code", member, e.getChannel(), true,  15);
+                    utils.YellowBuilder("Usage Help", "Your provided code is not a valid friend code", member, e.getChannel(), true, 15);
                 }
             }
 
@@ -109,7 +107,7 @@ public class GuildJoinLeaveListener extends ListenerAdapter {
             if (!e.getAuthor().isBot()) {
                 //compares the text with a regex
                 if (e.getMessage().getContentRaw().matches("\\w{5}-\\w{4}")) {
-                    utils.GreenBuilder("Success","Your friend code has been set to " + e.getMessage().getContentRaw(), member, e.getChannel(), false,  0);
+                    utils.GreenBuilder("Success", "Your friend code has been set to " + e.getMessage().getContentRaw(), member, e.getChannel(), false, 0);
                     try {
                         Objects.requireNonNull(SqlMain.mariaDB()).createStatement().executeQuery("UPDATE Users SET FriendCode '= " + e.getMessage().getContentRaw() + "' WHERE UserID = " + e.getMember().getId() + ";");
                     } catch (SQLException e1) {
@@ -117,7 +115,7 @@ public class GuildJoinLeaveListener extends ListenerAdapter {
                     }
                     e.getChannel().delete().queue();
                 } else {
-                    utils.YellowBuilder("Usage Help",  "Your provided code is not a valid friend code",  e.getMember(), e.getChannel(), true,15);
+                    utils.YellowBuilder("Usage Help", "Your provided code is not a valid friend code", e.getMember(), e.getChannel(), true, 15);
                 }
             }
         }
@@ -127,8 +125,8 @@ public class GuildJoinLeaveListener extends ListenerAdapter {
     public void onGuildMemberRemove(@Nonnull GuildMemberRemoveEvent e) {
         super.onGuildMemberRemove(e);
 
-       User user = e.getUser();
-       user.openPrivateChannel().queue(privateChannel -> utils.PrivateBlackBuilder("Hi","I saw you left our Discord. Did you have any problems or did you not like something?",e.getMember(),privateChannel,false,0));
+        User user = e.getUser();
+        user.openPrivateChannel().queue(privateChannel -> utils.PrivateBlackBuilder("Hi", "I saw you left our Discord. Did you have any problems or did you not like something?", e.getMember(), privateChannel, false, 0));
     }
 }
 

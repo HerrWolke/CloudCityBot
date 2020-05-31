@@ -50,7 +50,7 @@ public class AutoCreateChannels extends ListenerAdapter {
             embBuilder.addField("Gamemode", "\uD83C\uDDF2 Matchamking \n \uD83C\uDDFC Wingman", true);
 
             newTextChannel.getManager().putPermissionOverride(member, allow, null).queue();
-            newTextChannel.getManager().putPermissionOverride(server.getRoleById(514511396491231233L),null , allow).queue();
+            newTextChannel.getManager().putPermissionOverride(server.getRoleById(514511396491231233L), null, allow).queue();
             newTextChannel.sendMessage(embBuilder.build()).queue((message) -> {
                 message.addReaction("\uD83C\uDDF2").queue();
                 message.addReaction("\uD83C\uDDFC").queue();
@@ -146,7 +146,6 @@ public class AutoCreateChannels extends ListenerAdapter {
 
         Guild server = e.getGuild();
         VoiceChannel voiceChannel = e.getChannelLeft();
-        System.out.println(voiceChannel.getName());
         Member member = e.getMember();
 
         if (voiceChannel.getName().matches("Matchmaking \\d*")) {

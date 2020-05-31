@@ -10,20 +10,18 @@ import net.dv8tion.jda.api.events.guild.voice.GuildVoiceMoveEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
 import javax.annotation.Nonnull;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class SearchingForMatchmakingListener extends ListenerAdapter {
-    HashMap<String, Integer> compare;
+    public static LinkedHashMap<String, Integer> compare = new LinkedHashMap<>();
+    public static LinkedHashMap<Integer, String> compareReverse = new LinkedHashMap<>();
+    public static LinkedHashMap<String, String> compareEmojiToRole = new LinkedHashMap<>();
     static List<Member> searchingForMatchmaking = new ArrayList<>();
 
     @Override
     public void onGuildVoiceJoin(@Nonnull GuildVoiceJoinEvent e) {
         super.onGuildVoiceJoin(e);
-        compare = new HashMap<>();
         int rankNumber = 0;
 
         Guild server = e.getGuild();
@@ -38,27 +36,6 @@ public class SearchingForMatchmakingListener extends ListenerAdapter {
         double durschnittsRang;
 
         String friendCodeToSend = utils.sqlGetCollum(Objects.requireNonNull(SqlMain.mariaDB()), member, "FriendCode");
-
-        //Only for Rank Comparing
-        compare.put("Silver Ⅰ", 1);
-        compare.put("Silver Ⅱ", 2);
-        compare.put("Silver Ⅲ", 3);
-        compare.put("Silver Ⅳ", 4);
-        compare.put("Silver Elite", 5);
-        compare.put("Silver Elite Master", 6);
-        compare.put("Gold Nova Ⅰ", 7);
-        compare.put("Gold Nova Ⅱ", 8);
-        compare.put("Gold Nova Ⅲ", 9);
-        compare.put("Gold Nova Ⅳ", 10);
-        compare.put("Master Guardian Ⅰ", 11);
-        compare.put("Master Guardian Ⅱ", 12);
-        compare.put("Master Guardian Elite", 13);
-        compare.put("Distinguished Master Guardian", 14);
-        compare.put("Legendary Eagle", 15);
-        compare.put("Legendary Eagle Master", 16);
-        compare.put("Supreme Master First Class", 17);
-        compare.put("Global Elite", 18);
-        //---------------------------
 
 
         if (voiceChannelJoined.getName().equals("Searching-For-Matchmaking")) {
@@ -144,7 +121,6 @@ public class SearchingForMatchmakingListener extends ListenerAdapter {
     public void onGuildVoiceMove(@Nonnull GuildVoiceMoveEvent e) {
         super.onGuildVoiceMove(e);
 
-        compare = new HashMap<>();
         int rankNumber = 0;
 
         Guild server = e.getGuild();
@@ -159,27 +135,6 @@ public class SearchingForMatchmakingListener extends ListenerAdapter {
 
         String friendCodeToSend = utils.sqlGetCollum(Objects.requireNonNull(SqlMain.mariaDB()), member, "FriendCode");
 
-        //Only for Rank Comparing
-        compare.put("Silver Ⅰ", 1);
-        compare.put("Silver Ⅱ", 2);
-        compare.put("Silver Ⅲ", 3);
-        compare.put("Silver Ⅳ", 4);
-        compare.put("Silver Elite", 5);
-        compare.put("Silver Elite Master", 6);
-        compare.put("Gold Nova Ⅰ", 7);
-        compare.put("Gold Nova Ⅱ", 8);
-        compare.put("Gold Nova Ⅲ", 9);
-        compare.put("Gold Nova Ⅳ", 10);
-        compare.put("Master Guardian Ⅰ", 11);
-        compare.put("Master Guardian Ⅱ", 12);
-        compare.put("Master Guardian Elite", 13);
-        compare.put("Distinguished Master Guardian", 14);
-        compare.put("Legendary Eagle", 15);
-        compare.put("Legendary Eagle Master", 16);
-        compare.put("Supreme Master First Class", 17);
-        compare.put("Global Elite", 18);
-        //---------------------------
-
         int rankNumber2 = 0;
         String roleName2;
         while (member.getRoles().size() > getRole2) {
@@ -192,7 +147,6 @@ public class SearchingForMatchmakingListener extends ListenerAdapter {
             getRole2++;
         }
         if (voiceChannelJoined.getName().equals("Searching-For-Matchmaking")) {
-            System.out.println("Mm Search");
 
             List<VoiceChannel> list = server.getVoiceChannelCache().applyStream(it ->
                     it.filter(channel -> channel.getName().matches("Matchmaking \\d*"))
@@ -221,7 +175,6 @@ public class SearchingForMatchmakingListener extends ListenerAdapter {
 
                             if (roleName.equals("╚═══ Wettkampf Rang ═══╗")) {
                                 rankNumber += compare.get(membersInVoice.get(i2).getRoles().get(getRole).getName());
-                                System.out.println(membersInVoice.get(i2).getRoles().get(getRole).getName());
                                 getRole = 30;
 
                             }

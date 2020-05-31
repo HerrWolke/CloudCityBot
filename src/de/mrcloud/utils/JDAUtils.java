@@ -2,9 +2,6 @@ package de.mrcloud.utils;
 
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.*;
-import net.dv8tion.jda.api.events.Event;
-import net.dv8tion.jda.api.events.GenericEvent;
-import net.dv8tion.jda.api.events.guild.GenericGuildEvent;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 
 import java.awt.*;
@@ -32,7 +29,7 @@ public class JDAUtils {
     }
 
 
-    public void RedBuilder(String Title, String ErrorText, Member member, TextChannel txtChannel, boolean delete , int deleteAfter) {
+    public void RedBuilder(String Title, String ErrorText, Member member, TextChannel txtChannel, boolean delete, int deleteAfter) {
         EmbedBuilder embBuilder = new EmbedBuilder();
         embBuilder.setTitle(Title);
         embBuilder.setAuthor(member.getUser().getName(), member.getUser().getAvatarUrl(), member.getUser().getAvatarUrl());
@@ -45,7 +42,8 @@ public class JDAUtils {
         }
 
     }
-    public void  BlackBuilder(String Title, String Text, Member member, TextChannel txtChannel, boolean delete , int deleteAfter) {
+
+    public void BlackBuilder(String Title, String Text, Member member, TextChannel txtChannel, boolean delete, int deleteAfter) {
         EmbedBuilder embBuilder = new EmbedBuilder();
         embBuilder.setTitle(Title);
         embBuilder.setAuthor(member.getUser().getName(), member.getUser().getAvatarUrl(), member.getUser().getAvatarUrl());
@@ -58,7 +56,8 @@ public class JDAUtils {
         }
 
     }
-    public void  PrivateBlackBuilder(String Title, String Text, Member member, PrivateChannel txtChannel, boolean delete , int deleteAfter) {
+
+    public void PrivateBlackBuilder(String Title, String Text, Member member, PrivateChannel txtChannel, boolean delete, int deleteAfter) {
         EmbedBuilder embBuilder = new EmbedBuilder();
         embBuilder.setTitle(Title);
         embBuilder.setAuthor(member.getUser().getName(), member.getUser().getAvatarUrl(), member.getUser().getAvatarUrl());
@@ -72,7 +71,7 @@ public class JDAUtils {
 
     }
 
-    public void YellowBuilder(String Title,String InfoText, Member member, TextChannel txtChannel, boolean delete,  int deleteAfter) {
+    public void YellowBuilder(String Title, String InfoText, Member member, TextChannel txtChannel, boolean delete, int deleteAfter) {
         EmbedBuilder embBuilder = new EmbedBuilder();
         embBuilder.setTitle(Title);
         embBuilder.setAuthor(member.getUser().getName(), member.getUser().getAvatarUrl(), member.getUser().getAvatarUrl());
@@ -86,7 +85,7 @@ public class JDAUtils {
 
     }
 
-    public void GreenBuilder(String Title,String InfoText, Member member, TextChannel txtChannel, boolean delete,  int deleteAfter) {
+    public void GreenBuilder(String Title, String InfoText, Member member, TextChannel txtChannel, boolean delete, int deleteAfter) {
         EmbedBuilder embBuilder = new EmbedBuilder();
         embBuilder.setTitle(Title);
         embBuilder.setAuthor(member.getUser().getName(), member.getUser().getAvatarUrl(), member.getUser().getAvatarUrl());
@@ -99,7 +98,8 @@ public class JDAUtils {
         }
 
     }
-    public void BlueBuilder(String Title,String InfoText, TextChannel txtChannel , Member member,  boolean delete , int deleteAfter) {
+
+    public void BlueBuilder(String Title, String InfoText, TextChannel txtChannel, Member member, boolean delete, int deleteAfter) {
         EmbedBuilder embBuilder = new EmbedBuilder();
         embBuilder.setTitle(Title);
         embBuilder.setAuthor(member.getUser().getName(), member.getUser().getAvatarUrl(), member.getUser().getAvatarUrl());
@@ -158,6 +158,7 @@ public class JDAUtils {
     public void addRoleToMember(Guild server, Member meber, String roleName) {
         server.addRoleToMember(meber, server.getRolesByName(roleName, true).get(0)).queue();
     }
+
     public String sqlGetCollum(Connection connection, Member member, String collumName) {
         String toGet = "";
         try {
@@ -172,6 +173,10 @@ public class JDAUtils {
             System.out.println(e.getLocalizedMessage());
         }
         return toGet;
+    }
+
+    private void addRoleToMemberByString(Member member, Guild server, String RoleName, int whichRoleToGet, boolean ignoreCase) {
+        server.addRoleToMember(member, server.getRolesByName(RoleName, ignoreCase).get(whichRoleToGet)).queue();
     }
 }
 

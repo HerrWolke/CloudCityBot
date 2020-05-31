@@ -17,6 +17,7 @@ import java.util.List;
 public class SupportListener extends ListenerAdapter {
     static List<Member> toMove = new ArrayList<>();
     public List<Permission> allow = Arrays.asList(Permission.VIEW_CHANNEL);
+
     @Override
     public void onGuildVoiceJoin(@Nonnull GuildVoiceJoinEvent e) {
         super.onGuildVoiceJoin(e);
@@ -40,9 +41,10 @@ public class SupportListener extends ListenerAdapter {
             }
 
             //Checks if a mod joined a mod support channel
-        } if (voiceChannelJoined.getName().equals("Support-Room-Mod")) {
+        }
+        if (voiceChannelJoined.getName().equals("Support-Room-Mod")) {
             assert category != null;
-            if(!toMove.isEmpty()) {
+            if (!toMove.isEmpty()) {
                 category.createVoiceChannel("Belegter Support Raum").setUserlimit(2).addRolePermissionOverride(514511396491231233L, null, allow).complete();
                 server.moveVoiceMember(member, server.getVoiceChannelsByName("Belegter Support Raum", true).get(0)).queue();
                 server.moveVoiceMember(toMove.get(0), server.getVoiceChannelsByName("Belegter Support Raum", true).get(0)).queue();
@@ -61,8 +63,8 @@ public class SupportListener extends ListenerAdapter {
 
 
         if (voiceChannelLeft.getName().equals("Support-Room")) {
-                toMove.remove(member);
-            }
+            toMove.remove(member);
+        }
 
     }
 }

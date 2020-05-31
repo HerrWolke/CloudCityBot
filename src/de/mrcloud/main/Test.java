@@ -18,14 +18,14 @@ public class Test {
 
 
         String friendCode = "SUZKH-76CC";
-        if(friendCode.matches("\\w{5}-\\w{4}")) {
+        if (friendCode.matches("\\w{5}-\\w{4}")) {
             System.out.println("Is friend code");
         }
 
-            if(date1.getMinutes() == date2.getMinutes()) {
-                System.out.println("yes true");
-            }
-            myList.add("Test2");
+        if (date1.getMinutes() == date2.getMinutes()) {
+            System.out.println("yes true");
+        }
+        myList.add("Test2");
         myList.add("Test3");
         myList.add("Test4");
 
@@ -33,10 +33,10 @@ public class Test {
 
         long diff = 3600000 * 24;
 
-       long diffSeconds = diff / 1000 % 60;
-       long diffMinutes = diff / (60 * 1000) % 60;
-       long diffHours = diff / (60 * 60 * 1000) % 24;
-       long diffDays = diff / (60 * 60 * 1000 * 24);
+        long diffSeconds = diff / 1000 % 60;
+        long diffMinutes = diff / (60 * 1000) % 60;
+        long diffHours = diff / (60 * 60 * 1000) % 24;
+        long diffDays = diff / (60 * 60 * 1000 * 24);
 
         System.out.println(diffDays + " days after x");
         System.out.println(diffHours + " hours after x");
@@ -48,9 +48,8 @@ public class Test {
         System.out.println(voiceChannel.split("\\s")[1]);
 
 
-
         String yes = "Matchmaking 02";
-        if(yes.matches("Matchmaking \\d*")) {
+        if (yes.matches("Matchmaking \\d*")) {
             System.out.println("y");
         }
         String startDate = "11/03/14 09:30:00";
@@ -59,7 +58,7 @@ public class Test {
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM, FormatStyle.MEDIUM);
         ZonedDateTime hereAndNow = ZonedDateTime.now();
         String test3 = dateTimeFormatter.format(hereAndNow);
-        System.out.println(test3.replaceAll(",",""));
+        System.out.println(test3.replaceAll(",", ""));
 
         SimpleDateFormat format = new SimpleDateFormat("yy/MM/dd HH:mm:ss");
 

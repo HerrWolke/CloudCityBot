@@ -4,19 +4,22 @@ import de.mrcloud.SQL.SqlMain;
 import de.mrcloud.utils.JDAUtils;
 import de.mrcloud.utils.Static;
 import net.dv8tion.jda.api.EmbedBuilder;
-import net.dv8tion.jda.api.entities.Guild;
-import net.dv8tion.jda.api.entities.Member;
-import net.dv8tion.jda.api.entities.Message;
-import net.dv8tion.jda.api.entities.TextChannel;
+import net.dv8tion.jda.api.JDA;
+import net.dv8tion.jda.api.entities.*;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
+import net.dv8tion.jda.api.managers.EmoteManager;
+import net.dv8tion.jda.api.requests.restaction.AuditableRestAction;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.awt.*;
+import java.sql.Array;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 import java.util.Objects;
 
 public class CommandListener extends ListenerAdapter {
@@ -24,13 +27,10 @@ public class CommandListener extends ListenerAdapter {
     @Override
     public void onGuildMessageReceived(@Nonnull GuildMessageReceivedEvent e) {
         super.onGuildMessageReceived(e);
-
-
         //Variables----------------
         String top10String = " ";
 
         JDAUtils utils = new JDAUtils();
-
 
         Guild server = e.getGuild();
         @Nonnull
@@ -60,7 +60,6 @@ public class CommandListener extends ListenerAdapter {
             DateTimeFormatter format = DateTimeFormatter.ofPattern("dd-MM-yyyy  HH:mm:ss");
             String formated = member.getTimeJoined().format(format);
 
-            System.out.println(member.getTimeJoined());
 
             try {
                 ResultSet resultSetCheck = statement.executeQuery("SELECT * FROM Users WHERE userID = " + member.getUser().getId() + ";");
@@ -104,7 +103,7 @@ public class CommandListener extends ListenerAdapter {
             embBuilder.addField("Active Since", activeSince, true);
             embBuilder.addField("Time in Voice Channel", day + " days, " + hour + " hours, " + min + " minutes," + seconds + " seconds ", true);
             txtChannel.sendMessage(embBuilder.build()).complete();
-        
+
         } else if (messageContent.equalsIgnoreCase("&top10")) {
             ResultSet top10;
             int i = 0;
@@ -140,17 +139,87 @@ public class CommandListener extends ListenerAdapter {
                 }
             } else {
                 //If the friend code does not match the pattern of a friend code this message will be send
-                utils.YellowBuilder("Usage Help","Your provided code is not a valid friend code. Please use &setfriendcode [FRIEND CODE] <- Format: abcde-abcd", member, txtChannel, true,  15);
+                utils.YellowBuilder("Usage Help", "Your provided code is not a valid friend code. Please use &setfriendcode [FRIEND CODE] <- Format: abcde-abcd", member, txtChannel, true, 15);
             }
-        } else if (messageContent.split("\\s++")[0].equalsIgnoreCase("&help")) {
+        } else if (messageContent.equalsIgnoreCase("&help")) {
             //Lists all commands
             utils.Generell(member, txtChannel, "#487eb0", "Command List", "&profile \n" + "&setfriendcode [FRIENDCODE] \n" + "&top10 \n" + "&version \n", false, 30);
-        } else if (messageContent.split("\\s++")[0].equalsIgnoreCase("&membercount")) {
+        } else if (messageContent.equalsIgnoreCase("&membercount")) {
             //Sends a message containing a member count
-            utils.BlueBuilder("Member Count", "There are " + server.getMemberCount() + " people on this server",txtChannel, member, false,  0);
+            utils.BlueBuilder("Member Count", "There are " + server.getMemberCount() + " people on this server", txtChannel, member, false, 0);
+        } else if (messageContent.equalsIgnoreCase("&copyrole")) {
+                message.getMentionedRoles().get(0).createCopy().queue();
+        } else if (messageContent.equalsIgnoreCase("&sendRoleMessages")) {
 
+            if (member.getId().equals(Static.CLOUD_ID_STRING)) {
+                message.delete().queue();
+                txtChannel.sendMessage("Wähle den Emoji, der mit dem \uD835\uDD4E\uD835\uDD56\uD835\uDD65\uD835\uDD65\uD835\uDD5C\uD835\uDD52\uD835\uDD5E\uD835\uDD61\uD835\uDD57-ℝ\uD835\uDD52\uD835\uDD5F\uD835\uDD58 den du in CS:GO hast, übereinstimmt\n" +
+                        "Silver Ⅰ → " + server.getEmotesByName("s1",true).get(0).getAsMention() +  "\n" +
+                        "Silver Ⅱ → " + server.getEmotesByName("s2",true).get(0).getAsMention() +  "\n" +
+                        "Silver Ⅲ → " + server.getEmotesByName("s3",true).get(0).getAsMention() +  "\n" +
+                        "Silver Ⅳ → " + server.getEmotesByName("s4",true).get(0).getAsMention() +  "\n" +
+                        "Silver Elite → " + server.getEmotesByName("se",true).get(0).getAsMention() +  "\n" +
+                        "Silver Elite Master → " + server.getEmotesByName("sem",true).get(0).getAsMention() +  "\n" +
+                        "Gold Nova Ⅰ → " + server.getEmotesByName("gn1",true).get(0).getAsMention() +  "\n" +
+                        "Gold Nova Ⅱ → " + server.getEmotesByName("gn2",true).get(0).getAsMention() +  "\n" +
+                        "Gold Nova Ⅲ → " + server.getEmotesByName("gn3",true).get(0).getAsMention() +  "\n" +
+                        "Gold Nova Ⅳ → " + server.getEmotesByName("gn4",true).get(0).getAsMention() +  "\n" +
+                        "Master Guardian Ⅰ → " + server.getEmotesByName("mg",true).get(0).getAsMention() +  "\n" +
+                        "Master Guardian Ⅱ → " + server.getEmotesByName("mg2",true).get(0).getAsMention() +  "\n" +
+                        "Master Guardian Elite → " + server.getEmotesByName("mge",true).get(0).getAsMention() +  "\n" +
+                        "Distinguished Master Guardian → " + server.getEmotesByName("dmg",true).get(0).getAsMention() +  "\n" +
+                        "Legendary Eagle → :le: " + server.getEmotesByName("le",true).get(0).getAsMention() +  "\n" +
+                        "Legendary Eagle Master → :lem: " + server.getEmotesByName("lem",true).get(0).getAsMention() +  "\n" +
+                        "Supreme Master First Class → :supreme: " + server.getEmotesByName("supreme",true).get(0).getAsMention() +  "\n" +
+                        "Global Elite → " + server.getEmotesByName("global",true).get(0).getAsMention()).queue(message1 -> {
+                    int i = 0;
+                    message1.addReaction(server.getEmotesByName("unranked", true).get(0)).queue();
+                    while (SearchingForMatchmakingListener.compareEmojiToRole.keySet().toArray().length > i) {
+                        message1.addReaction(server.getEmotesByName(SearchingForMatchmakingListener.compareEmojiToRole.keySet().toArray()[i].toString(), true).get(0)).queue();
+                        i++;
+                    }
+                });
+                txtChannel.sendMessage("Wähle den Emoji, der mit dem \uD835\uDD4E\uD835\uDD5A\uD835\uDD5F\uD835\uDD58\uD835\uDD5E\uD835\uDD52\uD835\uDD5F-ℝ\uD835\uDD52\uD835\uDD5F\uD835\uDD58 den du in CS:GO hast, übereinstimmt\n" +
+                        "Silver Ⅰ → " + server.getEmotesByName("s1",true).get(0).getAsMention() +  "\n" +
+                        "Silver Ⅱ → " + server.getEmotesByName("s2",true).get(0).getAsMention() +  "\n" +
+                        "Silver Ⅲ → " + server.getEmotesByName("s3",true).get(0).getAsMention() +  "\n" +
+                        "Silver Ⅳ → " + server.getEmotesByName("s4",true).get(0).getAsMention() +  "\n" +
+                        "Silver Elite → " + server.getEmotesByName("se",true).get(0).getAsMention() +  "\n" +
+                        "Silver Elite Master → " + server.getEmotesByName("sem",true).get(0).getAsMention() +  "\n" +
+                        "Gold Nova Ⅰ → " + server.getEmotesByName("gn1",true).get(0).getAsMention() +  "\n" +
+                        "Gold Nova Ⅱ → " + server.getEmotesByName("gn2",true).get(0).getAsMention() +  "\n" +
+                        "Gold Nova Ⅲ → " + server.getEmotesByName("gn3",true).get(0).getAsMention() +  "\n" +
+                        "Gold Nova Ⅳ → " + server.getEmotesByName("gn4",true).get(0).getAsMention() +  "\n" +
+                        "Master Guardian Ⅰ → " + server.getEmotesByName("mg",true).get(0).getAsMention() +  "\n" +
+                        "Master Guardian Ⅱ → " + server.getEmotesByName("mg2",true).get(0).getAsMention() +  "\n" +
+                        "Master Guardian Elite → " + server.getEmotesByName("mge",true).get(0).getAsMention() +  "\n" +
+                        "Distinguished Master Guardian → " + server.getEmotesByName("dmg",true).get(0).getAsMention() +  "\n" +
+                        "Legendary Eagle → :le: " + server.getEmotesByName("le",true).get(0).getAsMention() +  "\n" +
+                        "Legendary Eagle Master → :lem: " + server.getEmotesByName("lem",true).get(0).getAsMention() +  "\n" +
+                        "Supreme Master First Class → :supreme: " + server.getEmotesByName("supreme",true).get(0).getAsMention() +  "\n" +
+                        "Global Elite → " + server.getEmotesByName("global",true).get(0).getAsMention()).queue(message1 -> {
+                    int i = 0;
+                    message1.addReaction(server.getEmotesByName("unranked", true).get(0)).queue();
+                    while (SearchingForMatchmakingListener.compareEmojiToRole.keySet().toArray().length > i) {
+                        message1.addReaction(server.getEmotesByName(SearchingForMatchmakingListener.compareEmojiToRole.keySet().toArray()[i].toString(), true).get(0)).queue();
+                        i++;
+                    }
+                });
+                txtChannel.sendMessage("Wenn du dir den Prime Status in CS:GO gekauft hast, wähle den grünen Hacken. Wenn nicht dann das rote Kreuz.\n" +
+                        "Prime  →   :white_check_mark:\n" +
+                        "none prime  →   :x:").queue(message1 -> {
+                            message1.addReaction(server.getEmotesByName("hackengrn",true).get(0)).queue();
+                            message1.addReaction("U+274C").queue();
+                        });
+            }
+        } else if (messageContent.split("\\s++")[0].equalsIgnoreCase("&say")) {
+            String[] splitMessage = messageContent.split("\\s++");
+            if(splitMessage.length == 2) {
+                if(!message.getMentionedChannels().isEmpty()) {
+                    message.getMentionedChannels().get(0).sendMessage(splitMessage[1]).queue();
+                }
+            }
         }
     }
 }
-
 
