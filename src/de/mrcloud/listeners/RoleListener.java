@@ -3,9 +3,11 @@ package de.mrcloud.listeners;
 import de.mrcloud.utils.JDAUtils;
 import net.dv8tion.jda.api.entities.*;
 import net.dv8tion.jda.api.events.message.guild.react.GuildMessageReactionAddEvent;
+import net.dv8tion.jda.api.events.message.guild.react.GuildMessageReactionRemoveEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import org.jetbrains.annotations.NotNull;
 
+import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,7 +30,21 @@ public class RoleListener extends ListenerAdapter {
 
             if (!member.getUser().isBot()) {
                 //Aka matchmaing rank message
-                if (e.getMessageId().equals("712705608251342879")) {
+                if (e.getMessageId().equals("716726166618243142")) {
+                    int getRole2 = 0;
+                    boolean hasMMRole;
+                    String roleName2;
+                    while (member.getRoles().size() > getRole2) {
+                        roleName2 = member.getRoles().get(getRole2).getName();
+
+                        if (roleName2.equals("╚═══ Wettkampf Rang ═══╗")) {
+                            if(SearchingForMatchmakingListener.compare.containsKey(member.getRoles().get((getRole2 + 1)).getName())) {
+
+                            }
+
+                        }
+                        getRole2++;
+                    }
                     switch (reacEmote.getName()) {
                         case "s1":
                         case "global":
@@ -61,7 +77,7 @@ public class RoleListener extends ListenerAdapter {
                             break;
                     }
                     //aka wingman rank message
-                } else if (e.getMessageId().equals("709156105015787600")) {
+                } else if (e.getMessageId().equals("716726167586996284")) {
                     switch (reacEmote.getName()) {
                         case "s1":
                         case "global":
@@ -96,7 +112,7 @@ public class RoleListener extends ListenerAdapter {
                             server.addRoleToMember(member, toGiveToMember).queue();
                             break;
                     }
-                } else if (e.getMessageId().equals("709192438392029313")) {
+                } else if (e.getMessageId().equals("716726168627183616")) {
                     switch (emoteName) {
                         case "hackengrn":
                             server.addRoleToMember(member, server.getRolesByName("prime ✔", false).get(0)).queue();
@@ -113,6 +129,11 @@ public class RoleListener extends ListenerAdapter {
 
             }
         }
+    }
+
+    @Override
+    public void onGuildMessageReactionRemove(@Nonnull GuildMessageReactionRemoveEvent e) {
+        super.onGuildMessageReactionRemove(e);
     }
 }
 

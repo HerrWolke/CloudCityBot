@@ -57,10 +57,10 @@ public class JDAUtils {
 
     }
 
-    public void PrivateBlackBuilder(String Title, String Text, Member member, PrivateChannel txtChannel, boolean delete, int deleteAfter) {
+    public void PrivateBlackBuilder(String Title, String Text, User user, PrivateChannel txtChannel, boolean delete, int deleteAfter) {
         EmbedBuilder embBuilder = new EmbedBuilder();
         embBuilder.setTitle(Title);
-        embBuilder.setAuthor(member.getUser().getName(), member.getUser().getAvatarUrl(), member.getUser().getAvatarUrl());
+        embBuilder.setAuthor(user.getName(), user.getAvatarUrl(), user.getAvatarUrl());
         embBuilder.setColor(Color.decode("#1e272e"));
         embBuilder.setDescription(Text);
         if (delete) {

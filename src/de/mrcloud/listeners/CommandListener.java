@@ -5,6 +5,7 @@ import de.mrcloud.utils.JDAUtils;
 import de.mrcloud.utils.Static;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.JDA;
+import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.*;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
@@ -19,6 +20,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.format.DateTimeFormatter;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
@@ -219,6 +221,14 @@ public class CommandListener extends ListenerAdapter {
                     message.getMentionedChannels().get(0).sendMessage(splitMessage[1]).queue();
                 }
             }
+        } else if (messageContent.equalsIgnoreCase("&testfeature")) {
+            List<Permission> deny = Collections.singletonList(Permission.VIEW_CHANNEL);
+            server.createTextChannel("Introduction for " + member.getEffectiveName()).addRolePermissionOverride(514511396491231233L, null, deny).addMemberPermissionOverride(499207441456824322L, deny, null).queue((chan) -> {
+                utils.GreenBuilder("Welcome", "Um den Server freizuschalten, gib dir deine Wingman und Matchmaking Rollen in #csgo_roles.Schicke ansonsten bitte noch dein Freundescode hier rein, damit dich andere einfach adden können. Dies ist nicht notwendig, aber empfohlen. ", member, chan, false, 0);
+                utils.GreenBuilder("Info", "Wenn du Fragen hast, kannst du gerne in den support voice channel joinen.", member, chan, false, 0);
+                utils.RedBuilder("Info", "Du kannst auch später deinen Freundescode setzten mit &setfriendcode. Wenn du alles hier gelesen und verstanden hast, antworte mit *DEINEM FREUNDESCODE* oder mit *SPÄTER*", member, chan, false, 0);
+            });
+
         }
     }
 }

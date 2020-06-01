@@ -3,13 +3,11 @@ package de.mrcloud.listeners;
 import de.mrcloud.SQL.SqlMain;
 import de.mrcloud.utils.JDAUtils;
 import net.dv8tion.jda.api.Permission;
-import net.dv8tion.jda.api.entities.Category;
-import net.dv8tion.jda.api.entities.Guild;
-import net.dv8tion.jda.api.entities.Member;
-import net.dv8tion.jda.api.entities.User;
+import net.dv8tion.jda.api.entities.*;
 import net.dv8tion.jda.api.events.guild.member.GuildMemberJoinEvent;
 import net.dv8tion.jda.api.events.guild.member.GuildMemberRemoveEvent;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
+import net.dv8tion.jda.api.events.message.priv.PrivateMessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
 import javax.annotation.Nonnull;
@@ -18,11 +16,14 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.format.DateTimeFormatter;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
+import java.util.concurrent.TimeUnit;
 
 public class GuildJoinLeaveListener extends ListenerAdapter {
     JDAUtils utils = new JDAUtils();
+    public static HashMap<User, String> hasLeftOurServer = new HashMap<>();
 
     @Override
     public void onGuildMemberJoin(@Nonnull GuildMemberJoinEvent e) {
@@ -41,7 +42,7 @@ public class GuildJoinLeaveListener extends ListenerAdapter {
         DateTimeFormatter format = DateTimeFormatter.ofPattern("dd-MM-yyyy  HH:mm:ss");
         String formated = member.getTimeJoined().format(format);
 
-        Category category = server.getCategoryById("710482363578056704");
+        Category category = server.getCategoryById("717017605575278673");
 
         try {
             statement = Objects.requireNonNull(SqlMain.mariaDB()).createStatement();
@@ -96,8 +97,13 @@ public class GuildJoinLeaveListener extends ListenerAdapter {
                     } catch (SQLException e1) {
                         e1.printStackTrace();
                     }
-                    e.getChannel().delete().queue();
-                } else {
+                    e.getChannel().delete().queueAfter(20, TimeUnit.SECONDS);
+                } else if(e.getMessage().getContentRaw().equalsIgnoreCase("später")) {
+                    e.getChannel().sendMessage("Ok, du kannst jederzeit deinen Friendcode mit &setfriendcode setzen").queue();
+                    e.getChannel().delete().queueAfter(20, TimeUnit.SECONDS);
+                }
+
+                else {
                     utils.YellowBuilder("Usage Help", "Your provided code is not a valid friend code", member, e.getChannel(), true, 15);
                 }
             }
@@ -114,8 +120,13 @@ public class GuildJoinLeaveListener extends ListenerAdapter {
                         e1.printStackTrace();
                     }
                     e.getChannel().delete().queue();
-                } else {
-                    utils.YellowBuilder("Usage Help", "Your provided code is not a valid friend code", e.getMember(), e.getChannel(), true, 15);
+                }  else if(e.getMessage().getContentRaw().equalsIgnoreCase("später")) {
+                    e.getChannel().sendMessage("Ok, du kannst jederzeit deinen Friendcode mit &setfriendcode setzen").queue();
+                    e.getChannel().delete().queueAfter(20, TimeUnit.SECONDS);
+                }
+
+                else {
+                    utils.YellowBuilder("Usage Help", "Your provided code is not a valid friend code", member, e.getChannel(), true, 15);
                 }
             }
         }
@@ -126,7 +137,19 @@ public class GuildJoinLeaveListener extends ListenerAdapter {
         super.onGuildMemberRemove(e);
 
         User user = e.getUser();
-        user.openPrivateChannel().queue(privateChannel -> utils.PrivateBlackBuilder("Hi", "I saw you left our Discord. Did you have any problems or did you not like something?", e.getMember(), privateChannel, false, 0));
+        user.openPrivateChannel().queue(privateChannel -> utils.PrivateBlackBuilder("Hi", "Ich habe bemerkt dass du unseren Discord verlassen hast. Hattest du ein problem mit einer Person oder generell mit dem Server? Du kannst gerner mit Feedback hierauf antworten.",user, privateChannel, false, 0));
+    }
+
+    @Override
+    public void onPrivateMessageReceived(@Nonnull PrivateMessageReceivedEvent e) {
+        super.onPrivateMessageReceived(e);
+        Message message = e.getMessage();
+        String messageContent = message.getContentRaw();
+        PrivateChannel privateChannel = e.getChannel();
+        User user = e.getAuthor();
+
+
+
     }
 }
 
