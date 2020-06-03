@@ -13,10 +13,12 @@ import javax.security.auth.login.LoginException;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.security.Key;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
 import java.util.Objects;
+import java.util.Set;
 
 public class Main {
 
@@ -138,10 +140,13 @@ public class Main {
             try {
                 while ((line = reader.readLine()) != null) {
                     if (line.equalsIgnoreCase("Stop")) {
-
-                        for (String key : ActivityListener.timeInChannel.keySet()) {
-                            activityListener.saveChannelTime(Objects.requireNonNull(shardMan.getGuildById("514511396491231233")).getMemberById(key), ActivityListener.timeInChannel);
+                        Object[] set =  ActivityListener.timeInChannel.keySet().toArray();
+                        System.out.println(set[0]);
+                        int i = 0;
+                        while(ActivityListener.timeInChannel.keySet().iterator().hasNext()) {
+                            activityListener.saveChannelTime(Objects.requireNonNull(shardMan.getGuildById("514511396491231233")).getMemberById(set[i].toString()), ActivityListener.timeInChannel);
                             System.out.println("Worked");
+                            i++;
                         }
                         if (shardMan != null) {
                             shardMan.setStatus(OnlineStatus.OFFLINE);
