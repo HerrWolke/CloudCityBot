@@ -84,10 +84,14 @@ public class GuildJoinLeaveListener extends ListenerAdapter {
     public void onGuildMessageReceived(@Nonnull GuildMessageReceivedEvent e) {
         super.onGuildMessageReceived(e);
 
-        @Nonnull
-        Member member = Objects.requireNonNull(e.getMember());
+        String shouldBe = "";
+        Member member = e.getMember();
+        String[] splitChannelName = e.getChannel().getName().split("-");
+        if(splitChannelName.length > 2) {
+            shouldBe = splitChannelName[0] + "-" + splitChannelName[1];
+        }
 
-        if (e.getChannel().getName().equalsIgnoreCase("introduction-for-" + e.getAuthor().getName())) {
+        if (shouldBe.equals("introduction-for")) {
             if (!e.getAuthor().isBot()) {
                 //compares the text with a regex
                 if (e.getMessage().getContentRaw().matches("\\w{5}-\\w{4}")) {
@@ -99,28 +103,6 @@ public class GuildJoinLeaveListener extends ListenerAdapter {
                     }
                     e.getChannel().delete().queueAfter(20, TimeUnit.SECONDS);
                 } else if(e.getMessage().getContentRaw().equalsIgnoreCase("später")) {
-                    e.getChannel().sendMessage("Ok, du kannst jederzeit deinen Friendcode mit &setfriendcode setzen").queue();
-                    e.getChannel().delete().queueAfter(20, TimeUnit.SECONDS);
-                }
-
-                else {
-                    utils.YellowBuilder("Usage Help", "Your provided code is not a valid friend code", member, e.getChannel(), true, 15);
-                }
-            }
-
-            //Checks if the channel name is split by spaces and replaces them with the discorrd -
-        } else if (e.getChannel().getName().equalsIgnoreCase("introduction-for-" + e.getAuthor().getName().replaceAll("\\s++", "-"))) {
-            if (!e.getAuthor().isBot()) {
-                //compares the text with a regex
-                if (e.getMessage().getContentRaw().matches("\\w{5}-\\w{4}")) {
-                    utils.GreenBuilder("Success", "Your friend code has been set to " + e.getMessage().getContentRaw(), member, e.getChannel(), false, 0);
-                    try {
-                        Objects.requireNonNull(SqlMain.mariaDB()).createStatement().executeQuery("UPDATE Users SET FriendCode '= " + e.getMessage().getContentRaw() + "' WHERE UserID = " + e.getMember().getId() + ";");
-                    } catch (SQLException e1) {
-                        e1.printStackTrace();
-                    }
-                    e.getChannel().delete().queue();
-                }  else if(e.getMessage().getContentRaw().equalsIgnoreCase("später")) {
                     e.getChannel().sendMessage("Ok, du kannst jederzeit deinen Friendcode mit &setfriendcode setzen").queue();
                     e.getChannel().delete().queueAfter(20, TimeUnit.SECONDS);
                 }

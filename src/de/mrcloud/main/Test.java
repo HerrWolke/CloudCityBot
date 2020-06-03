@@ -16,6 +16,8 @@ public class Test {
         Date date1 = new Date();
         Date date2 = new Date();
 
+        String testname = "introduction-for-mrcloud-handy";
+        System.out.println(testname.split("-")[0] + "-" +testname.split("-")[1]);
 
         String friendCode = "SUZKH-76CC";
         if (friendCode.matches("\\w{5}-\\w{4}")) {

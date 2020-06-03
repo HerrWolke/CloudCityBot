@@ -8,10 +8,8 @@
   <component name="ChangeListManager">
     <list default="true" id="8bb7562a-21d9-4e4b-8808-09f3fc0f2ed5" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/de/mrcloud/listeners/CommandListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/de/mrcloud/listeners/CommandListener.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/de/mrcloud/listeners/GuildJoinLeaveListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/de/mrcloud/listeners/GuildJoinLeaveListener.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/de/mrcloud/listeners/RoleListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/de/mrcloud/listeners/RoleListener.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/de/mrcloud/utils/JDAUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/de/mrcloud/utils/JDAUtils.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/de/mrcloud/main/Test.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/de/mrcloud/main/Test.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -53,7 +51,7 @@
       <recent name="D:\Desktop\Java Shit\CloudCityBot" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.Main">
+  <component name="RunManager" selected="Application.Test">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="de.mrcloud.main.Main" />
       <module name="CloudCityBot" />
@@ -86,8 +84,8 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.Main" />
         <item itemvalue="Application.Test" />
+        <item itemvalue="Application.Main" />
       </list>
     </recent_temporary>
   </component>
@@ -145,50 +143,50 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="740" y="261" key="FileChooserDialogImpl/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1590944138205" />
-    <state width="1877" height="282" key="GridCell.Tab.0.bottom" timestamp="1591020444622">
+    <state width="1877" height="203" key="GridCell.Tab.0.bottom" timestamp="1591027441955">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1237" height="282" key="GridCell.Tab.0.bottom/0.0.1280.984/1280.0.1920.1040@0.0.1280.984" timestamp="1590951448851" />
-    <state width="1877" height="282" key="GridCell.Tab.0.bottom/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1591020444622" />
-    <state width="1877" height="282" key="GridCell.Tab.0.center" timestamp="1591020444622">
+    <state width="1877" height="203" key="GridCell.Tab.0.bottom/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1591027441955" />
+    <state width="1877" height="203" key="GridCell.Tab.0.center" timestamp="1591027441954">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1237" height="282" key="GridCell.Tab.0.center/0.0.1280.984/1280.0.1920.1040@0.0.1280.984" timestamp="1590951448843" />
-    <state width="1877" height="282" key="GridCell.Tab.0.center/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1591020444622" />
-    <state width="1877" height="282" key="GridCell.Tab.0.left" timestamp="1591020444622">
+    <state width="1877" height="203" key="GridCell.Tab.0.center/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1591027441954" />
+    <state width="1877" height="203" key="GridCell.Tab.0.left" timestamp="1591027441953">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1237" height="282" key="GridCell.Tab.0.left/0.0.1280.984/1280.0.1920.1040@0.0.1280.984" timestamp="1590951448838" />
-    <state width="1877" height="282" key="GridCell.Tab.0.left/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1591020444622" />
-    <state width="1877" height="282" key="GridCell.Tab.0.right" timestamp="1591020444622">
+    <state width="1877" height="203" key="GridCell.Tab.0.left/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1591027441953" />
+    <state width="1877" height="203" key="GridCell.Tab.0.right" timestamp="1591027441954">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state width="1237" height="282" key="GridCell.Tab.0.right/0.0.1280.984/1280.0.1920.1040@0.0.1280.984" timestamp="1590951448847" />
-    <state width="1877" height="282" key="GridCell.Tab.0.right/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1591020444622" />
-    <state width="1877" height="348" key="GridCell.Tab.1.bottom" timestamp="1591020041251">
+    <state width="1877" height="203" key="GridCell.Tab.0.right/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1591027441954" />
+    <state width="1877" height="348" key="GridCell.Tab.1.bottom" timestamp="1591027441931">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="348" key="GridCell.Tab.1.bottom/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1591020041251" />
-    <state width="1877" height="348" key="GridCell.Tab.1.center" timestamp="1591020041251">
+    <state width="1877" height="348" key="GridCell.Tab.1.bottom/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1591027441931" />
+    <state width="1877" height="348" key="GridCell.Tab.1.center" timestamp="1591027441928">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="348" key="GridCell.Tab.1.center/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1591020041251" />
-    <state width="1877" height="348" key="GridCell.Tab.1.left" timestamp="1591020041251">
+    <state width="1877" height="348" key="GridCell.Tab.1.center/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1591027441928" />
+    <state width="1877" height="348" key="GridCell.Tab.1.left" timestamp="1591027441927">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="348" key="GridCell.Tab.1.left/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1591020041251" />
-    <state width="1877" height="348" key="GridCell.Tab.1.right" timestamp="1591020041251">
+    <state width="1877" height="348" key="GridCell.Tab.1.left/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1591027441927" />
+    <state width="1877" height="348" key="GridCell.Tab.1.right" timestamp="1591027441930">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="348" key="GridCell.Tab.1.right/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1591020041251" />
+    <state width="1877" height="348" key="GridCell.Tab.1.right/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1591027441930" />
     <state x="504" y="232" key="SettingsEditor" timestamp="1590754471624">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="504" y="232" key="SettingsEditor/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1590754471624" />
-    <state x="456" y="377" key="com.intellij.ide.util.TipDialog" timestamp="1591013886527">
+    <state x="456" y="377" key="com.intellij.ide.util.TipDialog" timestamp="1591180183128">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="456" y="377" key="com.intellij.ide.util.TipDialog/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1591013886527" />
+    <state x="456" y="377" key="com.intellij.ide.util.TipDialog/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1591180183128" />
     <state x="2604" y="398" key="com.intellij.ide.util.TipDialog/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1590696980064" />
     <state x="690" y="275" key="extract.method.dialog" timestamp="1590942419458">
       <screen x="0" y="0" width="1920" height="1040" />
