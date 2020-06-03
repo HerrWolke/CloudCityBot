@@ -28,23 +28,37 @@ public class RoleListener extends ListenerAdapter {
             Role toGiveToMember = null;
             JDAUtils utils = new JDAUtils();
 
+            int getRoleMM = 0;
+            String roleNameMM;
+            boolean hasMatchmakingRole = false;
+            while (member.getRoles().size() > getRoleMM) {
+                roleNameMM = member.getRoles().get(getRoleMM).getName();
+
+                if (roleNameMM.equals("╚═══ Wettkampf Rang ═══╗")) {
+                    if(SearchingForMatchmakingListener.compare.containsKey(member.getRoles().get(getRoleMM + 1).getName()))
+                        hasMatchmakingRole = true;
+                }
+                getRoleMM++;
+            }
+            int getRoleWM = 0;
+            String roleNameWM;
+            boolean hasWingmanRole = false;
+            while (member.getRoles().size() > getRoleWM) {
+                roleNameWM = member.getRoles().get(getRoleWM).getName();
+
+                if (roleNameWM.equals("╚═══ Wettkampf Rang ═══╗")) {
+                    if(SearchingForMatchmakingListener.compare.containsKey(member.getRoles().get(getRoleWM + 1).getName()))
+                        hasWingmanRole = true;
+                }
+                getRoleWM++;
+            }
+            
+            
+
             if (!member.getUser().isBot()) {
                 //Aka matchmaing rank message
                 if (e.getMessageId().equals("716726166618243142")) {
-                    int getRole2 = 0;
-                    boolean hasMMRole;
-                    String roleName2;
-                    while (member.getRoles().size() > getRole2) {
-                        roleName2 = member.getRoles().get(getRole2).getName();
-
-                        if (roleName2.equals("╚═══ Wettkampf Rang ═══╗")) {
-                            if(SearchingForMatchmakingListener.compare.containsKey(member.getRoles().get((getRole2 + 1)).getName())) {
-
-                            }
-
-                        }
-                        getRole2++;
-                    }
+                if(!hasMatchmakingRole) {
                     switch (reacEmote.getName()) {
                         case "s1":
                         case "global":
@@ -71,46 +85,49 @@ public class RoleListener extends ListenerAdapter {
                             hasMatchMakingRole.add(member);
 
                             break;
-                        case"unranked":
+                        case "unranked":
                             toGiveToMember = server.getRolesByName("unranked", true).get(0);
                             server.addRoleToMember(member, toGiveToMember).queue();
                             break;
                     }
+                }
                     //aka wingman rank message
                 } else if (e.getMessageId().equals("716726167586996284")) {
-                    switch (reacEmote.getName()) {
-                        case "s1":
-                        case "global":
-                        case "s2":
-                        case "s3":
-                        case "s4":
-                        case "se":
-                        case "supreme":
-                        case "lem":
-                        case "le":
-                        case "dmg":
-                        case "mge":
-                        case "mg2":
-                        case "mg":
-                        case "gn4":
-                        case "gn3":
-                        case "gn2":
-                        case "gn1":
-                        case "sem":
-                            //needs to be one because of the way discords sorts the role when getting them
-                            toGiveToMember = server.getRolesByName(SearchingForMatchmakingListener.compareEmojiToRole.get(emoteName), true).get(1);
-                            server.addRoleToMember(member, toGiveToMember).queue();
+                    if(!hasWingmanRole) {
+                        switch (reacEmote.getName()) {
+                            case "s1":
+                            case "global":
+                            case "s2":
+                            case "s3":
+                            case "s4":
+                            case "se":
+                            case "supreme":
+                            case "lem":
+                            case "le":
+                            case "dmg":
+                            case "mge":
+                            case "mg2":
+                            case "mg":
+                            case "gn4":
+                            case "gn3":
+                            case "gn2":
+                            case "gn1":
+                            case "sem":
+                                //needs to be one because of the way discords sorts the role when getting them
+                                toGiveToMember = server.getRolesByName(SearchingForMatchmakingListener.compareEmojiToRole.get(emoteName), true).get(1);
+                                server.addRoleToMember(member, toGiveToMember).queue();
 
-                            server.addRoleToMember(member, server.getRolesByName("╚═══ Wingman Rang ═══╗", true).get(0)).queue();
-                            if (hasMatchMakingRole.contains(member)) {
-                                utils.addRoleToMember(server, member, "Clouds ☁️");
-                                hasMatchMakingRole.remove(member);
-                            }
-                            break;
-                        case"unranked":
-                            toGiveToMember = server.getRolesByName("unranked", true).get(0);
-                            server.addRoleToMember(member, toGiveToMember).queue();
-                            break;
+                                server.addRoleToMember(member, server.getRolesByName("╚═══ Wingman Rang ═══╗", true).get(0)).queue();
+                                if (hasMatchMakingRole.contains(member)) {
+                                    utils.addRoleToMember(server, member, "Clouds ☁️");
+                                    hasMatchMakingRole.remove(member);
+                                }
+                                break;
+                            case "unranked":
+                                toGiveToMember = server.getRolesByName("unranked", true).get(0);
+                                server.addRoleToMember(member, toGiveToMember).queue();
+                                break;
+                        }
                     }
                 } else if (e.getMessageId().equals("716726168627183616")) {
                     switch (emoteName) {
@@ -134,6 +151,19 @@ public class RoleListener extends ListenerAdapter {
     @Override
     public void onGuildMessageReactionRemove(@Nonnull GuildMessageReactionRemoveEvent e) {
         super.onGuildMessageReactionRemove(e);
+
+        Guild server = e.getGuild();
+        TextChannel txtChannel = e.getChannel();
+        Member member = e.getMember();
+        MessageReaction.ReactionEmote reacEmote = e.getReactionEmote();
+        String emoteName = reacEmote.getName();
+        JDAUtils utils = new JDAUtils();
+
+        if (e.getMessageId().equals("716726166618243142")) {
+            utils.removeRoleFromMemberByString(member, server, SearchingForMatchmakingListener.compareEmojiToRole.get(emoteName), 0, true);
+        } else if(e.getMessageId().equals("716726167586996284")) {
+            utils.removeRoleFromMemberByString(member, server, SearchingForMatchmakingListener.compareEmojiToRole.get(emoteName), 1, true);
+        }
     }
 }
 
