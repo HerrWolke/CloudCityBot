@@ -175,8 +175,11 @@ public class JDAUtils {
         return toGet;
     }
 
-    private void addRoleToMemberByString(Member member, Guild server, String RoleName, int whichRoleToGet, boolean ignoreCase) {
+    public void addRoleToMemberByString(Member member, Guild server, String RoleName, int whichRoleToGet, boolean ignoreCase) {
         server.addRoleToMember(member, server.getRolesByName(RoleName, ignoreCase).get(whichRoleToGet)).queue();
+    }
+    public void removeRoleFromMemberByString(Member member, Guild server, String RoleName, int whichRoleToGet, boolean ignoreCase) {
+        server.removeRoleFromMember(member, server.getRolesByName(RoleName, ignoreCase).get(whichRoleToGet)).queue();
     }
 }
 
