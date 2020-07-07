@@ -1,22 +1,31 @@
 package de.mrcloud.listeners;
 
 import de.mrcloud.SQL.SqlMain;
+import de.mrcloud.listeners.csgo.AutoCreateChannels;
 import de.mrcloud.utils.JDAUtils;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.VoiceChannel;
 import net.dv8tion.jda.api.events.guild.voice.GuildVoiceJoinEvent;
+import net.dv8tion.jda.api.events.guild.voice.GuildVoiceLeaveEvent;
 import net.dv8tion.jda.api.events.guild.voice.GuildVoiceMoveEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
 import javax.annotation.Nonnull;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class SearchingForMatchmakingListener extends ListenerAdapter {
+    //A map to compare a rank name to his rank number
     public static LinkedHashMap<String, Integer> compare = new LinkedHashMap<>();
+    //Same in reverse
     public static LinkedHashMap<Integer, String> compareReverse = new LinkedHashMap<>();
+    //Compares
     public static LinkedHashMap<String, String> compareEmojiToRole = new LinkedHashMap<>();
+    //A list of persons which are searching for a mm
     static List<Member> searchingForMatchmaking = new ArrayList<>();
 
     @Override
@@ -34,13 +43,15 @@ public class SearchingForMatchmakingListener extends ListenerAdapter {
         int getRole;
         int getRole2 = 0;
         double durschnittsRang;
+        //Uses my method in utils to easily get a sql collum which in this case contains the FriendCode
+        String friendCodeToSend = utils.getSqlCollumString(Objects.requireNonNull(SqlMain.mariaDB()), "FriendCode", member);
 
-        String friendCodeToSend = utils.sqlGetCollum(Objects.requireNonNull(SqlMain.mariaDB()), member, "FriendCode");
 
-
+        //Checks if you joined a channel named searching for matchmaking
         if (voiceChannelJoined.getName().equals("Searching-For-Matchmaking")) {
             int rankNumber2 = 0;
             String roleName2;
+            //Searches for the matchmaking "overrole" and then gets the underlying role and then converts it to
             while (member.getRoles().size() > getRole2) {
                 roleName2 = member.getRoles().get(getRole2).getName();
 
@@ -114,6 +125,10 @@ public class SearchingForMatchmakingListener extends ListenerAdapter {
                 i++;
             }
 
+        } else if (voiceChannelJoined.getName().matches("matchmaking \\d*")) {
+            if (!friendCodeToSend.isEmpty()) {
+                AutoCreateChannels.channelOwner.get(voiceChannelJoined).getUser().openPrivateChannel().queue(privateChannel -> privateChannel.sendMessage("The friendcode of " + member.getNickname() + " is " + friendCodeToSend).queue());
+            }
         }
     }
 
@@ -133,7 +148,7 @@ public class SearchingForMatchmakingListener extends ListenerAdapter {
         int getRole2 = 0;
         double durschnittsRang;
 
-        String friendCodeToSend = utils.sqlGetCollum(Objects.requireNonNull(SqlMain.mariaDB()), member, "FriendCode");
+        String friendCodeToSend = utils.getSqlCollumString(Objects.requireNonNull(SqlMain.mariaDB()), "FriendCode", member);
 
         int rankNumber2 = 0;
         String roleName2;
@@ -146,7 +161,7 @@ public class SearchingForMatchmakingListener extends ListenerAdapter {
             }
             getRole2++;
         }
-        if (voiceChannelJoined.getName().equals("Searching-For-Matchmaking")) {
+        if (voiceChannelJoined.getId().equals("710482079653167115")) {
 
             List<VoiceChannel> list = server.getVoiceChannelCache().applyStream(it ->
                     it.filter(channel -> channel.getName().matches("Matchmaking \\d*"))
@@ -210,7 +225,18 @@ public class SearchingForMatchmakingListener extends ListenerAdapter {
                 i++;
             }
 
+        } else if (voiceChannelJoined.getName().matches("Matchmaking \\d*")) {
+            if (!friendCodeToSend.isEmpty()) {
+                if (AutoCreateChannels.channelOwner.containsKey(voiceChannelJoined)) {
+                    AutoCreateChannels.channelOwner.get(voiceChannelJoined).getUser().openPrivateChannel().queue(privateChannel -> privateChannel.sendMessage("The friendcode of " + member.getUser().getName() + " is " + friendCodeToSend).queue());
+                }
+            }
         }
+    }
+
+    @Override
+    public void onGuildVoiceLeave(@Nonnull GuildVoiceLeaveEvent e) {
+        super.onGuildVoiceLeave(e);
     }
 }
 

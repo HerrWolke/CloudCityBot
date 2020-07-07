@@ -1,4 +1,4 @@
-package de.mrcloud.listeners;
+package de.mrcloud.listeners.csgo;
 
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.Permission;
@@ -10,6 +10,7 @@ import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
 import javax.annotation.Nonnull;
 import java.awt.*;
+import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -17,7 +18,9 @@ import java.util.stream.Collectors;
 
 public class AutoCreateChannels extends ListenerAdapter {
     public static HashMap<VoiceChannel, Member> channelOwner = new HashMap<>();
-    public List<Permission> allow = Arrays.asList(Permission.VIEW_CHANNEL, Permission.MESSAGE_WRITE);
+    public static List<Permission> allow = Arrays.asList(Permission.VIEW_CHANNEL, Permission.MESSAGE_WRITE);
+    public static List<Permission> deny = Arrays.asList(Permission.VIEW_CHANNEL, Permission.MESSAGE_WRITE);
+    public static List<Permission> muted = Arrays.asList(Permission.VOICE_SPEAK);
 
     @Override
     public void onGuildVoiceJoin(@Nonnull GuildVoiceJoinEvent e) {
@@ -28,7 +31,7 @@ public class AutoCreateChannels extends ListenerAdapter {
         Category category = e.getChannelJoined().getParent();
         Member member = e.getMember();
 
-
+        
         if (voiceChannel.getId().equals("709796589253820577")) {
             server.getVoiceChannels();
             List<VoiceChannel> list = server.getVoiceChannelCache().applyStream(it ->
@@ -36,21 +39,20 @@ public class AutoCreateChannels extends ListenerAdapter {
                             .collect(Collectors.toList())
             );
             int matchmakingChannels = list.size() + 1;
-            VoiceChannel newChannel = category.createVoiceChannel("Matchmaking " + (list.size() + 1)).complete();
+            VoiceChannel newChannel = category.createVoiceChannel("Matchmaking " + (list.size() + 1)).addRolePermissionOverride(617058794899374119L,null,muted).complete();
             newChannel.getManager().setUserLimit(5).queue();
             server.moveVoiceMember(member, newChannel).queue();
 
+
             channelOwner.put(newChannel, member);
 
-            TextChannel newTextChannel = category.createTextChannel("Channel Settings " + matchmakingChannels).complete();
+            TextChannel newTextChannel = category.createTextChannel("Channel Settings " + matchmakingChannels).addMemberPermissionOverride(member.getIdLong(),allow,null).addRolePermissionOverride(514511396491231233L, null, deny).complete();
             EmbedBuilder embBuilder = new EmbedBuilder();
             embBuilder.setTitle("Channel Typ");
             embBuilder.setAuthor(member.getUser().getName(), member.getUser().getAvatarUrl(), member.getUser().getAvatarUrl());
             embBuilder.setColor(Color.decode("#00a8ff"));
             embBuilder.addField("Gamemode", "\uD83C\uDDF2 Matchamking \n \uD83C\uDDFC Wingman", true);
 
-            newTextChannel.getManager().putPermissionOverride(member, allow, null).queue();
-            newTextChannel.getManager().putPermissionOverride(server.getRoleById(514511396491231233L), null, allow).queue();
             newTextChannel.sendMessage(embBuilder.build()).queue((message) -> {
                 message.addReaction("\uD83C\uDDF2").queue();
                 message.addReaction("\uD83C\uDDFC").queue();
@@ -100,15 +102,13 @@ public class AutoCreateChannels extends ListenerAdapter {
 
             channelOwner.put(newChannel, member);
 
-            TextChannel newTextChannel = category.createTextChannel("Channel Settings " + matchmakingChannels).complete();
+            TextChannel newTextChannel = category.createTextChannel("Channel Settings " + matchmakingChannels).addMemberPermissionOverride(member.getIdLong(),allow,null).addRolePermissionOverride(514511396491231233L, null, deny).complete();
             EmbedBuilder embBuilder = new EmbedBuilder();
             embBuilder.setTitle("Channel Typ");
             embBuilder.setAuthor(member.getUser().getName(), member.getUser().getAvatarUrl(), member.getUser().getAvatarUrl());
             embBuilder.setColor(Color.decode("#00a8ff"));
             embBuilder.addField("Gamemode", "\uD83C\uDDF2 Matchamking \n \uD83C\uDDFC Wingman", true);
 
-            newTextChannel.getManager().putPermissionOverride(member, allow, null).queue();
-            newTextChannel.getManager().putPermissionOverride(server.getRoleById(514511396491231233L), null, allow).queue();
             newTextChannel.sendMessage(embBuilder.build()).queue((message) -> {
                 message.addReaction("\uD83C\uDDF2").queue();
                 message.addReaction("\uD83C\uDDFC").queue();

@@ -7,9 +7,65 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8bb7562a-21d9-4e4b-8808-09f3fc0f2ed5" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_apollographql_apollo_apollo_api_1_2_2.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_apollographql_apollo_apollo_runtime_1_2_2.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_fasterxml_jackson_datatype_jackson_datatype_jdk8_2_11_0.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_fasterxml_jackson_datatype_jackson_datatype_jsr310_2_11_0.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_github_ben_manes_caffeine_caffeine_2_8_2.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_github_philippheuer_credentialmanager_credentialmanager_0_1_1.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_github_philippheuer_events4j_events4j_api_0_7_1.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_github_philippheuer_events4j_events4j_core_0_7_1.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_github_philippheuer_events4j_events4j_handler_simple_0_7_1.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_github_twitch4j_twitch4j_1_0_0_alpha_20.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_github_twitch4j_twitch4j_auth_1_0_0_alpha_20.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_github_twitch4j_twitch4j_chat_1_0_0_alpha_20.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_github_twitch4j_twitch4j_common_1_0_0_alpha_20.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_github_twitch4j_twitch4j_graphql_1_0_0_alpha_20.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_github_twitch4j_twitch4j_helix_1_0_0_alpha_20.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_github_twitch4j_twitch4j_kraken_1_0_0_alpha_20.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_github_twitch4j_twitch4j_messaginginterface_1_0_0_alpha_20.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_github_twitch4j_twitch4j_pubsub_1_0_0_alpha_20.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_github_vladimir_bukhtoyarov_bucket4j_core_4_7_0.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_google_errorprone_error_prone_annotations_2_3_4.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_google_guava_guava_16_0.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_netflix_archaius_archaius_core_0_7_6.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_netflix_hystrix_hystrix_core_1_5_18.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_nytimes_android_cache_2_0_2.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__commons_configuration_commons_configuration_1_10.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__commons_lang_commons_lang_2_6.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__io_github_openfeign_feign_core_11_0.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__io_github_openfeign_feign_hystrix_11_0.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__io_github_openfeign_feign_jackson_11_0.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__io_github_openfeign_feign_okhttp_11_0.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__io_github_openfeign_feign_slf4j_11_0.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__io_micrometer_micrometer_core_1_3_2.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__io_reactivex_rxjava_1_2_0.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_commons_commons_lang3_3_10.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_checkerframework_checker_qual_3_3_0.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_hdrhistogram_HdrHistogram_2_1_9.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_latencyutils_LatencyUtils_2_0_3.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/de/mrcloud/listeners/DefenseListener.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/de/mrcloud/listeners/Twitch.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/de/mrcloud/listeners/moderation/ModCommands.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/de/mrcloud/utils/WrappedInvite.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/artifacts/CloudCityBot_jar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/artifacts/CloudCityBot_jar.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/de/mrcloud/listeners/GuildJoinLeaveListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/de/mrcloud/listeners/GuildJoinLeaveListener.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CloudCityBot.iml" beforeDir="false" afterPath="$PROJECT_DIR$/CloudCityBot.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/META-INF/MANIFEST.MF" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/de/mrcloud/listeners/ActivityListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/de/mrcloud/listeners/ActivityListener.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/de/mrcloud/listeners/AutoCreateChannels.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/de/mrcloud/listeners/csgo/AutoCreateChannels.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/de/mrcloud/listeners/CommandListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/de/mrcloud/listeners/CommandListener.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/de/mrcloud/listeners/FunListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/de/mrcloud/listeners/FunListener.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/de/mrcloud/listeners/GuildJoinLeaveListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/de/mrcloud/listeners/csgo/GuildJoinLeaveListener.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/de/mrcloud/listeners/ReactionListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/de/mrcloud/listeners/csgo/ReactionListener.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/de/mrcloud/listeners/RoleListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/de/mrcloud/listeners/csgo/RoleListener.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/de/mrcloud/listeners/SearchingForMatchmakingListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/de/mrcloud/listeners/SearchingForMatchmakingListener.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/de/mrcloud/listeners/SupportListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/de/mrcloud/listeners/moderation/SupportListener.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/de/mrcloud/listeners/TimeUnbanEtcListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/de/mrcloud/listeners/TimeUnbanEtcListener.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/de/mrcloud/main/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/de/mrcloud/main/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/de/mrcloud/main/Test.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/de/mrcloud/main/Test.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/de/mrcloud/utils/JDAUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/de/mrcloud/utils/JDAUtils.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -39,19 +95,20 @@
     <property name="GenerateAntBuildDialog.forceTargetJdk" value="true" />
     <property name="GenerateAntBuildDialog.outputFileNameProperty" value="cloudcitybot" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1590575786391" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../ReisMinerBot" />
-    <property name="project.structure.last.edited" value="Modules" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../Harr1sFnDiscordBot" />
+    <property name="project.structure.last.edited" value="Artifacts" />
     <property name="project.structure.proportion" value="0.15629742" />
     <property name="project.structure.side.proportion" value="0.2" />
-    <property name="settings.editor.selected.configurable" value="reference.settingsdialog.IDE.editor.colors.Java" />
+    <property name="settings.editor.selected.configurable" value="preferences.keymap" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="D:\Desktop\Java Shit\CloudCityBot" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.Test">
+  <component name="RunManager" selected="Application.Main">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="de.mrcloud.main.Main" />
       <module name="CloudCityBot" />
@@ -84,8 +141,8 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.Test" />
         <item itemvalue="Application.Main" />
+        <item itemvalue="Application.Test" />
       </list>
     </recent_temporary>
   </component>
@@ -131,62 +188,87 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="684" y="323" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1590658548012" />
-    <state x="765" y="226" key="#com.intellij.ide.util.MemberChooser" timestamp="1590070464646">
+    <state x="765" y="226" key="#com.intellij.ide.util.MemberChooser" timestamp="1591456522386">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="765" y="226" key="#com.intellij.ide.util.MemberChooser/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1590070464646" />
+    <state x="765" y="226" key="#com.intellij.ide.util.MemberChooser/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1591456522386" />
+    <state x="2459" y="405" key="#com.intellij.ide.util.TreeClassChooserDialog" timestamp="1593100707927">
+      <screen x="1920" y="0" width="1920" height="1040" />
+    </state>
+    <state x="2459" y="405" key="#com.intellij.ide.util.TreeClassChooserDialog/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1593100707927" />
     <state x="756" y="405" width="408" height="237" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes" timestamp="1590392751771">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="756" y="405" width="408" height="237" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1590392751771" />
-    <state x="740" y="261" key="FileChooserDialogImpl" timestamp="1590944138205">
+    <state x="690" y="267" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1591819250762">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="740" y="261" key="FileChooserDialogImpl/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1590944138205" />
-    <state width="1877" height="203" key="GridCell.Tab.0.bottom" timestamp="1591027441955">
+    <state x="690" y="267" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1591819250762" />
+    <state x="-24" y="0" width="1920" height="1040" key="FileChooserDialogImpl" timestamp="1593975106815">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1237" height="282" key="GridCell.Tab.0.bottom/0.0.1280.984/1280.0.1920.1040@0.0.1280.984" timestamp="1590951448851" />
-    <state width="1877" height="203" key="GridCell.Tab.0.bottom/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1591027441955" />
-    <state width="1877" height="203" key="GridCell.Tab.0.center" timestamp="1591027441954">
+    <state x="-24" y="0" width="1920" height="1040" key="FileChooserDialogImpl/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1593975106815" />
+    <state width="1877" height="185" key="GridCell.Tab.0.bottom" timestamp="1591962703347">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1237" height="282" key="GridCell.Tab.0.center/0.0.1280.984/1280.0.1920.1040@0.0.1280.984" timestamp="1590951448843" />
-    <state width="1877" height="203" key="GridCell.Tab.0.center/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1591027441954" />
-    <state width="1877" height="203" key="GridCell.Tab.0.left" timestamp="1591027441953">
+    <state width="1237" height="203" key="GridCell.Tab.0.bottom/0.0.1280.984/1280.0.1920.1040@0.0.1280.984" timestamp="1591192472749" />
+    <state width="1877" height="185" key="GridCell.Tab.0.bottom/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1591962703347" />
+    <state width="1877" height="185" key="GridCell.Tab.0.center" timestamp="1591962703347">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1237" height="282" key="GridCell.Tab.0.left/0.0.1280.984/1280.0.1920.1040@0.0.1280.984" timestamp="1590951448838" />
-    <state width="1877" height="203" key="GridCell.Tab.0.left/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1591027441953" />
-    <state width="1877" height="203" key="GridCell.Tab.0.right" timestamp="1591027441954">
+    <state width="1237" height="203" key="GridCell.Tab.0.center/0.0.1280.984/1280.0.1920.1040@0.0.1280.984" timestamp="1591192472742" />
+    <state width="1877" height="185" key="GridCell.Tab.0.center/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1591962703347" />
+    <state width="1877" height="185" key="GridCell.Tab.0.left" timestamp="1591962703347">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1237" height="282" key="GridCell.Tab.0.right/0.0.1280.984/1280.0.1920.1040@0.0.1280.984" timestamp="1590951448847" />
-    <state width="1877" height="203" key="GridCell.Tab.0.right/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1591027441954" />
-    <state width="1877" height="348" key="GridCell.Tab.1.bottom" timestamp="1591027441931">
+    <state width="1237" height="203" key="GridCell.Tab.0.left/0.0.1280.984/1280.0.1920.1040@0.0.1280.984" timestamp="1591192472739" />
+    <state width="1877" height="185" key="GridCell.Tab.0.left/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1591962703347" />
+    <state width="1877" height="185" key="GridCell.Tab.0.right" timestamp="1591962703347">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="348" key="GridCell.Tab.1.bottom/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1591027441931" />
-    <state width="1877" height="348" key="GridCell.Tab.1.center" timestamp="1591027441928">
+    <state width="1237" height="203" key="GridCell.Tab.0.right/0.0.1280.984/1280.0.1920.1040@0.0.1280.984" timestamp="1591192472745" />
+    <state width="1877" height="185" key="GridCell.Tab.0.right/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1591962703347" />
+    <state width="1877" height="185" key="GridCell.Tab.1.bottom" timestamp="1591475335146">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="348" key="GridCell.Tab.1.center/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1591027441928" />
-    <state width="1877" height="348" key="GridCell.Tab.1.left" timestamp="1591027441927">
+    <state width="1877" height="185" key="GridCell.Tab.1.bottom/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1591475335146" />
+    <state width="1877" height="185" key="GridCell.Tab.1.center" timestamp="1591475335146">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="348" key="GridCell.Tab.1.left/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1591027441927" />
-    <state width="1877" height="348" key="GridCell.Tab.1.right" timestamp="1591027441930">
+    <state width="1877" height="185" key="GridCell.Tab.1.center/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1591475335146" />
+    <state width="1877" height="185" key="GridCell.Tab.1.left" timestamp="1591475335146">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="348" key="GridCell.Tab.1.right/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1591027441930" />
-    <state x="504" y="232" key="SettingsEditor" timestamp="1590754471624">
+    <state width="1877" height="185" key="GridCell.Tab.1.left/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1591475335146" />
+    <state width="1877" height="185" key="GridCell.Tab.1.right" timestamp="1591475335146">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="504" y="232" key="SettingsEditor/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1590754471624" />
-    <state x="456" y="377" key="com.intellij.ide.util.TipDialog" timestamp="1591180183128">
+    <state width="1877" height="185" key="GridCell.Tab.1.right/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1591475335146" />
+    <state width="1877" height="185" key="GridCell.Tab.2.bottom" timestamp="1591469348685">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="456" y="377" key="com.intellij.ide.util.TipDialog/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1591180183128" />
+    <state width="1877" height="185" key="GridCell.Tab.2.bottom/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1591469348685" />
+    <state width="1877" height="185" key="GridCell.Tab.2.center" timestamp="1591469348685">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="185" key="GridCell.Tab.2.center/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1591469348685" />
+    <state width="1877" height="185" key="GridCell.Tab.2.left" timestamp="1591469348685">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="185" key="GridCell.Tab.2.left/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1591469348685" />
+    <state width="1877" height="185" key="GridCell.Tab.2.right" timestamp="1591469348685">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="185" key="GridCell.Tab.2.right/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1591469348685" />
+    <state x="2209" y="189" key="SettingsEditor" timestamp="1593100711376">
+      <screen x="1920" y="0" width="1920" height="1040" />
+    </state>
+    <state x="289" y="232" key="SettingsEditor/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1591196016009" />
+    <state x="2209" y="189" key="SettingsEditor/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1593100711376" />
+    <state x="135" y="320" key="com.intellij.ide.util.TipDialog" timestamp="1592599410390">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="135" y="320" key="com.intellij.ide.util.TipDialog/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1592599410390" />
     <state x="2604" y="398" key="com.intellij.ide.util.TipDialog/0.0.1920.1040/1920.0.1920.1040@1920.0.1920.1040" timestamp="1590696980064" />
     <state x="690" y="275" key="extract.method.dialog" timestamp="1590942419458">
       <screen x="0" y="0" width="1920" height="1040" />
@@ -196,9 +278,17 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="656" y="252" width="607" height="536" key="find.popup/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1590944230411" />
+    <state x="342" y="140" key="new project wizard" timestamp="1591961572785">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="342" y="140" key="new project wizard/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1591961572785" />
     <state x="616" y="240" key="run.anything.popup" timestamp="1590950666377">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="616" y="240" key="run.anything.popup/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1590950666377" />
+    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1591191387003">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040/1920.0.1920.1040@0.0.1920.1040" timestamp="1591191387003" />
   </component>
 </project>

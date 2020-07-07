@@ -1,5 +1,6 @@
-package de.mrcloud.listeners;
+package de.mrcloud.listeners.csgo;
 
+import de.mrcloud.listeners.SearchingForMatchmakingListener;
 import de.mrcloud.utils.JDAUtils;
 import net.dv8tion.jda.api.entities.*;
 import net.dv8tion.jda.api.events.message.guild.react.GuildMessageReactionAddEvent;
@@ -46,7 +47,7 @@ public class RoleListener extends ListenerAdapter {
             while (member.getRoles().size() > getRoleWM) {
                 roleNameWM = member.getRoles().get(getRoleWM).getName();
 
-                if (roleNameWM.equals("╚═══ Wettkampf Rang ═══╗")) {
+                if (roleNameWM.equals("╚═══ Wingman Rang ═══╗")) {
                     if(SearchingForMatchmakingListener.compare.containsKey(member.getRoles().get(getRoleWM + 1).getName()))
                         hasWingmanRole = true;
                 }
@@ -58,7 +59,7 @@ public class RoleListener extends ListenerAdapter {
             if (!member.getUser().isBot()) {
                 //Aka matchmaing rank message
                 if (e.getMessageId().equals("716726166618243142")) {
-                if(!hasMatchmakingRole) {
+                      if(!hasMatchmakingRole) {
                     switch (reacEmote.getName()) {
                         case "s1":
                         case "global":
@@ -83,6 +84,7 @@ public class RoleListener extends ListenerAdapter {
 
                             server.addRoleToMember(member, server.getRolesByName("╚═══ Wettkampf Rang ═══╗", true).get(0)).queue();
                             hasMatchMakingRole.add(member);
+                            utils.addRoleToMember(server, member, "Clouds ☁️");
 
                             break;
                         case "unranked":
@@ -141,6 +143,19 @@ public class RoleListener extends ListenerAdapter {
                     server.addRoleToMember(member, server.getRolesByName("╚═════ Info Rang  ═════╗", true).get(0)).queue();
                     utils.addRoleToMember(server, member, "Clouds ☁️");
                     hasMatchMakingRole.remove(member);
+                } else if (e.getMessageId().equals("716726168627183616")) {
+                    switch (emoteName) {
+                        //Thumbs up
+                        case "\\uD83D\\uDC4D":
+                            server.addRoleToMember(member, server.getRolesByName("CommunityNotify", false).get(0)).queue();
+                            break;
+
+                        case "\\uD83D\\uDC4E":
+                            member.getUser().openPrivateChannel().queue(PrivateChannel -> {
+                                PrivateChannel.sendMessage("Ok. Du kannst jederzeit dir den Rang noch geben.").queue();
+                            });
+                            break;
+                    }
                 }
 
 
@@ -163,6 +178,8 @@ public class RoleListener extends ListenerAdapter {
             utils.removeRoleFromMemberByString(member, server, SearchingForMatchmakingListener.compareEmojiToRole.get(emoteName), 0, true);
         } else if(e.getMessageId().equals("716726167586996284")) {
             utils.removeRoleFromMemberByString(member, server, SearchingForMatchmakingListener.compareEmojiToRole.get(emoteName), 1, true);
+        } else if (e.getMessageId().equals("716726168627183616")) {
+            utils.removeRoleFromMemberByString(member,server,"CommunityNotify",0,true);
         }
     }
 }

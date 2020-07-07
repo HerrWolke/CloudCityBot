@@ -40,6 +40,11 @@ public class FunListener extends ListenerAdapter {
             message.addReaction("\uD83C\uDDF4").queue();
             message.addReaction("⬜").queue();
             message.addReaction("\uD83C\uDDFA").queue();
+        }  else if (messageContent.equalsIgnoreCase("stfu")) {
+            message.addReaction("\uD83C\uDDF3").queue();
+            message.addReaction("\uD83C\uDDF4").queue();
+            message.addReaction("⬜").queue();
+            message.addReaction("\uD83C\uDDFA").queue();
         }
     }
 }

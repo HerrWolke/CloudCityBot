@@ -1,4 +1,4 @@
-package de.mrcloud.listeners;
+package de.mrcloud.listeners.csgo;
 
 import de.mrcloud.utils.JDAUtils;
 import net.dv8tion.jda.api.Permission;
@@ -7,12 +7,16 @@ import net.dv8tion.jda.api.events.message.guild.react.GuildMessageReactionAddEve
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
 import javax.annotation.Nonnull;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Objects;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class ReactionListener extends ListenerAdapter {
+    public static HashMap<Member, Date> hasCalledSuppoort = new HashMap<>();
     public List<Permission> allow = Arrays.asList(Permission.VOICE_CONNECT);
 
     @Override
@@ -55,14 +59,57 @@ public class ReactionListener extends ListenerAdapter {
                     matchmakingChannel.getManager().putPermissionOverride(server.getRoleById(514511396491231233L), null, allow).queue();
                     getMessageToRemoveReaction(txtChannel, messageID).get(0).removeReaction(reacEmote.getEmoji(), user).queue();
                 } else if (reacEmote.getName().equals("📞")) {
-                    int i = 0;
-                    List<Member> modTeamMembers = utils.getMembersWithRole(server, "Mod-Team");
-                    while (modTeamMembers.size() > i) {
-                        modTeamMembers.get(i).getUser().openPrivateChannel().queue(privateChannel -> privateChannel.sendMessage("A user in the Voice Channel " + Objects.requireNonNull(member.getVoiceState()).getChannel().getName() + " needs support!").queue());
-                        i++;
+                    //Formats current time in a normal format
+                    DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM, FormatStyle.MEDIUM);
+                    ZonedDateTime hereAndNow = ZonedDateTime.now();
+                    String test = dateTimeFormatter.format(hereAndNow);
+                    String stopDate = test.replaceAll(",", "");
 
+                    SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
+
+                    //---------------------------------------
+
+                    Date d2 = null;
+                    try {
+                        //Formats the channel join and leave time
+                        d2 = format.parse(stopDate);
+                    } catch (ParseException ex) {
+                        ex.printStackTrace();
                     }
-                    getMessageToRemoveReaction(txtChannel, messageID).get(0).removeReaction(reacEmote.getEmoji(), user).queue();
+
+
+                    if (hasCalledSuppoort.containsKey(member)) {
+                        System.out.println(hasCalledSuppoort.get(member).getMinutes());
+                        if (hasCalledSuppoort.get(member).getMinutes() + 5 <= d2.getMinutes() || hasCalledSuppoort.get(member).getDay() != d2.getDay() || hasCalledSuppoort.get(member).getHours() != d2.getHours()) {
+                            int i = 0;
+                            List<Member> modTeamMembers = utils.getMembersWithRole(server, "Mod-Team");
+                            while (modTeamMembers.size() > i) {
+                                modTeamMembers.get(i).getUser().openPrivateChannel().queue(privateChannel -> privateChannel.sendMessage("A user in the Voice Channel " + Objects.requireNonNull(member.getVoiceState()).getChannel().getName() + " needs support!").queue());
+                                i++;
+                                hasCalledSuppoort.remove(member);
+                                hasCalledSuppoort.put(member, d2);
+                            }
+                            getMessageToRemoveReaction(txtChannel, messageID).get(0).removeReaction(reacEmote.getEmoji(), user).queue();
+                        } else {
+                            System.out.println("older than 5 min ");
+                            member.getUser().openPrivateChannel().queue(privateChannel -> {
+                                privateChannel.sendMessage("Bitte nutze diesen Command nur alle 5 Minuten").queue();
+                                getMessageToRemoveReaction(txtChannel, messageID).get(0).removeReaction(reacEmote.getEmoji(), user).queue();
+                            });
+                        }
+                    } else {
+                        System.out.println("doesnt contain");
+                        int i = 0;
+                        List<Member> modTeamMembers = utils.getMembersWithRole(server, "Mod-Team");
+                        while (modTeamMembers.size() > i) {
+                            modTeamMembers.get(i).getUser().openPrivateChannel().queue(privateChannel -> privateChannel.sendMessage("A user in the Voice Channel " + Objects.requireNonNull(member.getVoiceState()).getChannel().getName() + " needs support!").queue());
+                            i++;
+
+                        }
+                        getMessageToRemoveReaction(txtChannel, messageID).get(0).removeReaction(reacEmote.getEmoji(), user).queue();
+                        hasCalledSuppoort.put(member, d2);
+                    }
+
                 }
         }
     }

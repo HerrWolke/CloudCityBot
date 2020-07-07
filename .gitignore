@@ -8,3 +8,4 @@ src/de/mrcloud/listeners/SecurityListener.java
 src/de/mrcloud/main/Test.java
 .idea/statistic.xml
 .idea/jarRepositories.xml
+.idea/libraries/*

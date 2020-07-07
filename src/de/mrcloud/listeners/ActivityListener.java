@@ -1,13 +1,12 @@
 package de.mrcloud.listeners;
 
 import de.mrcloud.SQL.SqlMain;
-import net.dv8tion.jda.api.entities.Category;
-import net.dv8tion.jda.api.entities.Guild;
-import net.dv8tion.jda.api.entities.Member;
-import net.dv8tion.jda.api.entities.VoiceChannel;
+import de.mrcloud.utils.JDAUtils;
+import net.dv8tion.jda.api.entities.*;
 import net.dv8tion.jda.api.events.guild.voice.GuildVoiceJoinEvent;
 import net.dv8tion.jda.api.events.guild.voice.GuildVoiceLeaveEvent;
 import net.dv8tion.jda.api.events.guild.voice.GuildVoiceMoveEvent;
+import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
 import javax.annotation.Nonnull;
@@ -21,6 +20,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Objects;
 
 public class ActivityListener extends ListenerAdapter {
 
@@ -40,7 +40,7 @@ public class ActivityListener extends ListenerAdapter {
         //-----------
 
         //Starts the time counting when you join a channel
-        if (!e.getChannelJoined().getName().equals("afk-bots-players")) {
+        if (!e.getChannelJoined().getId().equals("514517861440421907")) {
             DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM, FormatStyle.MEDIUM);
             ZonedDateTime hereAndNow = ZonedDateTime.now();
             String test = dateTimeFormatter.format(hereAndNow);
@@ -62,10 +62,10 @@ public class ActivityListener extends ListenerAdapter {
         Member member = e.getMember();
 
         //Saves your channel time when you join a afk channel by calling the saveChannelTime Method
-        if (e.getChannelJoined().getName().equals("afk-bots-players")) {
+        if (e.getChannelJoined().getId().equals("514517861440421907")) {
             saveChannelTime(member, timeInChannel);
         }
-        if (e.getChannelLeft().getName().equals("afk-bots-players")) {
+        if (e.getChannelLeft().getId().equals("514517861440421907")) {
             DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM, FormatStyle.MEDIUM);
             ZonedDateTime hereAndNow = ZonedDateTime.now();
             String test = dateTimeFormatter.format(hereAndNow);
@@ -88,6 +88,26 @@ public class ActivityListener extends ListenerAdapter {
         //Saves your channel time when you leave a voice channel by calling the saveChannelTime Method
         saveChannelTime(member, timeInChannel);
 
+    }
+
+    @Override
+    public void onGuildMessageReceived(@Nonnull GuildMessageReceivedEvent e) {
+        super.onGuildMessageReceived(e);
+        Message message = e.getMessage();
+        String messageContent = message.getContentRaw();
+        TextChannel txtChannel = e.getChannel();
+
+
+        JDAUtils utils = new JDAUtils();
+
+        if(!message.isWebhookMessage() && !e.getMember().getUser().isBot() && !txtChannel.getId().equals("514517861440421907")) {
+            Guild server = e.getGuild();
+            Member member = Objects.requireNonNull(e.getMember());
+
+
+            int messagesBefore = utils.getSqlCollumInt(SqlMain.mariaDB(),"MessageCount",member);
+            utils.setSQLCollum(SqlMain.mariaDB(),member.getId(),"MessageCount",Integer.toString((messagesBefore + 1)));
+        }
     }
 
     //The save channel time method

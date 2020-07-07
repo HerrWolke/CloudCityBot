@@ -1,5 +1,6 @@
 package de.mrcloud.utils;
 
+import de.mrcloud.SQL.SqlMain;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.*;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
@@ -84,6 +85,16 @@ public class JDAUtils {
         }
 
     }
+    public void UsageHelp( String InfoText, Member member, TextChannel txtChannel) {
+        EmbedBuilder embBuilder = new EmbedBuilder();
+        embBuilder.setTitle("Usage Help");
+        embBuilder.setAuthor(member.getUser().getName(), member.getUser().getAvatarUrl(), member.getUser().getAvatarUrl());
+        embBuilder.setColor(Color.decode("#f9ca24"));
+        embBuilder.setDescription(InfoText);
+            txtChannel.sendMessage(embBuilder.build()).complete().delete().queueAfter(10, TimeUnit.SECONDS);
+
+
+    }
 
     public void GreenBuilder(String Title, String InfoText, Member member, TextChannel txtChannel, boolean delete, int deleteAfter) {
         EmbedBuilder embBuilder = new EmbedBuilder();
@@ -159,7 +170,7 @@ public class JDAUtils {
         server.addRoleToMember(meber, server.getRolesByName(roleName, true).get(0)).queue();
     }
 
-    public String sqlGetCollum(Connection connection, Member member, String collumName) {
+    public String getSqlCollumString(Connection connection, String collumName, Member member) {
         String toGet = "";
         try {
             Statement statement = connection.createStatement();
@@ -171,8 +182,61 @@ public class JDAUtils {
         } catch (SQLException e) {
             e.printStackTrace();
             System.out.println(e.getLocalizedMessage());
+        } finally {
+            try {
+                SqlMain.mariaDB().close();
+            } catch (SQLException e1) {
+                e1.printStackTrace();
+            }
         }
         return toGet;
+    }
+    public int getSqlCollumInt(Connection connection, String collumName, Member member) {
+        int toGet = 0;
+        try {
+            Statement statement = connection.createStatement();
+
+            ResultSet result = statement.executeQuery("SELECT * FROM Users WHERE UserID = " + member.getId() + ";");
+            while (result.next()) {
+                toGet = result.getInt(collumName);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println(e.getLocalizedMessage());
+        }
+        return toGet;
+    }
+    public void setSQLCollum(Connection connection,String ID,String collumName, String toFillWith) {
+        try {
+            Statement statement = connection.createStatement();
+
+            ResultSet result = statement.executeQuery("SELECT * FROM Users WHERE UserID = " + ID + ";");
+            if(result != null && result.next()) {
+                statement.executeQuery("UPDATE Users SET " + collumName + " = '" + toFillWith + "' WHERE UserID = " + ID + ";");
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    public void setSQLCollumInt(Connection connection,String ID,String collumName, int toFillWith) {
+        try {
+            Statement statement = connection.createStatement();
+
+            ResultSet result = statement.executeQuery("SELECT * FROM Users WHERE UserID = " + ID + ";");
+            if(result != null && result.next()) {
+                statement.executeQuery("UPDATE Users SET " + collumName + " = '" + toFillWith + "' WHERE UserID = " + ID + ";");
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                SqlMain.mariaDB().close();
+            } catch (SQLException e1) {
+                e1.printStackTrace();
+            }
+        }
     }
 
     public void addRoleToMemberByString(Member member, Guild server, String RoleName, int whichRoleToGet, boolean ignoreCase) {
@@ -180,6 +244,12 @@ public class JDAUtils {
     }
     public void removeRoleFromMemberByString(Member member, Guild server, String RoleName, int whichRoleToGet, boolean ignoreCase) {
         server.removeRoleFromMember(member, server.getRolesByName(RoleName, ignoreCase).get(whichRoleToGet)).queue();
+    } public void addRoleToAllMembers(Guild server,Role toAdd) {
+        List<Member> members = server.getMembers();
+        int i = 0;
+        while(members.size() > i) {
+            server.addRoleToMember(members.get(i),toAdd).queue();
+        }
     }
 }
 

@@ -1,4 +1,4 @@
-package de.mrcloud.listeners;
+package de.mrcloud.listeners.csgo;
 
 import de.mrcloud.SQL.SqlMain;
 import de.mrcloud.utils.JDAUtils;
@@ -15,16 +15,14 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.format.DateTimeFormatter;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 public class GuildJoinLeaveListener extends ListenerAdapter {
     JDAUtils utils = new JDAUtils();
     public static HashMap<User, String> hasLeftOurServer = new HashMap<>();
-
+    public static List<Permission> deny = Arrays.asList(Permission.VIEW_CHANNEL, Permission.MESSAGE_WRITE);
+    public static List<Permission> allow = Arrays.asList(Permission.VIEW_CHANNEL, Permission.MESSAGE_WRITE);
     @Override
     public void onGuildMemberJoin(@Nonnull GuildMemberJoinEvent e) {
         super.onGuildMemberJoin(e);
@@ -36,7 +34,7 @@ public class GuildJoinLeaveListener extends ListenerAdapter {
         Statement statement = null;
         //-------
 
-        List<Permission> deny = Collections.singletonList(Permission.VIEW_CHANNEL);
+
 
 
         DateTimeFormatter format = DateTimeFormatter.ofPattern("dd-MM-yyyy  HH:mm:ss");
@@ -68,12 +66,14 @@ public class GuildJoinLeaveListener extends ListenerAdapter {
         }
 
         assert category != null;
-        category.createTextChannel("Introduction for " + member.getEffectiveName()).addRolePermissionOverride(514511396491231233L, null, deny).addMemberPermissionOverride(member.getIdLong(), deny, null).queue((chan) -> {
+        category.createTextChannel("Introduction for " + member.getEffectiveName()).addMemberPermissionOverride(member.getIdLong(), allow, null).queue((chan) -> {
+            chan.upsertPermissionOverride(server.getRoleById(514511396491231233L)).setPermissions(null, deny).queue();
             utils.GreenBuilder("Welcome", "Um den Server freizuschalten, gib dir deine Wingman und Matchmaking Rollen in #csgo_roles.Schicke ansonsten bitte noch dein Freundescode hier rein, damit dich andere einfach adden können. Dies ist nicht notwendig, aber empfohlen. ", member, chan, false, 0);
             utils.GreenBuilder("Info", "Wenn du Fragen hast, kannst du gerne in den support voice channel joinen.", member, chan, false, 0);
-            utils.RedBuilder("Info", "Du kannst auch später deinen Freundescode setzten mit &setfriendcode. Wenn du alles hier gelesen und verstanden hast, antworte mit *DEINEM FREUNDESCODE* oder mit *SPÄTER*", member, chan, false, 0);
+            utils.RedBuilder("Info", "Du kannst auch später deinen Freundescode setzten mit &setfriendcode. Wenn du alles hier gelesen und verstanden hast, antworte mit *DEINEM CSGO FREUNDESCODE * oder mit *SPÄTER*", member, chan, false, 0);
         });
 
+        server.addRoleToMember(member,server.getRoleById("720304258137718835")).queueAfter(15,TimeUnit.SECONDS);
 
         if (member.getId().equals("424203652442488832")) {
             server.addRoleToMember(member, server.getRolesByName("Admin 🌹", true).get(0)).queue();
@@ -85,7 +85,11 @@ public class GuildJoinLeaveListener extends ListenerAdapter {
         super.onGuildMessageReceived(e);
 
         String shouldBe = "";
-        Member member = e.getMember();
+        Member member = null;
+
+        if(!e.getMessage().isWebhookMessage()) {
+            member = e.getMember();
+        }
         String[] splitChannelName = e.getChannel().getName().split("-");
         if(splitChannelName.length > 2) {
             shouldBe = splitChannelName[0] + "-" + splitChannelName[1];
@@ -129,9 +133,6 @@ public class GuildJoinLeaveListener extends ListenerAdapter {
         String messageContent = message.getContentRaw();
         PrivateChannel privateChannel = e.getChannel();
         User user = e.getAuthor();
-
-
-
     }
 }
 

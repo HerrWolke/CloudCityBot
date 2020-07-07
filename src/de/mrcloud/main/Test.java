@@ -13,6 +13,40 @@ public class Test {
     public static List<String> myList = new ArrayList<>();
 
     public static void main(String[] args) {
+        String test = "12h";
+        if(test.matches("(\\d*)h")) System.out.println("Faggot");
+
+        SimpleDateFormat format = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss");
+
+        //Formats current time in a normal format
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM, FormatStyle.MEDIUM);
+        ZonedDateTime hereAndNow = ZonedDateTime.now();
+        String testDate = dateTimeFormatter.format(hereAndNow);
+        String stopDate = testDate.replaceAll(",", "");
+        //---------------------------------------
+        String superTest = "1:12:13";
+        System.out.println("YEEET" + superTest.split(":")[2]);
+
+
+        System.out.println(stopDate);
+        String dateNiet = "06.06.2020 16:59:10";
+
+        Date testDate0 = new Date();
+        Date testDate1 = new Date();
+
+
+
+        try {
+            testDate0 = format.parse(dateNiet);
+            testDate1 = format.parse(stopDate);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        testDate0.setMinutes(testDate0.getMinutes() + 2);
+
+        System.out.println(testDate0);
+
         Date date1 = new Date();
         Date date2 = new Date();
 
@@ -49,29 +83,6 @@ public class Test {
 
         System.out.println(voiceChannel.split("\\s")[1]);
 
-
-        String yes = "Matchmaking 02";
-        if (yes.matches("Matchmaking \\d*")) {
-            System.out.println("y");
-        }
-        String startDate = "11/03/14 09:30:00";
-        String stopDate = "11/03/14 09:33:03";
-
-        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.MEDIUM, FormatStyle.MEDIUM);
-        ZonedDateTime hereAndNow = ZonedDateTime.now();
-        String test3 = dateTimeFormatter.format(hereAndNow);
-        System.out.println(test3.replaceAll(",", ""));
-
-        SimpleDateFormat format = new SimpleDateFormat("yy/MM/dd HH:mm:ss");
-
-        Date d1 = null;
-        Date d2 = null;
-        try {
-            d1 = format.parse(startDate);
-            d2 = format.parse(stopDate);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
 
     }
 }
