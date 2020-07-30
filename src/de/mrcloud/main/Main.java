@@ -1,6 +1,23 @@
 package de.mrcloud.main;
 
+import com.github.philippheuer.credentialmanager.CredentialManager;
+import com.github.philippheuer.credentialmanager.CredentialManagerBuilder;
+import com.github.philippheuer.credentialmanager.domain.OAuth2Credential;
+import com.github.philippheuer.events4j.core.EventManager;
+import com.github.philippheuer.events4j.simple.SimpleEventHandler;
+import com.github.twitch4j.TwitchClient;
+import com.github.twitch4j.TwitchClientBuilder;
+import com.github.twitch4j.auth.providers.TwitchIdentityProvider;
+import de.mrcloud.SQL.SqlMain;
 import de.mrcloud.listeners.*;
+import de.mrcloud.listeners.csgo.AutoCreateChannels;
+import de.mrcloud.listeners.csgo.GuildJoinLeaveListener;
+import de.mrcloud.listeners.csgo.ReactionListener;
+import de.mrcloud.listeners.csgo.RoleListener;
+import de.mrcloud.listeners.moderation.*;
+import de.mrcloud.listeners.statistiks.ActivityListener;
+import de.mrcloud.listeners.statistiks.Twitch;
+import de.mrcloud.utils.DataStorageClass;
 import de.mrcloud.utils.JDAUtils;
 import de.mrcloud.utils.Static;
 import net.dv8tion.jda.api.OnlineStatus;
@@ -13,23 +30,30 @@ import javax.security.auth.login.LoginException;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.security.Key;
+import java.sql.SQLException;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
 import java.util.Objects;
-import java.util.Set;
+import java.util.stream.Collectors;
 
 public class Main {
 
-    public ShardManager shardMan;
+    public static ShardManager shardMan;
     ActivityListener activityListener = new ActivityListener();
+    TwitchClient twitchClient;
 
     public Main() throws LoginException {
         JDAUtils utils = new JDAUtils();
+        try {
+            SqlMain.mariaDB().createStatement();
+            SqlMain.mariaDB().close();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
 
         //Sets the gateway intends
-        DefaultShardManagerBuilder builder = DefaultShardManagerBuilder.create(Static.TOKEN, GatewayIntent.GUILD_MEMBERS, GatewayIntent.GUILD_PRESENCES, GatewayIntent.GUILD_BANS, GatewayIntent.GUILD_EMOJIS, GatewayIntent.GUILD_INVITES, GatewayIntent.GUILD_MESSAGES, GatewayIntent.DIRECT_MESSAGE_TYPING, GatewayIntent.DIRECT_MESSAGE_REACTIONS, GatewayIntent.GUILD_VOICE_STATES, GatewayIntent.GUILD_MESSAGE_REACTIONS);
+        DefaultShardManagerBuilder builder = DefaultShardManagerBuilder.create(Static.TOKEN, GatewayIntent.GUILD_MEMBERS, GatewayIntent.GUILD_PRESENCES, GatewayIntent.GUILD_BANS, GatewayIntent.GUILD_EMOJIS, GatewayIntent.GUILD_INVITES, GatewayIntent.GUILD_MESSAGES, GatewayIntent.DIRECT_MESSAGE_TYPING, GatewayIntent.DIRECT_MESSAGE_REACTIONS, GatewayIntent.GUILD_VOICE_STATES, GatewayIntent.GUILD_MESSAGE_REACTIONS,GatewayIntent.DIRECT_MESSAGES);
 
 
         //Registers all event listeners
@@ -45,6 +69,9 @@ public class Main {
         builder.addEventListeners(new SearchingForMatchmakingListener());
         builder.addEventListeners(new SecurityListener());
         builder.addEventListeners(new TextListener());
+        builder.addEventListeners(new DefenseListener());
+        builder.addEventListeners(new DataStorageClass());
+        builder.addEventListeners(new TimeUnbanEtcListener());
         //-----------------------------
 
         //builder settings
@@ -57,6 +84,24 @@ public class Main {
 
         shardMan = builder.build();
 
+        CredentialManager credentialManager = CredentialManagerBuilder.builder().build();
+        credentialManager.registerIdentityProvider(new TwitchIdentityProvider("xfxosioihzjrye0d7v6d7x7pgm23jk", "znzvcykz3pwr9pxjcgauvyrlzfn945", "http://localhost/"));
+        credentialManager.save();
+
+        EventManager eventManager = new EventManager();
+        eventManager.registerEventHandler(new SimpleEventHandler());
+        Twitch myEventHandler = new Twitch();
+        eventManager.getEventHandler(SimpleEventHandler.class).registerListener(myEventHandler);
+
+        twitchClient = TwitchClientBuilder.builder()
+                .withCredentialManager(credentialManager)
+                .withDefaultAuthToken(new OAuth2Credential("twitch", "uxufslax9oq87ufujrnyxfvnbb79od"))
+                .withEnableHelix(true)
+                .withEventManager(eventManager)
+                .build();
+
+        twitchClient.getClientHelper().enableStreamEventListener("actualmrcloud");
+
 
         channelTime();
         TurnOffListener();
@@ -68,6 +113,7 @@ public class Main {
         new Main();
 
         //Only for Rank Comparing
+        SearchingForMatchmakingListener.compare.put("unranked", 0);
         SearchingForMatchmakingListener.compare.put("Silver Ⅰ", 1);
         SearchingForMatchmakingListener.compare.put("Silver Ⅱ", 2);
         SearchingForMatchmakingListener.compare.put("Silver Ⅲ", 3);
@@ -110,6 +156,7 @@ public class Main {
         //---------------------------
 
         //Only for Rank Comparing
+        SearchingForMatchmakingListener.compareEmojiToRole.put("unranked", "unranked");
         SearchingForMatchmakingListener.compareEmojiToRole.put("s1", "Silver Ⅰ");
         SearchingForMatchmakingListener.compareEmojiToRole.put("s2", "Silver Ⅱ");
         SearchingForMatchmakingListener.compareEmojiToRole.put("s3", "Silver Ⅲ");
@@ -129,6 +176,29 @@ public class Main {
         SearchingForMatchmakingListener.compareEmojiToRole.put("supreme", "Supreme Master First Class");
         SearchingForMatchmakingListener.compareEmojiToRole.put("global", "Global Elite");
         //---------------------------
+
+        DataStorageClass.muteReasonsTime.put("Voice Spam", 15);
+        DataStorageClass.muteReasonsTime.put("Text Spam", 5);
+        DataStorageClass.muteReasonsTime.put("Racism", 60);
+        DataStorageClass.muteReasonsTime.put("NSFW", 1);
+
+        DataStorageClass.muteTimeMultiplier.put(0, 1.0);
+        DataStorageClass.muteTimeMultiplier.put(1, 2.0);
+        DataStorageClass.muteTimeMultiplier.put(2, 2.5);
+        DataStorageClass.muteTimeMultiplier.put(3, 3.0);
+        DataStorageClass.muteTimeMultiplier.put(4, 5.0);
+        DataStorageClass.muteTimeMultiplier.put(5, 7.0);
+        DataStorageClass.muteTimeMultiplier.put(6, 12.0);
+
+        Object[] set = DataStorageClass.muteReasonsTime.keySet().toArray();
+        int i = 0;
+        while (DataStorageClass.muteReasonsTime.keySet().size() > i) {
+            DataStorageClass.muteReasonsList.add(set[i].toString());
+            i++;
+        }
+
+        DataStorageClass.moderators.addAll(shardMan.getGuildById("514511396491231233").getMembersWithRoles(shardMan.getGuildById("514511396491231233").getRoles().stream().filter(role -> DataStorageClass.moderationRolesIDs.contains(role.getIdLong())).collect(Collectors.toList())));
+
     }
 
     //Waiting for someone to write "stop" to stop
@@ -140,10 +210,10 @@ public class Main {
             try {
                 while ((line = reader.readLine()) != null) {
                     if (line.equalsIgnoreCase("Stop")) {
-                        Object[] set =  ActivityListener.timeInChannel.keySet().toArray();
+                        Object[] set = ActivityListener.timeInChannel.keySet().toArray();
                         System.out.println(set[0]);
                         int i = 0;
-                        while(ActivityListener.timeInChannel.keySet().iterator().hasNext()) {
+                        while (ActivityListener.timeInChannel.keySet().iterator().hasNext()) {
                             activityListener.saveChannelTime(Objects.requireNonNull(shardMan.getGuildById("514511396491231233")).getMemberById(set[i].toString()), ActivityListener.timeInChannel);
                             System.out.println("Worked");
                             i++;

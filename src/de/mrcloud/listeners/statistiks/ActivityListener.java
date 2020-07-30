@@ -1,8 +1,13 @@
-package de.mrcloud.listeners;
+package de.mrcloud.listeners.statistiks;
 
 import de.mrcloud.SQL.SqlMain;
+import de.mrcloud.utils.DataStorageClass;
 import de.mrcloud.utils.JDAUtils;
+import de.mrcloud.utils.WrappedInvite;
 import net.dv8tion.jda.api.entities.*;
+import net.dv8tion.jda.api.events.guild.member.GuildMemberJoinEvent;
+import net.dv8tion.jda.api.events.guild.member.GuildMemberRoleAddEvent;
+import net.dv8tion.jda.api.events.guild.member.GuildMemberRoleRemoveEvent;
 import net.dv8tion.jda.api.events.guild.voice.GuildVoiceJoinEvent;
 import net.dv8tion.jda.api.events.guild.voice.GuildVoiceLeaveEvent;
 import net.dv8tion.jda.api.events.guild.voice.GuildVoiceMoveEvent;
@@ -20,6 +25,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Objects;
 
 public class ActivityListener extends ListenerAdapter {
@@ -108,6 +114,31 @@ public class ActivityListener extends ListenerAdapter {
             int messagesBefore = utils.getSqlCollumInt(SqlMain.mariaDB(),"MessageCount",member);
             utils.setSQLCollum(SqlMain.mariaDB(),member.getId(),"MessageCount",Integer.toString((messagesBefore + 1)));
         }
+    }
+
+
+
+    @Override
+    public void onGuildMemberJoin(@Nonnull GuildMemberJoinEvent e) {
+        super.onGuildMemberJoin(e);
+
+        Guild server = e.getGuild();
+        Member member = e.getMember();
+        List<WrappedInvite> invites = DataStorageClass.invitesList;
+
+         server.retrieveInvites().queue(invitesToCompare -> {
+           for(Invite newInvite : invitesToCompare)  {
+               for(WrappedInvite oldInvite: invites) {
+                   if(newInvite.getCode().equals(oldInvite.getInviteCode())) {
+                       if(newInvite.getUses() > oldInvite.getUses()) {
+                           int oldCountOfInvites = JDAUtils.getSqlCollumInt(SqlMain.mariaDB(),"invites",member);
+                           server.getTextChannelById(617057983783895045L).sendMessage(newInvite.getInviter().getAsMention() + " hat " + member.getAsMention() + " eingeladen. (**" + oldCountOfInvites + "** invites)").queue();
+                           JDAUtils.setSQLCollumInt(SqlMain.mariaDB(),member.getId(),"invites",oldCountOfInvites);
+                       }
+                   }
+               }
+           }
+         });
     }
 
     //The save channel time method

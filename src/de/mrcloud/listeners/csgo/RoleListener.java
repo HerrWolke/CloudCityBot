@@ -182,6 +182,7 @@ public class RoleListener extends ListenerAdapter {
             utils.removeRoleFromMemberByString(member,server,"CommunityNotify",0,true);
         }
     }
+
 }
 
 

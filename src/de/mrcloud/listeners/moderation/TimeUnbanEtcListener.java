@@ -1,6 +1,7 @@
-package de.mrcloud.listeners;
+package de.mrcloud.listeners.moderation;
 
 import de.mrcloud.listeners.moderation.ModCommands;
+import de.mrcloud.utils.DataStorageClass;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.events.guild.GenericGuildEvent;
 import net.dv8tion.jda.api.events.guild.voice.GuildVoiceJoinEvent;
@@ -36,7 +37,7 @@ public class TimeUnbanEtcListener extends ListenerAdapter {
         }
 
         Date finalToUnmuteWhen = toUnmuteWhen;
-        ModCommands.muted.forEach((member, date) -> {
+        DataStorageClass.muted.forEach((member, date) -> {
             if(date.before(finalToUnmuteWhen)) {
                 Guild server = e.getGuild();
                 server.removeRoleFromMember(member,server.getRoleById("617058794899374119")).queue();

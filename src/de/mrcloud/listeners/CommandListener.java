@@ -1,11 +1,14 @@
 package de.mrcloud.listeners;
 
 import de.mrcloud.SQL.SqlMain;
+import de.mrcloud.utils.DataStorageClass;
 import de.mrcloud.utils.JDAUtils;
 import de.mrcloud.utils.Static;
-import de.mrcloud.utils.WrappedInvite;
 import net.dv8tion.jda.api.EmbedBuilder;
-import net.dv8tion.jda.api.entities.*;
+import net.dv8tion.jda.api.entities.Guild;
+import net.dv8tion.jda.api.entities.Member;
+import net.dv8tion.jda.api.entities.Message;
+import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 
@@ -24,22 +27,26 @@ public class CommandListener extends ListenerAdapter {
         super.onGuildMessageReceived(e);
 
         if (!e.getMessage().isWebhookMessage() && !e.getChannel().getId().equals("617057983783895045")) {
+
+
             //Variables----------------
             String top10String = " ";
+            
 
-            JDAUtils utils = new JDAUtils();
+            //Checks that the member is not null otherwiese it will return
+            if(e.getMember() == null) return;
 
             Guild server = e.getGuild();
-            Member member = Objects.requireNonNull(e.getMember());
+            Member member = e.getMember();
             Message message = e.getMessage();
             String messageContent = message.getContentRaw();
             TextChannel txtChannel = e.getChannel();
-            WrappedInvite wrappedInvite = new WrappedInvite();
             long seconds = 0L;
             long min = 0L;
             long hour = 0L;
             long day = 0L;
             String activeSince = "";
+            long messageCount = 0L;
 
             Statement statement = null;
             int s = 0;
@@ -52,8 +59,15 @@ public class CommandListener extends ListenerAdapter {
             }
 
             assert statement != null;
+
+
             //Registers the user
+
             if (messageContent.equalsIgnoreCase("&reg")) {
+                //Ignores the &reg call because its obsolete
+                if(true) {
+                    return;
+                }
                 DateTimeFormatter format = DateTimeFormatter.ofPattern("dd-MM-yyyy  HH:mm:ss");
                 String formated = member.getTimeJoined().format(format);
 
@@ -68,15 +82,13 @@ public class CommandListener extends ListenerAdapter {
                     e1.printStackTrace();
                     e1.getLocalizedMessage();
                 }
-            } else if (messageContent.equalsIgnoreCase("&version")) {
+            }
+            else if (messageContent.equalsIgnoreCase("&version")) {
                 txtChannel.sendMessage("Die Version des Bots ist " + Static.VERSION).queue();
-            } else if (messageContent.equalsIgnoreCase("&test")) {
-                while (member.getRoles().size() > s) {
-                    System.out.println(member.getRoles().get(s).getName());
-                    s++;
-                }
             } else if (messageContent.equalsIgnoreCase("&profile")) {
                 ResultSet resultSetToSet;
+
+                //Gets the values that should be written in &profile
                 try {
                     resultSetToSet = statement.executeQuery("SELECT * FROM Users WHERE UserID = " + member.getUser().getId() + ";");
 
@@ -87,7 +99,7 @@ public class CommandListener extends ListenerAdapter {
                         min = resultSetToSet.getLong("channelTimeMinutes");
                         seconds = resultSetToSet.getLong("channelTimeSeconds");
                         activeSince = resultSetToSet.getString("dateJoined");
-
+                        messageCount = resultSetToSet.getLong("MessageCount");
                     }
                 } catch (SQLException e1) {
                     e1.printStackTrace();
@@ -98,18 +110,26 @@ public class CommandListener extends ListenerAdapter {
                         e1.printStackTrace();
                     }
                 }
+                //End of getting text for command
 
+                //Sends the actual message with the contents read before from the database
                 EmbedBuilder embBuilder = new EmbedBuilder();
                 embBuilder.setTitle("Profile Info");
                 embBuilder.setAuthor(e.getAuthor().getName() + "'s Profile", e.getAuthor().getAvatarUrl(), e.getAuthor().getAvatarUrl());
                 embBuilder.setColor(Color.decode("#2ecc71"));
                 embBuilder.addField("Active Since", activeSince, true);
                 embBuilder.addField("Time in Voice Channel", day + " days, " + hour + " hours, " + min + " minutes," + seconds + " seconds ", true);
+                embBuilder.addField("Message Count", messageCount + " messages", true);
                 txtChannel.sendMessage(embBuilder.build()).complete();
+                //End
+
 
             } else if (messageContent.equalsIgnoreCase("&top10")) {
+                //Variables
                 ResultSet top10;
                 int i = 0;
+                //---------
+
                 try {
                     //Sorts the top 10 list and saves it in the string
                     top10 = statement.executeQuery("SELECT * FROM Users ORDER BY channelTimeDays DESC, channelTimeHours DESC, channelTimeMinutes DESC, channelTimeSeconds DESC;");
@@ -121,7 +141,7 @@ public class CommandListener extends ListenerAdapter {
                     }
 
                     //Sends the top 10 list
-                    utils.Generell(member, txtChannel, "#16a085", "Top 10 voice members", top10String, false, 0);
+                    JDAUtils.Generell(member, txtChannel, "#16a085", "Top 10 voice members", top10String, false, 0);
                 } catch (SQLException e1) {
                     e1.printStackTrace();
                 } finally {
@@ -133,7 +153,7 @@ public class CommandListener extends ListenerAdapter {
                 }
             } else if (messageContent.split("\\s++")[0].equalsIgnoreCase("&setfriendcode")) {
                 if (e.getMessage().getContentRaw().split("\\s++")[1].matches("\\w{5}-\\w{4}")) {
-                    utils.GreenBuilder("Success", "Your friend code has been set to " + e.getMessage().getContentRaw().split("\\s++")[1], e.getMember(), e.getChannel(), false, 0);
+                    JDAUtils.GreenBuilder("Success", "Your friend code has been set to " + e.getMessage().getContentRaw().split("\\s++")[1], e.getMember(), e.getChannel(), false, 0);
                     try {
                         //Sets the friend code in the database
                         Objects.requireNonNull(SqlMain.mariaDB()).createStatement().executeQuery("UPDATE Users SET FriendCode = '" + e.getMessage().getContentRaw().split("\\s++")[1] + "' WHERE UserID  = '" + e.getMember().getId() + "';");
@@ -142,18 +162,22 @@ public class CommandListener extends ListenerAdapter {
                     }
                 } else {
                     //If the friend code does not match the pattern of a friend code this message will be send
-                    utils.YellowBuilder("Usage Help", "Your provided code is not a valid friend code. Please use &setfriendcode [FRIEND CODE] <- Format: abcde-abcd", member, txtChannel, true, 15);
+                    JDAUtils.YellowBuilder("Usage Help", "Your provided code is not a valid friend code. Please use &setfriendcode [FRIEND CODE] <- Format: abcde-abcd", member, txtChannel, true, 15);
                 }
             } else if (messageContent.equalsIgnoreCase("&help")) {
                 //Lists all commands
-                utils.Generell(member, txtChannel, "#487eb0", "Command List", "&profile \n" + "&setfriendcode [FRIENDCODE] \n" + "&top10 \n" + "&version \n", false, 30);
+                JDAUtils.Generell(member, txtChannel, "#487eb0", "Command List", "&profile \n" + "&setfriendcode [FRIENDCODE] \n" + "&top10 \n" + "&version \n", false, 30);
             } else if (messageContent.equalsIgnoreCase("&membercount")) {
                 //Sends a message containing a member count
-                utils.BlueBuilder("Member Count", "There are " + server.getMemberCount() + " people on this server", txtChannel, member, false, 0);
+                JDAUtils.BlueBuilder("Member Count", "There are " + server.getMemberCount() + " people on this server", txtChannel, member, false, 0);
+
+
             } else if (messageContent.equalsIgnoreCase("&copyrole")) {
                 message.getMentionedRoles().get(0).createCopy().queue();
-            } else if (messageContent.equalsIgnoreCase("&sendRoleMessages")) {
 
+
+            } else if (messageContent.equalsIgnoreCase("&sendRoleMessages")) {
+                //Sends the role choosing messages to the channel you send this command to
                 if (member.getId().equals(Static.CLOUD_ID_STRING)) {
                     message.delete().queue();
                     txtChannel.sendMessage("Wähle den Emoji, der mit dem \uD835\uDD4E\uD835\uDD56\uD835\uDD65\uD835\uDD65\uD835\uDD5C\uD835\uDD52\uD835\uDD5E\uD835\uDD61\uD835\uDD57-ℝ\uD835\uDD52\uD835\uDD5F\uD835\uDD58 den du in CS:GO hast, übereinstimmt\n" +
@@ -215,6 +239,8 @@ public class CommandListener extends ListenerAdapter {
                         message1.addReaction("U+274C").queue();
                     });
                 }
+
+
             } else if (messageContent.equalsIgnoreCase("&sendEventMessages")) {
                 if (member.getId().equals(Static.CLOUD_ID_STRING)) {
                     txtChannel.sendMessage("Möchtest du benachrichtigt werden wenn wir ein Server-Community Event abhalten, wie z.B. Hide n' Seek, Community Wars? \n" + "Wenn ja, reagiere mit dem Daumen nach oben ansonsten mit dem Daumen nach unten").queue(Message -> {
@@ -230,7 +256,7 @@ public class CommandListener extends ListenerAdapter {
                     }
                 }
             } else if (messageContent.equalsIgnoreCase("&addRoleToAllMembers")) {
-                utils.addRoleToAllMembers(server,server.getRoleById("720304258137718835"));
+                JDAUtils.addRoleToAllMembers(server, server.getRoleById("720304258137718835"));
             } else if (messageContent.equalsIgnoreCase("&bewerbungsphaseoffen")) {
                 EmbedBuilder embBuilder = new EmbedBuilder();
                 embBuilder.setTitle("Bewerbung");
@@ -238,6 +264,8 @@ public class CommandListener extends ListenerAdapter {
                 embBuilder.setColor(Color.decode("#2ecc71"));
                 embBuilder.setDescription("Aufgrund des Serverwachstums und den dadurch entstehenden Aufgaben und Problemen, benötigen wir ein größeres Team. Wenn du mehr darüber wissen willst, wie man sich bewirbt mach &bewerbungsinfo");
                 txtChannel.sendMessage(embBuilder.build()).complete();
+
+
             } else if (messageContent.equalsIgnoreCase("&bewerbungsinfo")) {
                 EmbedBuilder embBuilder = new EmbedBuilder();
                 embBuilder.setTitle("Bewerbung");
@@ -246,6 +274,8 @@ public class CommandListener extends ListenerAdapter {
                 embBuilder.setDescription("Wir suchen kompetente, hilfsbereite und engagierte Leute für unser Server Team. Du solltest mindestens 16+ Jahre alt und gut im Umgang mit Menschen sein. Wenn du dich angesprochen fühlst, dann schreibe\n" +
                         "&bewerbung [Text], und schreibe in die Klammern deinen Bewerbungstext der nach dem Absenden direkt zu den Ownern weitergeleitet wird. Viel Erfolg :smile:");
                 txtChannel.sendMessage(embBuilder.build()).complete();
+
+
             } else if (messageContent.split("\\s++")[0].equalsIgnoreCase("&bewerbung")) {
                 String[] bewerbung = messageContent.split("\\s++");
                 int i = 1;
@@ -261,6 +291,29 @@ public class CommandListener extends ListenerAdapter {
                 server.getMemberById("424203652442488832").getUser().openPrivateChannel().queue(PrivateChannel -> {
                     PrivateChannel.sendMessage(finalBewerbungText).queue();
                 });
+            }  else if (messageContent.equalsIgnoreCase("&dontmove")) {
+                DataStorageClass.cloudHasDisableMove = true;
+            } else if (messageContent.equalsIgnoreCase("&reset")) {
+                ResultSet resultSetToSet;
+
+                //Gets the values that should be written in &profile
+                try {
+                    resultSetToSet = statement.executeQuery("SELECT * FROM Users WHERE UserID = " + member.getUser().getId() + ";");
+
+
+                    while (resultSetToSet.next()) {
+                        boolean test = resultSetToSet.getBoolean("isMod");
+                        System.out.println(test);
+                    }
+                } catch (SQLException e1) {
+                    e1.printStackTrace();
+                } finally {
+                    try {
+                        Objects.requireNonNull(SqlMain.mariaDB()).close();
+                    } catch (SQLException e1) {
+                        e1.printStackTrace();
+                    }
+                }
             }
         }
     }
