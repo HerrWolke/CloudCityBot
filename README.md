@@ -2,7 +2,7 @@
 
 **ARCHIVED**
 
-If you read the code it becomes obvious why its so
+If you read the code it becomes obvious why it is archived..
 
 Its because this code  is shit, littered with bad practice stuff.
 
